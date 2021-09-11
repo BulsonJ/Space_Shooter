@@ -33,35 +33,43 @@ func set_is_casting(cast: bool) -> void:
 	is_casting = cast
 
 	if is_casting:
+		# Reset the cast_to point and line, then show the beam
 		cast_to = Vector2.ZERO
 		fill.points[1] = cast_to
 		appear()
 	else:
+		# Stop the particles and hide the beam
 		collision_particles.emitting = false
 		disappear()
 
+	# Starts/stops physics process
 	set_physics_process(is_casting)
 
 func cast_beam() -> void:
 	var cast_point := cast_to
 	
+	# Force update, otherwise may not update till next frame
 	force_raycast_update()
-	collision_particles.emitting = is_colliding()
+	collision_particles.emitting = is_colliding() # Emit particles if there is a collision
 	
 	if is_colliding():
+		# Calculate point where collision occurs for particle
+		# Use the collision normal to rotate the angle of the particle system
 		cast_point = to_local(get_collision_point())
 		collision_particles.global_rotation = get_collision_normal().angle()
 		collision_particles.position = cast_point
 		
+	# Set the end point of the line to the cast point
 	fill.points[1] = cast_point
 
+# Functions to show and hide the beam
+# Done using tweens, code from @GDQuest
 
 func appear() -> void:
 	if tween.is_active():
 		tween.stop_all()
 	tween.interpolate_property(fill, "width", 0, line_width, growth_time * 2)
 	tween.start()
-
 
 func disappear() -> void:
 	if tween.is_active():

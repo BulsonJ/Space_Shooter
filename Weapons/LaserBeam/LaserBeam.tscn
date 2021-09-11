@@ -25,7 +25,7 @@ script = ExtResource( 2 )
 
 [node name="FillLine2D" type="Line2D" parent="."]
 points = PoolVector2Array( 0, 0, 100, 0 )
-width = 5.0
+width = 6.0
 default_color = Color( 0.780392, 0.34902, 1, 1 )
 texture_mode = 2
 joint_mode = 2
