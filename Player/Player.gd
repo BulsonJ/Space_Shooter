@@ -5,13 +5,17 @@ export var drag := 8.0
 
 var _velocity := Vector2.ZERO
 
+export(PackedScene) var initialWeapon
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
-		$LaserBeam2D.is_casting = true
+		$WeaponSlot.fire()
 	if event.is_action_released("shoot"):
-		$LaserBeam2D.is_casting = false
+		$WeaponSlot.stop_firing()
+	if event.is_action_pressed("move_up"):
+		$WeaponSlot.change_weapon(initialWeapon)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var direction := Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), Input.get_action_strength("move_down") - Input.get_action_strength("move_up")).normalized()
 	
 	var desired_velocity = direction * max_speed
