@@ -62,4 +62,3 @@ disabled = true
 [connection signal="body_entered" from="CollisionPoint" to="." method="_on_CollisionPoint_body_entered"]
 [connection signal="body_exited" from="CollisionPoint" to="." method="_on_CollisionPoint_body_exited"]
 [connection signal="timeout" from="DamageTimer" to="." method="_on_DamageTimer_timeout"]
-[connection signal="tween_completed" from="HitTween" to="." method="_on_HitTween_tween_completed"]

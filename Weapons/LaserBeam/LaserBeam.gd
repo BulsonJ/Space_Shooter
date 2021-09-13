@@ -48,11 +48,20 @@ func set_is_casting(cast: bool) -> void:
 		# Reset the cast_to point and line, then show the beam
 		cast_to = Vector2.ZERO
 		fill.points[1] = cast_to
+		
+		# Start damage timer and change weapon colour
+		damage_timer.start(weapon_time)
+		if hit_tween.is_active():
+			hit_tween.stop_all()
+		hit_tween.interpolate_property(fill, "default_color", weapon_default_color, weapon_hit_color, weapon_time, Tween.TRANS_LINEAR)
+		hit_tween.start()
+		
 		appear()
 	else:
 		# Stop the particles and hide the beam
 		collision_particles.emitting = false
 		collision_point.disabled = true
+		damage_timer.stop()
 		disappear()
 
 	# Starts/stops physics process
@@ -94,29 +103,27 @@ func disappear() -> void:
 
 var _body_hit : Node = null
 
+# Beam now tweens to a hit colour when damage is done. 
+# However, current implementation is weird and means beam has to explicitly stay on target for 1s to do damage. 
+# Beam should just do damage to whatever is there for every 1s held down.
+
+# Beam charges to do 1 damage per second vs Beam needs 1s on target to do dmg
+# left implementation makes more sense
+
+# When beam hits enemy, start damage timer
 func _on_CollisionPoint_body_entered(body: Node) -> void:
 	_body_hit = body
-	damage_timer.start(weapon_time)
+
+func _on_CollisionPoint_body_exited(body: Node) -> void:
+	_body_hit = null
+	
+func _on_DamageTimer_timeout() -> void:
+	if (_body_hit):
+		if _body_hit.has_method("take_damage"):
+			_body_hit.take_damage(weapon_damage)
+			
 	if hit_tween.is_active():
 		hit_tween.stop_all()
 	hit_tween.interpolate_property(fill, "default_color", weapon_default_color, weapon_hit_color, weapon_time, Tween.TRANS_LINEAR)
 	hit_tween.start()
 
-func _on_CollisionPoint_body_exited(body: Node) -> void:
-	damage_timer.stop()
-	_body_hit = null
-	if hit_tween.is_active():
-		hit_tween.stop_all()
-	fill.default_color = weapon_default_color
-	
-func _on_DamageTimer_timeout() -> void:
-	if _body_hit.has_method("take_damage"):
-		_body_hit.take_damage(weapon_damage)
-		
-		if hit_tween.is_active():
-			hit_tween.stop_all()
-		hit_tween.interpolate_property(fill, "default_color", weapon_default_color, weapon_hit_color, weapon_time, Tween.TRANS_LINEAR)
-		hit_tween.start()
-
-func _on_HitTween_tween_completed(object: Object, key: NodePath) -> void:
-	fill.default_color = weapon_default_color
