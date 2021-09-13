@@ -1,11 +1,17 @@
 extends RayCast2D
 
+# Credit to @GDQuest for the laserbeam implementation
+
 # Speed at which the laser extends when first fired, in pixels per seconds.
 export var cast_speed := 7000.0
 # Maximum length of the laser in pixels.
 export var max_length := 1400.0
 # Base duration of the tween animation in seconds.
 export var growth_time := 0.1
+
+export var weapon_damage := 1.0
+export var weapon_time := 1.0
+export(Color) var weapon_hit_color = Color(255,255,255)
 
 # If `true`, the laser is firing.
 # It plays appearing and disappearing animations when it's not animating.
@@ -15,6 +21,12 @@ var is_casting := false setget set_is_casting
 onready var tween := $Tween
 onready var fill := $FillLine2D
 onready var collision_particles := $CollisionParticles2D
+onready var collision_point := $CollisionPoint/CollisionShape2D
+
+onready var hit_tween := $HitTween
+onready var damage_timer := $DamageTimer
+onready var weapon_default_color = fill.default_color
+
 
 onready var line_width: float = fill.width
 
@@ -40,6 +52,7 @@ func set_is_casting(cast: bool) -> void:
 	else:
 		# Stop the particles and hide the beam
 		collision_particles.emitting = false
+		collision_point.disabled = true
 		disappear()
 
 	# Starts/stops physics process
@@ -58,9 +71,11 @@ func cast_beam() -> void:
 		cast_point = to_local(get_collision_point())
 		collision_particles.global_rotation = get_collision_normal().angle()
 		collision_particles.position = cast_point
-		
+		collision_point.disabled = false
+
 	# Set the end point of the line to the cast point
 	fill.points[1] = cast_point
+	collision_point.position = cast_point
 
 # Functions to show and hide the beam
 # Done using tweens, code from @GDQuest
@@ -76,3 +91,32 @@ func disappear() -> void:
 		tween.stop_all()
 	tween.interpolate_property(fill, "width", fill.width, 0, growth_time)
 	tween.start()
+
+var _body_hit : Node = null
+
+func _on_CollisionPoint_body_entered(body: Node) -> void:
+	_body_hit = body
+	damage_timer.start(weapon_time)
+	if hit_tween.is_active():
+		hit_tween.stop_all()
+	hit_tween.interpolate_property(fill, "default_color", weapon_default_color, weapon_hit_color, weapon_time, Tween.TRANS_LINEAR)
+	hit_tween.start()
+
+func _on_CollisionPoint_body_exited(body: Node) -> void:
+	damage_timer.stop()
+	_body_hit = null
+	if hit_tween.is_active():
+		hit_tween.stop_all()
+	fill.default_color = weapon_default_color
+	
+func _on_DamageTimer_timeout() -> void:
+	if _body_hit.has_method("take_damage"):
+		_body_hit.take_damage(weapon_damage)
+		
+		if hit_tween.is_active():
+			hit_tween.stop_all()
+		hit_tween.interpolate_property(fill, "default_color", weapon_default_color, weapon_hit_color, weapon_time, Tween.TRANS_LINEAR)
+		hit_tween.start()
+
+func _on_HitTween_tween_completed(object: Object, key: NodePath) -> void:
+	fill.default_color = weapon_default_color

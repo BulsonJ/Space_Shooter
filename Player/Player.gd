@@ -1,19 +1,20 @@
+class_name Player
 extends KinematicBody2D
 
 export var max_speed := 350.0
 export var drag := 8.0
 
+export var turning_drag := 8.0
+
 var _velocity := Vector2.ZERO
 
-export(PackedScene) var initialWeapon
+onready var weapon_slot = $WeaponSlot
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
 		$WeaponSlot.fire()
 	if event.is_action_released("shoot"):
 		$WeaponSlot.stop_firing()
-	if event.is_action_pressed("move_up"):
-		$WeaponSlot.change_weapon(initialWeapon)
 
 func _physics_process(_delta: float) -> void:
 	var direction := Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), Input.get_action_strength("move_down") - Input.get_action_strength("move_up")).normalized()
@@ -25,4 +26,8 @@ func _physics_process(_delta: float) -> void:
 	
 	_velocity = move_and_slide(_velocity)
 	
-	look_at(get_global_mouse_position())
+	# Slow rotation down so not instant
+	var desired_rotation = get_global_mouse_position()
+	var current_rotation = (get_global_mouse_position() - position)
+	
+	look_at(desired_rotation)
