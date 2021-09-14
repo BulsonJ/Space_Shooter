@@ -1,12 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Enemies/Enemy_1.png" type="Texture" id=1]
 [ext_resource path="res://Enemies/Enemy_1.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=4]
 radius = 400.0
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 1594.2
 
 [sub_resource type="CircleShape2D" id=3]
 
@@ -23,12 +26,18 @@ offset = Vector2( 0, -3 )
 shape = SubResource( 1 )
 
 [node name="DetectionArea" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-shape = SubResource( 2 )
+shape = SubResource( 4 )
+
+[node name="WanderDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WanderDetectionArea"]
+shape = SubResource( 5 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 8
@@ -39,3 +48,5 @@ shape = SubResource( 3 )
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_DetectionArea_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_DetectionArea_body_exited"]
+[connection signal="body_entered" from="WanderDetectionArea" to="." method="_on_WanderDetectionArea_body_entered"]
+[connection signal="body_exited" from="WanderDetectionArea" to="." method="_on_WanderDetectionArea_body_exited"]

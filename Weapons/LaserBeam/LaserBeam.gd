@@ -36,7 +36,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	# Increases length of the ray every frame, until max length is reached
-	cast_to = (cast_to + Vector2.RIGHT * cast_speed * delta).clamped(max_length)
+	cast_to = (cast_to + Vector2.UP * cast_speed * delta).clamped(max_length)
 	
 	# Checks collisions for length of beam
 	cast_beam()
@@ -51,10 +51,7 @@ func set_is_casting(cast: bool) -> void:
 		
 		# Start damage timer and change weapon colour
 		damage_timer.start(weapon_time)
-		if hit_tween.is_active():
-			hit_tween.stop_all()
-		hit_tween.interpolate_property(fill, "default_color", weapon_default_color, weapon_hit_color, weapon_time, Tween.TRANS_LINEAR)
-		hit_tween.start()
+		_charge_beam()
 		
 		appear()
 	else:
@@ -101,16 +98,12 @@ func disappear() -> void:
 	tween.interpolate_property(fill, "width", fill.width, 0, growth_time)
 	tween.start()
 
+# Body is kept track of, so that when damage timer is done, damage is applied to the most recent object
+# colliding with the end of the laser
+
+# Could change to applying to all overlapping bodies
+# Would need to show circle at end of beam to communicate
 var _body_hit : Node = null
-
-# Beam now tweens to a hit colour when damage is done. 
-# However, current implementation is weird and means beam has to explicitly stay on target for 1s to do damage. 
-# Beam should just do damage to whatever is there for every 1s held down.
-
-# Beam charges to do 1 damage per second vs Beam needs 1s on target to do dmg
-# left implementation makes more sense
-
-# When beam hits enemy, start damage timer
 func _on_CollisionPoint_body_entered(body: Node) -> void:
 	_body_hit = body
 
@@ -122,6 +115,9 @@ func _on_DamageTimer_timeout() -> void:
 		if _body_hit.has_method("take_damage"):
 			_body_hit.take_damage(weapon_damage)
 			
+	_charge_beam()
+	
+func _charge_beam() -> void:
 	if hit_tween.is_active():
 		hit_tween.stop_all()
 	hit_tween.interpolate_property(fill, "default_color", weapon_default_color, weapon_hit_color, weapon_time, Tween.TRANS_LINEAR)

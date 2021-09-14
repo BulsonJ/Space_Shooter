@@ -7,6 +7,7 @@ export var drag := 8.0
 export var turning_drag := 8.0
 
 var _velocity := Vector2.ZERO
+var _rotation := 0.0
 
 onready var weapon_slot = $WeaponSlot
 
@@ -25,9 +26,7 @@ func _physics_process(_delta: float) -> void:
 	_velocity = _velocity.clamped(max_speed)
 	
 	_velocity = move_and_slide(_velocity)
+
+	rotation = get_global_mouse_position().angle_to_point(position) + PI / 2
 	
-	# Slow rotation down so not instant
-	var desired_rotation = get_global_mouse_position()
-	var current_rotation = (get_global_mouse_position() - position)
 	
-	look_at(desired_rotation)
