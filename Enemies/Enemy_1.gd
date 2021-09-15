@@ -7,7 +7,7 @@ var _target: Player = null
 var _wander_target: Player = null
 var _velocity := Vector2.ZERO
 
-var max_health := 5.0
+var max_health := 2.0
 onready var health = max_health
 
 enum state{
@@ -17,31 +17,15 @@ enum state{
 
 var currentState = state.WANDER
 
-export var noise: OpenSimplexNoise
-
 func _physics_process(delta: float) -> void:
-	match currentState:
-		state.WANDER:
-			if not _wander_target:
-				return
-				
-			var direction := global_position.direction_to(_wander_target.global_position)
-			var desired_velocity := direction * (speed / 4.0)
-			var steering := desired_velocity - _velocity
-			
-			_velocity += steering / 40.0
-			
-			if _target:
-				currentState = state.CHASE
-		state.CHASE:
-			if not _target:
-				currentState = state.WANDER
-				return
-			var direction := global_position.direction_to(_target.global_position)
-			var desired_velocity := direction * speed
-			var steering := desired_velocity - _velocity
+	if not _target:
+		return
+		
+	var direction := global_position.direction_to(_target.global_position)
+	var desired_velocity := direction * speed
+	var steering := desired_velocity - _velocity
 
-			_velocity += steering / 20.0
+	_velocity += steering / 20.0
 
 	rotation = _velocity.angle() + PI / 2
 	
