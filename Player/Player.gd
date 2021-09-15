@@ -9,13 +9,14 @@ export var turning_drag := 8.0
 var _velocity := Vector2.ZERO
 var _rotation := 0.0
 
+onready var ship = $Ship
 onready var weapon_slot = $WeaponSlot
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
-		$WeaponSlot.fire()
+		weapon_slot.fire()
 	if event.is_action_released("shoot"):
-		$WeaponSlot.stop_firing()
+		weapon_slot.stop_firing()
 
 func _physics_process(_delta: float) -> void:
 	var direction := Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), Input.get_action_strength("move_down") - Input.get_action_strength("move_up")).normalized()
@@ -27,6 +28,7 @@ func _physics_process(_delta: float) -> void:
 	
 	_velocity = move_and_slide(_velocity)
 
-	rotation = get_global_mouse_position().angle_to_point(position) + PI / 2
+	ship.rotation = _velocity.angle() + PI / 2
+	weapon_slot.rotation = get_global_mouse_position().angle_to_point(position) + PI / 2
 	
 	

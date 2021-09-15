@@ -1,34 +1,37 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player/Player_Ship.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Weapons/LaserBeam/LaserBeam.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Player/WeaponSlot.gd" type="Script" id=4]
+[ext_resource path="res://Player/Player_Ship_Turret.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 11.0
 
 [sub_resource type="CircleShape2D" id=2]
+radius = 13.0
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 9
 script = ExtResource( 2 )
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Ship" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+offset = Vector2( 0, -5 )
+
 [node name="WeaponSlot" type="Node2D" parent="."]
-position = Vector2( 0, -7 )
 script = ExtResource( 4 )
 
 [node name="LaserBeam2D" parent="WeaponSlot" instance=ExtResource( 3 )]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 1 )
-offset = Vector2( 0, -3 )
+[node name="Turret" type="Sprite" parent="WeaponSlot"]
+texture = ExtResource( 5 )
+offset = Vector2( 0, -5 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 2

@@ -1,3 +1,4 @@
+class_name Weapon
 extends RayCast2D
 
 # Credit to @GDQuest for the laserbeam implementation
@@ -13,6 +14,8 @@ export var weapon_damage := 1.0
 export var weapon_time := 1.0
 export(Color) var weapon_hit_color = Color(255,255,255)
 
+export var weapon_blast_impulse := 1500.0
+
 # If `true`, the laser is firing.
 # It plays appearing and disappearing animations when it's not animating.
 # See `appear()` and `disappear()` for more information.
@@ -21,7 +24,8 @@ var is_casting := false setget set_is_casting
 onready var tween := $Tween
 onready var fill := $FillLine2D
 onready var collision_particles := $CollisionParticles2D
-onready var collision_point := $CollisionPoint/CollisionShape2D
+onready var collision_point := $CollisionPoint
+onready var collision_point_shape := $CollisionPoint/CollisionShape2D
 
 onready var hit_tween := $HitTween
 onready var damage_timer := $DamageTimer
@@ -57,7 +61,7 @@ func set_is_casting(cast: bool) -> void:
 	else:
 		# Stop the particles and hide the beam
 		collision_particles.emitting = false
-		collision_point.disabled = true
+		collision_point_shape.disabled = true
 		damage_timer.stop()
 		disappear()
 
@@ -77,7 +81,7 @@ func cast_beam() -> void:
 		cast_point = to_local(get_collision_point())
 		collision_particles.global_rotation = get_collision_normal().angle()
 		collision_particles.position = cast_point
-		collision_point.disabled = false
+		collision_point_shape.disabled = false
 
 	# Set the end point of the line to the cast point
 	fill.points[1] = cast_point
@@ -97,23 +101,16 @@ func disappear() -> void:
 		tween.stop_all()
 	tween.interpolate_property(fill, "width", fill.width, 0, growth_time)
 	tween.start()
-
-# Body is kept track of, so that when damage timer is done, damage is applied to the most recent object
-# colliding with the end of the laser
-
-# Could change to applying to all overlapping bodies
-# Would need to show circle at end of beam to communicate
-var _body_hit : Node = null
-func _on_CollisionPoint_body_entered(body: Node) -> void:
-	_body_hit = body
-
-func _on_CollisionPoint_body_exited(body: Node) -> void:
-	_body_hit = null
 	
-func _on_DamageTimer_timeout() -> void:
-	if (_body_hit):
-		if _body_hit.has_method("take_damage"):
-			_body_hit.take_damage(weapon_damage)
+func _on_DamageTimer_timeout() -> void:		
+	var colliders = collision_point.get_overlapping_bodies()
+	for body in colliders:
+		if body.has_method("take_damage"):
+			body.take_damage(weapon_damage)
+		
+		if body is RigidBody2D:
+			var direction = global_position.direction_to(body.global_position)
+			body.apply_central_impulse(weapon_blast_impulse * direction)
 			
 	_charge_beam()
 	
