@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Enemies/Enemy_1.png" type="Texture" id=1]
 [ext_resource path="res://Enemies/Enemy_1.gd" type="Script" id=2]
@@ -7,10 +7,7 @@
 radius = 15.0
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 400.0
-
-[sub_resource type="CircleShape2D" id=3]
-radius = 1594.2
+radius = 252.002
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 15.0
@@ -36,14 +33,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource( 2 )
 
-[node name="WanderDetectionArea" type="Area2D" parent="."]
-visible = false
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WanderDetectionArea"]
-shape = SubResource( 3 )
-
 [node name="Hurtbox" type="Area2D" parent="."]
 visible = false
 collision_layer = 8
@@ -52,7 +41,26 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource( 4 )
 
+[node name="VisionRaycasts" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="VisionRaycasts"]
+enabled = true
+cast_to = Vector2( 0, -50 )
+collision_mask = 3
+
+[node name="RayCast2D2" type="RayCast2D" parent="VisionRaycasts"]
+enabled = true
+cast_to = Vector2( 50, 0 )
+collision_mask = 3
+
+[node name="RayCast2D3" type="RayCast2D" parent="VisionRaycasts"]
+enabled = true
+collision_mask = 3
+
+[node name="RayCast2D4" type="RayCast2D" parent="VisionRaycasts"]
+enabled = true
+cast_to = Vector2( -50, 0 )
+collision_mask = 3
+
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_DetectionArea_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_DetectionArea_body_exited"]
-[connection signal="body_entered" from="WanderDetectionArea" to="." method="_on_WanderDetectionArea_body_entered"]
-[connection signal="body_exited" from="WanderDetectionArea" to="." method="_on_WanderDetectionArea_body_exited"]

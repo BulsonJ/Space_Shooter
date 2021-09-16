@@ -1,10 +1,9 @@
-class_name Weapon
 extends RayCast2D
 
-# Credit to @GDQuest for the laserbeam implementation
+# Credit to @GDQuest for the initial laserbeam implementation
 
 # Speed at which the laser extends when first fired, in pixels per seconds.
-export var cast_speed := 7000.0
+export var cast_speed := 2000.0
 # Maximum length of the laser in pixels.
 export var max_length := 1400.0
 # Base duration of the tween animation in seconds.
@@ -27,7 +26,6 @@ onready var collision_particles := $CollisionParticles2D
 onready var collision_point := $CollisionPoint
 onready var collision_point_shape := $CollisionPoint/CollisionShape2D
 
-onready var hit_tween := $HitTween
 onready var damage_timer := $DamageTimer
 onready var weapon_default_color = fill.default_color
 
@@ -49,13 +47,10 @@ func set_is_casting(cast: bool) -> void:
 	is_casting = cast
 
 	if is_casting:
-		# Reset the cast_to point and line, then show the beam
-		cast_to = Vector2.ZERO
 		fill.points[1] = cast_to
 		
-		# Start damage timer and change weapon colour
+		# Start damage timer
 		damage_timer.start(weapon_time)
-		_charge_beam()
 		
 		appear()
 	else:
@@ -63,6 +58,11 @@ func set_is_casting(cast: bool) -> void:
 		collision_particles.emitting = false
 		collision_point_shape.disabled = true
 		damage_timer.stop()
+		
+		# Reset the cast_to point and line, then show the beam
+		cast_to = Vector2.ZERO
+		collision_point.position = cast_to
+		
 		disappear()
 
 	# Starts/stops physics process
@@ -93,13 +93,14 @@ func cast_beam() -> void:
 func appear() -> void:
 	if tween.is_active():
 		tween.stop_all()
-	tween.interpolate_property(fill, "width", 0, line_width, growth_time * 2)
+	tween.interpolate_property(fill, "width", 1, line_width, weapon_time, Tween.TRANS_QUAD)
+	tween.interpolate_property(fill, "default_color", weapon_default_color, weapon_hit_color, weapon_time, Tween.TRANS_QUAD)
 	tween.start()
 
 func disappear() -> void:
 	if tween.is_active():
 		tween.stop_all()
-	tween.interpolate_property(fill, "width", fill.width, 0, growth_time)
+	tween.interpolate_property(fill, "width", fill.width, 0, weapon_time / 4)
 	tween.start()
 	
 func _on_DamageTimer_timeout() -> void:		
@@ -112,11 +113,5 @@ func _on_DamageTimer_timeout() -> void:
 			var direction = global_position.direction_to(body.global_position)
 			body.apply_central_impulse(weapon_blast_impulse * direction)
 			
-	_charge_beam()
-	
-func _charge_beam() -> void:
-	if hit_tween.is_active():
-		hit_tween.stop_all()
-	hit_tween.interpolate_property(fill, "default_color", weapon_default_color, weapon_hit_color, weapon_time, Tween.TRANS_LINEAR)
-	hit_tween.start()
+	appear()
 

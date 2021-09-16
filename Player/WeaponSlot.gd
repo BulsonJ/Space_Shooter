@@ -4,29 +4,33 @@ extends Node2D
 # Weapon can be used using fire() method.
 # For held weapons, stop_firing() can be called on key release to stop the weapon
 
+export(NodePath) var initial_weapon = null
+export(bool) var rotate_with_node := true
+export(NodePath) var rotation_node = get_parent()
+
+var current_weapon : Node = null
+
+func _ready() -> void:
+	current_weapon = get_node(initial_weapon)
+
+func _physics_process(delta: float) -> void:
+	if rotate_with_node:
+		rotation = get_node(rotation_node).rotation
+
 func change_weapon(weapon: PackedScene) -> void:
-	var currentWeapon = _get_weapon()
-	currentWeapon.queue_free()
+	var new_weapon := weapon.instance()
+	if new_weapon.has_method("fire") or new_weapon.has_method("set_is_casting"):
+		current_weapon.queue_free()
+		add_child(new_weapon)
+		current_weapon = new_weapon
 	
-	add_child(weapon.instance())
-	
-	# NOTE : Works to switch weapons but creating a new instance of scene everytime. Maybe 
-	# the weapon should be saved somehow so that a new instance does not need to be?
 		
 func fire() -> void:
-	var weapon = _get_weapon()
-	if weapon.has_method("set_is_casting"):
-		weapon.is_casting = true
-	elif weapon.has_method("fire"):
-		weapon.fire()
+	if current_weapon.has_method("set_is_casting"):
+		current_weapon.is_casting = true
+	elif current_weapon.has_method("fire"):
+		current_weapon.fire()
 
 func stop_firing() -> void:
-	var weapon = _get_weapon()
-	if weapon.has_method("set_is_casting"):
-		weapon.is_casting = false
-		
-func _get_weapon() -> Weapon:
-	for child in get_children():
-		if child is Weapon:
-			return child
-	return null
+	if current_weapon.has_method("set_is_casting"):
+		current_weapon.is_casting = false

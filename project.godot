@@ -18,16 +18,10 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://Player/Player.gd"
-}, {
-"base": "RayCast2D",
-"class": "Weapon",
-"language": "GDScript",
-"path": "res://Weapons/LaserBeam/LaserBeam.gd"
 } ]
 _global_script_class_icons={
 "Enemy": "",
-"Player": "",
-"Weapon": ""
+"Player": ""
 }
 
 [application]

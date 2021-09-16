@@ -23,13 +23,13 @@ color_ramp = SubResource( 2 )
 [sub_resource type="CircleShape2D" id=4]
 
 [node name="LaserBeam2D" type="RayCast2D"]
-cast_to = Vector2( 50, 0 )
+cast_to = Vector2( 0, -50 )
 collision_mask = 9
 script = ExtResource( 2 )
 weapon_hit_color = Color( 1, 0.597656, 0.597656, 1 )
 
 [node name="FillLine2D" type="Line2D" parent="."]
-points = PoolVector2Array( 0, 0, 100, 0 )
+points = PoolVector2Array( 0, 0, 0, -100 )
 width = 4.0
 default_color = Color( 0.886275, 0.317647, 0.317647, 1 )
 texture_mode = 2
@@ -56,7 +56,5 @@ shape = SubResource( 4 )
 disabled = true
 
 [node name="DamageTimer" type="Timer" parent="."]
-
-[node name="HitTween" type="Tween" parent="."]
 
 [connection signal="timeout" from="DamageTimer" to="." method="_on_DamageTimer_timeout"]
