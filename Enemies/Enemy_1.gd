@@ -11,7 +11,6 @@ var _velocity := Vector2.ZERO
 var max_health := 2.0
 onready var health = max_health
 
-
 func _physics_process(delta: float) -> void:
 	if not _target:
 		return

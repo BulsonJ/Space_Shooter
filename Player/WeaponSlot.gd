@@ -11,7 +11,7 @@ export(NodePath) var rotation_node = get_parent()
 var current_weapon : Node = null
 
 func _ready() -> void:
-	current_weapon = get_node(initial_weapon)
+	current_weapon = get_child(0)
 
 func _physics_process(delta: float) -> void:
 	if rotate_with_node:
@@ -23,7 +23,6 @@ func change_weapon(weapon: PackedScene) -> void:
 		current_weapon.queue_free()
 		add_child(new_weapon)
 		current_weapon = new_weapon
-	
 		
 func fire() -> void:
 	if current_weapon.has_method("set_is_casting"):

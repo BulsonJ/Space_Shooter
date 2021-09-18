@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Weapons/LaserBeam/BeamParticle.png" type="Texture" id=1]
 [ext_resource path="res://Weapons/LaserBeam/LaserBeam.gd" type="Script" id=2]
+[ext_resource path="res://Player/Player_Ship_Turret2.png" type="Texture" id=3]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.124031, 0.534884, 1 )
@@ -56,5 +57,9 @@ shape = SubResource( 4 )
 disabled = true
 
 [node name="DamageTimer" type="Timer" parent="."]
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+offset = Vector2( 0, -5 )
 
 [connection signal="timeout" from="DamageTimer" to="." method="_on_DamageTimer_timeout"]

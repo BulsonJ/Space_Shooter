@@ -12,11 +12,18 @@ var _rotation := 0.0
 onready var ship := $Ship
 onready var weapon_slot := $WeaponSlot
 
+onready var laser = preload("res://Weapons/LaserBeam/LaserBeam.tscn")
+onready var cannon = preload("res://Weapons/Cannon/Cannon.tscn")
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
 		weapon_slot.fire()
 	if event.is_action_released("shoot"):
 		weapon_slot.stop_firing()
+	if event.is_action_pressed("weapon_1"):
+		weapon_slot.change_weapon(laser)
+	if event.is_action_pressed("weapon_2"):
+		weapon_slot.change_weapon(cannon)
 
 func _physics_process(delta: float) -> void:
 	var direction := Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), Input.get_action_strength("move_down") - Input.get_action_strength("move_up")).normalized()
