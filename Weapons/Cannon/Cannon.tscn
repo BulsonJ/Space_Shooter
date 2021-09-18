@@ -20,5 +20,6 @@ one_shot = true
 
 [node name="ShootFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+bus = "SoundEffects"
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]

@@ -65,5 +65,6 @@ offset = Vector2( 0, -5 )
 
 [node name="ShootFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+bus = "SoundEffects"
 
 [connection signal="timeout" from="DamageTimer" to="." method="_on_DamageTimer_timeout"]

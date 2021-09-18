@@ -7,7 +7,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _physics_process(delta: float) -> void:
-	$Trail.rotation = angular_velocity + PI / 2
+	$Trail.rotation = angular_velocity
 	$Trail.speed_scale = linear_velocity.length() /175
 
 func _on_Bullet_body_entered(body: Node) -> void:

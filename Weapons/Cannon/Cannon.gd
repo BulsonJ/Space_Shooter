@@ -21,6 +21,7 @@ func fire() -> void:
 	
 	var new_bullet : RigidBody2D = bullet.instance()
 	new_bullet.transform = $Muzzle.global_transform
+	new_bullet.rotation = new_bullet.rotation + PI / 2
 	new_bullet.apply_central_impulse(Vector2.UP.rotated(get_parent().rotation) * 400.0)
 	get_parent().get_parent().get_parent().add_child(new_bullet)
 	
