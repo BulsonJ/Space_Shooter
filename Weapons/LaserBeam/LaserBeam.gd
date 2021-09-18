@@ -103,7 +103,8 @@ func disappear() -> void:
 	tween.interpolate_property(fill, "width", fill.width, 0, weapon_time / 4)
 	tween.start()
 	
-func _on_DamageTimer_timeout() -> void:		
+func _on_DamageTimer_timeout() -> void:	
+	$ShootFX.play()	
 	var colliders = collision_point.get_overlapping_bodies()
 	for body in colliders:
 		if body.has_method("take_damage"):

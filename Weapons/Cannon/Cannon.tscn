@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Weapons/Cannon/Cannon.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player_Ship_Turret.png" type="Texture" id=2]
+[ext_resource path="res://Weapons/Cannon/laserLarge_000.ogg" type="AudioStream" id=3]
 
 [node name="Cannon" type="Node2D"]
 script = ExtResource( 1 )
@@ -16,5 +17,8 @@ offset = Vector2( 0, -5 )
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
+
+[node name="ShootFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
