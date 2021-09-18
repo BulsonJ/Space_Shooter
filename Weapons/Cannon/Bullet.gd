@@ -1,26 +1,36 @@
 extends RigidBody2D
 
 export(float) var weapon_damage = 1.0
+export(float) var max_lifetime = 3.0
 
-# Called when the node enters the scene tree for the first time.
+onready var lifetime = max_lifetime
+onready var particle_trail = $Trail
+onready var bullet_fade = $BulletFadeTween
+
 func _ready() -> void:
-	pass # Replace with function body.
+	bullet_fade.interpolate_property($Sprite, "modulate", $Sprite.modulate, Color(1.5,1.5,1.5), lifetime)
+	bullet_fade.start()
 
 func _physics_process(delta: float) -> void:
-	$Trail.rotation = angular_velocity
-	#$Trail.speed_scale = linear_velocity.length() /175
+	particle_trail.rotation = angular_velocity
+	lifetime -= delta
+	
+	if lifetime < 0:
+		delete_bullet()
 
 func _on_Bullet_body_entered(body: Node) -> void:
-	#queue_free()
 	
+	delete_bullet()
+	
+	if body.has_method("take_damage"):
+			body.take_damage(weapon_damage)
+
+func delete_bullet() -> void:
 	# Stop particle, delete bullet once particle lifetime is up
-	$Trail.emitting = false
-	var time = ($Trail.lifetime * 2) / $Trail.speed_scale
+	particle_trail.emitting = false
+	var time = (particle_trail.lifetime * 2) / particle_trail.speed_scale
 	get_tree().create_timer(time).connect("timeout", self, "queue_free")
 	
 	# Hide sprite and disable collision so can't be seen while waiting for trail to finish
 	$Sprite.visible = false
 	$CollisionShape2D.disabled = true
-	
-	if body.has_method("take_damage"):
-			body.take_damage(weapon_damage)

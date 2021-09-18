@@ -35,7 +35,7 @@ func set_is_casting(cast: bool) -> void:
 		if shoot_timer.is_stopped():
 			sound_pitch = default_sound_pitch
 			fire()
-			shoot_timer.start(0.3)
+			shoot_timer.start(rate_of_fire)
 	else:
 		#shoot_timer.stop()
 		pass
@@ -43,4 +43,4 @@ func set_is_casting(cast: bool) -> void:
 func _on_ShootTimer_timeout() -> void:
 	if is_casting:
 		fire()
-		shoot_timer.start(0.3)
+		shoot_timer.start(rate_of_fire)
