@@ -1,13 +1,13 @@
 class_name Player
 extends KinematicBody2D
 
-export var max_speed := 350.0
-export var drag := 8.0
-
-export var turning_drag := 8.0
+export var max_speed := 128.0
+export var acceleration := 32.0
+export var backwards_acceleration := 8.0
+export var slowdown_drag := 1.5
+export var turning_drag := 16.0
 
 var _velocity := Vector2.ZERO
-var _rotation := 0.0
 
 onready var ship := $Ship
 onready var weapon_slot := $WeaponSlot
@@ -26,16 +26,22 @@ func _input(event: InputEvent) -> void:
 		weapon_slot.change_weapon(cannon)
 
 func _physics_process(delta: float) -> void:
-	var direction := Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), Input.get_action_strength("move_down") - Input.get_action_strength("move_up")).normalized()
 	
-	var desired_velocity := direction * max_speed
-	var steering := desired_velocity - _velocity
-	_velocity += steering / drag
+	var _thrust := Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
+	var _direction := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	ship.rotation += _direction / turning_drag
+	
+	if _thrust < 0:
+		_velocity += _thrust * backwards_acceleration * Vector2.RIGHT.rotated(ship.rotation)
+	else:
+		_velocity += _thrust * acceleration * Vector2.RIGHT.rotated(ship.rotation)
 	_velocity = _velocity.clamped(max_speed)
 	
-	_velocity = move_and_slide(_velocity)
-
-	ship.rotation = _velocity.angle() + PI / 2
-	weapon_slot.rotation = get_global_mouse_position().angle_to_point(position) + PI / 2
+	if _thrust == 0:
+		_velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * slowdown_drag)
+	
+	_velocity = move_and_slide(_velocity)	
+	
+	weapon_slot.rotation = get_global_mouse_position().angle_to_point(position)
 	
 	

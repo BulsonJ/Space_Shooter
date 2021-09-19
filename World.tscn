@@ -37,7 +37,7 @@ glow_hdr_threshold = 1.5
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2( 0.5, 0.5 )
+motion_scale = Vector2( 0.25, 0.25 )
 motion_mirroring = Vector2( 960, 540 )
 
 [node name="Background" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
@@ -55,7 +55,7 @@ process_material = SubResource( 3 )
 texture = ExtResource( 3 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2( 0.75, 0.75 )
+motion_scale = Vector2( 0.5, 0.5 )
 motion_mirroring = Vector2( 960, 540 )
 
 [node name="Background_Stars" type="Particles2D" parent="ParallaxBackground/ParallaxLayer2"]

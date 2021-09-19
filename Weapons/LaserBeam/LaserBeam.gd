@@ -38,7 +38,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	# Increases length of the ray every frame, until max length is reached
-	cast_to = (cast_to + Vector2.UP * cast_speed * delta).clamped(max_length)
+	cast_to = (cast_to + Vector2.RIGHT * cast_speed * delta).clamped(max_length)
 	
 	# Checks collisions for length of beam
 	cast_beam()

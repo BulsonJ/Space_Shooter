@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Weapons/LaserBeam/BeamParticle.png" type="Texture" id=1]
 [ext_resource path="res://Weapons/LaserBeam/LaserBeam.gd" type="Script" id=2]
@@ -24,14 +24,29 @@ color_ramp = SubResource( 2 )
 
 [sub_resource type="CircleShape2D" id=4]
 
+[sub_resource type="Gradient" id=5]
+colors = PoolColorArray( 0.886275, 0.317647, 0.317647, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color_ramp = SubResource( 6 )
+
 [node name="LaserBeam2D" type="RayCast2D"]
-cast_to = Vector2( 0, -50 )
+cast_to = Vector2( 50, 0 )
 collision_mask = 9
 script = ExtResource( 2 )
 weapon_hit_color = Color( 1, 0.597656, 0.597656, 1 )
 
 [node name="FillLine2D" type="Line2D" parent="."]
-points = PoolVector2Array( 0, 0, 0, -100 )
+points = PoolVector2Array( 0, 0, 50, 0 )
 width = 4.0
 default_color = Color( 0.886275, 0.317647, 0.317647, 1 )
 texture_mode = 2
@@ -61,10 +76,14 @@ disabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
-offset = Vector2( 0, -5 )
+offset = Vector2( 5, 0 )
 
 [node name="ShootFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 bus = "SoundEffects"
+
+[node name="BeamParticles2D" type="Particles2D" parent="."]
+emitting = false
+process_material = SubResource( 7 )
 
 [connection signal="timeout" from="DamageTimer" to="." method="_on_DamageTimer_timeout"]

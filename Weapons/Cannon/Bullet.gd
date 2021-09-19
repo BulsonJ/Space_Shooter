@@ -33,4 +33,4 @@ func delete_bullet() -> void:
 	
 	# Hide sprite and disable collision so can't be seen while waiting for trail to finish
 	$Sprite.visible = false
-	$CollisionShape2D.disabled = true
+	$CollisionShape2D.call_deferred("set_disabled", true)

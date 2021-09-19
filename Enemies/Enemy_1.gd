@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 		
 	_velocity = _velocity.clamped(max_speed)
 	rotation = _velocity.angle() + PI / 2
-	move_and_slide(_velocity)
+	_velocity = move_and_slide(_velocity)
 
 func take_damage(amount) -> void:
 	_set_health(health - amount)
