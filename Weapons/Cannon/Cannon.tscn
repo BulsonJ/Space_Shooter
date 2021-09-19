@@ -1,8 +1,37 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Weapons/Cannon/Cannon.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player_Ship_Turret.png" type="Texture" id=2]
 [ext_resource path="res://Weapons/Cannon/laserLarge_000.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Weapons/Cannon/shoot_animation.png" type="Texture" id=4]
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 4 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 4 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 4 )
+region = Rect2( 384, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 4 )
+region = Rect2( 512, 0, 128, 128 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [node name="Cannon" type="Node2D"]
 script = ExtResource( 1 )
@@ -22,4 +51,12 @@ one_shot = true
 stream = ExtResource( 3 )
 bus = "SoundEffects"
 
+[node name="MuzzleFX" type="AnimatedSprite" parent="."]
+visible = false
+frames = SubResource( 5 )
+frame = 1
+speed_scale = 6.0
+offset = Vector2( 5, 0 )
+
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
+[connection signal="animation_finished" from="MuzzleFX" to="." method="_on_MuzzleFX_animation_finished"]

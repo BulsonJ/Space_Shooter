@@ -14,6 +14,10 @@ var max_sound_pitch := 4.0
 onready var default_sound_pitch : float= sound_pitch
 
 func fire() -> void:
+	$MuzzleFX.visible = true
+	$MuzzleFX.set_frame(0)
+	$MuzzleFX.play("default")
+	
 	shoot_sound.play()
 	shoot_sound.set_pitch_scale(sound_pitch)
 	sound_pitch += 0.2
@@ -44,3 +48,7 @@ func _on_ShootTimer_timeout() -> void:
 	if is_casting:
 		fire()
 		shoot_timer.start(rate_of_fire)
+
+
+func _on_MuzzleFX_animation_finished() -> void:
+	$MuzzleFX.visible = false

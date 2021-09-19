@@ -8,21 +8,21 @@ export var drag := 8.0
 var _target: Player = null
 var _velocity := Vector2.ZERO
 
-var max_health := 2.0
+var max_health := 5.0
 onready var health = max_health
 
 func _physics_process(delta: float) -> void:
 	if not _target:
 		return
 					
-	if position.distance_to(_target.position) > 100:
-		var direction := global_position.direction_to(_target.global_position)
-		var desired_velocity := direction * max_speed
-		var steering := desired_velocity - _velocity
+#	if position.distance_to(_target.position) > 100:
+#		var direction := global_position.direction_to(_target.global_position)
+#		var desired_velocity := direction * max_speed
+#		var steering := desired_velocity - _velocity
+#
+#		_velocity += steering / drag
 		
-		_velocity += steering / drag
-		
-	$VisionRaycasts.rotation += delta * 5 * PI
+	$VisionRaycasts.rotation += delta * 11 * PI
 	for raycast in $VisionRaycasts.get_children():
 		if raycast.is_colliding():
 			_velocity += raycast.get_collision_normal().normalized() * dodge_speed

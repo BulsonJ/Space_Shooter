@@ -17,13 +17,15 @@ func _physics_process(delta: float) -> void:
 	if rotate_with_node:
 		rotation = get_node(rotation_node).rotation
 
+## Changes the weapon stored in the weapon slot
 func change_weapon(weapon: PackedScene) -> void:
 	var new_weapon := weapon.instance()
 	if new_weapon.has_method("fire") or new_weapon.has_method("set_is_casting"):
 		current_weapon.queue_free()
 		add_child(new_weapon)
 		current_weapon = new_weapon
-		
+	
+## Fires the weapon in the weapon slot	
 func fire() -> void:
 	if current_weapon.has_method("set_is_casting"):
 		current_weapon.is_casting = true

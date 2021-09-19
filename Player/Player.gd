@@ -21,23 +21,23 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("shoot"):
 		weapon_slot.stop_firing()
 	if event.is_action_pressed("weapon_1"):
-		weapon_slot.change_weapon(laser)
-	if event.is_action_pressed("weapon_2"):
 		weapon_slot.change_weapon(cannon)
+	if event.is_action_pressed("weapon_2"):
+		weapon_slot.change_weapon(laser)
 
 func _physics_process(delta: float) -> void:
 	
-	var _thrust := Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
+	var thrust := Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
 	var _direction := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	ship.rotation += _direction / turning_drag
 	
-	if _thrust < 0:
-		_velocity += _thrust * backwards_acceleration * Vector2.RIGHT.rotated(ship.rotation)
+	if thrust < 0:
+		_velocity += thrust * backwards_acceleration * Vector2.RIGHT.rotated(ship.rotation)
 	else:
-		_velocity += _thrust * acceleration * Vector2.RIGHT.rotated(ship.rotation)
+		_velocity += thrust * acceleration * Vector2.RIGHT.rotated(ship.rotation)
 	_velocity = _velocity.clamped(max_speed)
 	
-	if _thrust == 0:
+	if thrust == 0:
 		_velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * slowdown_drag)
 	
 	_velocity = move_and_slide(_velocity)	
