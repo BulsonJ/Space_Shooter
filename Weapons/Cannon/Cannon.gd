@@ -31,7 +31,7 @@ func fire() -> void:
 #	new_bullet.apply_central_impulse(Vector2.RIGHT.rotated(get_parent().rotation) * 400.0)
 #	get_parent().get_parent().get_parent().add_child(new_bullet)
 	
-	emit_signal("shoot", bullet, to_global($Muzzle.position), Vector2.RIGHT.rotated(get_parent().rotation), 400.0)
+	emit_signal("shoot", bullet, $Muzzle.global_position, Vector2.RIGHT.rotated(get_parent().rotation), 400.0)
 	
 func set_is_casting(cast: bool) -> void:
 	is_casting = cast
