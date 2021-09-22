@@ -24,14 +24,8 @@ func fire() -> void:
 	shoot_sound.set_pitch_scale(sound_pitch)
 	sound_pitch += 0.2
 	sound_pitch = clamp(sound_pitch, default_sound_pitch, max_sound_pitch)
-	
-#	var new_bullet : RigidBody2D = bullet.instance()
-#	new_bullet.transform = $Muzzle.global_transform
-#	new_bullet.rotation = new_bullet.rotation
-#	new_bullet.apply_central_impulse(Vector2.RIGHT.rotated(get_parent().rotation) * 400.0)
-#	get_parent().get_parent().get_parent().add_child(new_bullet)
-	
-	emit_signal("shoot", bullet, $Muzzle.global_position, Vector2.RIGHT.rotated(get_parent().rotation), 400.0)
+		
+	emit_signal("shoot", bullet, to_global($Muzzle.position), Vector2.RIGHT.rotated(get_parent().rotation), 400.0)
 	
 func set_is_casting(cast: bool) -> void:
 	is_casting = cast
@@ -49,7 +43,6 @@ func _on_ShootTimer_timeout() -> void:
 	if is_casting:
 		fire()
 		shoot_timer.start(rate_of_fire)
-
 
 func _on_MuzzleFX_animation_finished() -> void:
 	$MuzzleFX.visible = false

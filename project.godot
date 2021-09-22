@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "WeaponSlot",
 "language": "GDScript",
-"path": "res://Player/WeaponSlot.gd"
+"path": "res://Weapons/WeaponSlot.gd"
 } ]
 _global_script_class_icons={
 "Enemy": "",

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Weapons/WeaponSlot.gd" type="Script" id=1]
+
+[node name="WeaponSlot" type="Position2D"]
+script = ExtResource( 1 )
+rotate_with_node = false
+rotation_node = NodePath("../Ship")
