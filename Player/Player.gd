@@ -15,6 +15,8 @@ onready var weapon_slot := $WeaponSlot
 onready var laser = preload("res://Weapons/LaserBeam/LaserBeam.tscn")
 onready var cannon = preload("res://Weapons/Cannon/Cannon.tscn")
 
+signal player_shoot(bullet, location, direction, velocity)
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
 		weapon_slot.fire()
@@ -43,5 +45,6 @@ func _physics_process(delta: float) -> void:
 	_velocity = move_and_slide(_velocity)	
 	
 	weapon_slot.rotation = get_global_mouse_position().angle_to_point(position)
-	
-	
+
+func _on_WeaponSlot_weapon_shoot(bullet, location, direction, velocity) -> void:
+	emit_signal("player_shoot", bullet, location,direction, velocity)

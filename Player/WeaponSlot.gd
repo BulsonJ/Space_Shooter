@@ -1,3 +1,4 @@
+class_name WeaponSlot
 extends Node2D
 
 # WeaponSlot node is used to store a weapon. Holds methods to change what weapon is equipped in the slot.
@@ -10,8 +11,14 @@ export(NodePath) var rotation_node = get_parent()
 
 var current_weapon : Node = null
 
+signal weapon_shoot(bullet, location, direction, velocity)
+
+
 func _ready() -> void:
 	current_weapon = get_child(0)
+	if current_weapon.has_signal("shoot"):
+		current_weapon.connect("shoot", self, "_on_shoot")
+	
 
 func _physics_process(delta: float) -> void:
 	if rotate_with_node:
@@ -25,6 +32,10 @@ func change_weapon(weapon: PackedScene) -> void:
 		add_child(new_weapon)
 		current_weapon = new_weapon
 	
+	if current_weapon.has_signal("shoot"):
+		current_weapon.connect("shoot", self, "_on_shoot")
+		
+	
 ## Fires the weapon in the weapon slot	
 func fire() -> void:
 	if current_weapon.has_method("set_is_casting"):
@@ -35,3 +46,7 @@ func fire() -> void:
 func stop_firing() -> void:
 	if current_weapon.has_method("set_is_casting"):
 		current_weapon.is_casting = false
+
+
+func _on_shoot(bullet, location, direction, velocity) -> void:
+	emit_signal("weapon_shoot", bullet, location, direction, velocity)

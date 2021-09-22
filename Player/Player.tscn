@@ -11,7 +11,9 @@ radius = 14.0357
 [sub_resource type="CircleShape2D" id=2]
 radius = 13.0
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"mini_map",
+]]
 collision_layer = 2
 collision_mask = 9
 script = ExtResource( 2 )
@@ -40,3 +42,5 @@ collision_mask = 0
 shape = SubResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[connection signal="weapon_shoot" from="WeaponSlot" to="." method="_on_WeaponSlot_weapon_shoot"]

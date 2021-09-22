@@ -3,8 +3,8 @@ extends Node2D
 export(PackedScene) var bullet = preload("res://Weapons/Cannon/Bullet.tscn")
 export(float) var rate_of_fire = 0.3
 
-onready var shoot_timer = $ShootTimer
-onready var shoot_sound : AudioStreamPlayer2D = $ShootFX
+onready var shoot_timer := $ShootTimer
+onready var shoot_sound := $ShootFX
 
 var can_fire: bool = true
 var is_casting := false setget set_is_casting
@@ -12,6 +12,8 @@ var is_casting := false setget set_is_casting
 var sound_pitch := 1.0
 var max_sound_pitch := 4.0
 onready var default_sound_pitch : float= sound_pitch
+
+signal shoot(bullet, location, direction, velocity)
 
 func fire() -> void:
 	$MuzzleFX.visible = true
@@ -23,14 +25,13 @@ func fire() -> void:
 	sound_pitch += 0.2
 	sound_pitch = clamp(sound_pitch, default_sound_pitch, max_sound_pitch)
 	
-	var new_bullet : RigidBody2D = bullet.instance()
-	new_bullet.transform = $Muzzle.global_transform
-	new_bullet.rotation = new_bullet.rotation
-	new_bullet.apply_central_impulse(Vector2.RIGHT.rotated(get_parent().rotation) * 400.0)
-	get_parent().get_parent().get_parent().add_child(new_bullet)
+#	var new_bullet : RigidBody2D = bullet.instance()
+#	new_bullet.transform = $Muzzle.global_transform
+#	new_bullet.rotation = new_bullet.rotation
+#	new_bullet.apply_central_impulse(Vector2.RIGHT.rotated(get_parent().rotation) * 400.0)
+#	get_parent().get_parent().get_parent().add_child(new_bullet)
 	
-	#new_bullet.position = get_parent().transform.xform($Muzzle.position)
-	#new_bullet.rotation = get_parent().rotation
+	emit_signal("shoot", bullet, to_global($Muzzle.position), Vector2.RIGHT.rotated(get_parent().rotation), 400.0)
 	
 func set_is_casting(cast: bool) -> void:
 	is_casting = cast
