@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/laserLarge.ogg-318758d2436b6f4788a31d5a6e3e45b1.oggstr"
+
+[deps]
+
+source_file="res://Defence/laserLarge.ogg"
+dest_files=[ "res://.import/laserLarge.ogg-318758d2436b6f4788a31d5a6e3e45b1.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

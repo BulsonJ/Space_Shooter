@@ -1,9 +1,13 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Weapons/Cannon/Cannon.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player_Ship_Turret.png" type="Texture" id=2]
 [ext_resource path="res://Weapons/Cannon/laserLarge_000.ogg" type="AudioStream" id=3]
 [ext_resource path="res://Weapons/Cannon/shoot_animation.png" type="Texture" id=4]
+
+[sub_resource type="AudioStreamRandomPitch" id=7]
+audio_stream = ExtResource( 3 )
+random_pitch = 1.5
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 4 )
@@ -47,7 +51,7 @@ offset = Vector2( 5, 0 )
 one_shot = true
 
 [node name="ShootFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 3 )
+stream = SubResource( 7 )
 bus = "SoundEffects"
 
 [node name="MuzzleFX" type="AnimatedSprite" parent="."]

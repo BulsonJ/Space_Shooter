@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 #
 #		_velocity += steering / drag
 		
-	#$VisionRaycasts.rotation += delta * 11 * PI
+#	$VisionRaycasts.rotation += delta * 11 * PI
 	for raycast in $VisionRaycasts.get_children():
 		if raycast.is_colliding():
 			_velocity += raycast.get_collision_normal() * dodge_speed

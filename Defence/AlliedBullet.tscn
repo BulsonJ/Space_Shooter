@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Enemies/EnemyBullet.png" type="Texture" id=1]
+[ext_resource path="res://Defence/AlliedBullet.png" type="Texture" id=1]
 [ext_resource path="res://Weapons/Cannon/Bullet.gd" type="Script" id=2]
 
 [sub_resource type="Gradient" id=1]
@@ -30,9 +30,9 @@ hue_variation_random = 1.0
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 5, 3 )
 
-[node name="EnemyBullet" type="RigidBody2D"]
+[node name="AlliedBullet" type="RigidBody2D"]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 9
 gravity_scale = 0.0
 continuous_cd = 1
 contacts_reported = 1

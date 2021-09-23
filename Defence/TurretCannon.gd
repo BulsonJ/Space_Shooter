@@ -3,11 +3,11 @@ extends Node2D
 export(float) var max_health = 5.0
 onready var health = max_health
 
-var _target : Player = null
+var _target : Enemy = null
 
 onready var turret := $Turret
 onready var default_rotation = turret.rotation
-export(PackedScene) var bullet = preload("res://Enemies/EnemyBullet.tscn")
+export(PackedScene) var bullet = preload("res://Defence/AlliedBullet.tscn")
 var weapon_ready = true
 
 onready var turret_direct_sight = $Turret/RayCast2D
@@ -24,7 +24,7 @@ func _physics_process(delta: float) -> void:
 		return
 	else:
 		if turret_direct_sight.is_colliding():
-			if turret_direct_sight.get_collider() is Player:
+			if turret_direct_sight.get_collider() is Enemy:
 				if weapon_ready:
 					$ShootFX.play()
 					emit_signal("turret_shoot", bullet, $Turret/Muzzle.global_position, Vector2.RIGHT.rotated(turret.global_rotation), 400.0)
@@ -35,10 +35,10 @@ func _physics_process(delta: float) -> void:
 	turret.look_at(_target.position)
 	turret.rotation = clamp(turret.rotation, default_rotation - PI / 4, default_rotation + PI / 4)
 	
-func _on_Turret_Vision_body_entered(body: Player) -> void:
+func _on_Turret_Vision_body_entered(body : Enemy) -> void:
 	_target = body
 
-func _on_Turret_Vision_body_exited(body: Player) -> void:
+func _on_Turret_Vision_body_exited(body: Enemy) -> void:
 	_target = null
 
 func _on_Timer_timeout() -> void:

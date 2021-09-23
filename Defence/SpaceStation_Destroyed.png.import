@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/EnemyBase_Destroyed.png-72e2dfc1ab1fe4df051dfefa12e2de40.stex"
+path="res://.import/SpaceStation_Destroyed.png-9d3d314127d0e606c5aef6ee476ae6ec.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Enemies/EnemyBase_Destroyed.png"
-dest_files=[ "res://.import/EnemyBase_Destroyed.png-72e2dfc1ab1fe4df051dfefa12e2de40.stex" ]
+source_file="res://Defence/SpaceStation_Destroyed.png"
+dest_files=[ "res://.import/SpaceStation_Destroyed.png-9d3d314127d0e606c5aef6ee476ae6ec.stex" ]
 
 [params]
 

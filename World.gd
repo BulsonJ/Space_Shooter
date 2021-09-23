@@ -17,10 +17,10 @@ func _on_Player_player_shoot(bullet, location, direction, velocity) -> void:
 	b.position = location
 	b.apply_central_impulse(direction * velocity)
 
-
-func _on_EnemyBase_base_turret_shoot(bullet, location, direction, velocity) -> void:
+func _on_SpaceStation_base_turret_shoot(bullet, location, direction, velocity) -> void:
 	var b = bullet.instance()
 	add_child(b)
 	b.rotation = direction.angle()
 	b.position = location
 	b.apply_central_impulse(direction * velocity)
+

@@ -21,9 +21,9 @@ func fire() -> void:
 	$MuzzleFX.play("default")
 	
 	shoot_sound.play()
-	shoot_sound.set_pitch_scale(sound_pitch)
-	sound_pitch += 0.2
-	sound_pitch = clamp(sound_pitch, default_sound_pitch, max_sound_pitch)
+#	shoot_sound.set_pitch_scale(sound_pitch)
+#	sound_pitch += 0.2
+#	sound_pitch = clamp(sound_pitch, default_sound_pitch, max_sound_pitch)
 		
 	emit_signal("shoot", bullet, to_global($Muzzle.position), Vector2.RIGHT.rotated(get_parent().rotation), 400.0)
 	

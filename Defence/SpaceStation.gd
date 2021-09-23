@@ -14,12 +14,6 @@ signal base_destroyed()
 func _ready() -> void:
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
-
-
 func _on_EnemyTurret_turret_shoot(bullet, location, direction, velocity) -> void:
 	emit_signal("base_turret_shoot", bullet, location,direction, velocity)
 
@@ -28,4 +22,4 @@ func _on_EnemyTurret_turret_destroyed() -> void:
 	
 	if turret_amount <= 0:
 		emit_signal("base_destroyed")
-		$Sprite.texture = load("res://Enemies/EnemyBase_Destroyed.png")
+		$Sprite.texture = load("res://Defence/SpaceStation_Destroyed.png")
