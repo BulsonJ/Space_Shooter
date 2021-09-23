@@ -94,7 +94,16 @@ remote_path = NodePath("../../Camera2D")
 [node name="Enemies" type="Node" parent="World"]
 
 [node name="Enemy_1" parent="World/Enemies" instance=ExtResource( 6 )]
-position = Vector2( 472, 41 )
+position = Vector2( 482, 55 )
+
+[node name="Enemy_3" parent="World/Enemies" instance=ExtResource( 6 )]
+position = Vector2( 519, 85 )
+
+[node name="Enemy_2" parent="World/Enemies" instance=ExtResource( 6 )]
+position = Vector2( 437, 35 )
+
+[node name="Enemy_4" parent="World/Enemies" instance=ExtResource( 6 )]
+position = Vector2( 378, 2 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource( 4 )
