@@ -21,9 +21,11 @@ enum states{
 }
 
 onready var currentState = states.FLYING
-var docking_lock = false
 
 signal player_shoot(bullet, location, direction, velocity)
+
+var max_fuel := 100.0
+onready var fuel := max_fuel
 
 func _input(event: InputEvent) -> void:
 	if currentState == states.FLYING:
@@ -46,16 +48,25 @@ func _physics_process(delta: float) -> void:
 			_velocity += thrust * backwards_acceleration * Vector2.RIGHT.rotated(ship.rotation)
 		else:
 			_velocity += thrust * acceleration * Vector2.RIGHT.rotated(ship.rotation)
-		_velocity = _velocity.clamped(max_speed)
-		
 		if thrust == 0:
 			_velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * slowdown_drag)
 		
+		_velocity = _velocity.clamped(max_speed)
 		_velocity = move_and_slide(_velocity)	
 		
 		weapon_slot.rotation = get_global_mouse_position().angle_to_point(position)
 	elif currentState == states.DOCKED:
+		# TODO: Better way to stop gun shooting when docking
+		weapon_slot.stop_firing()
 		pass
 
 func _on_WeaponSlot_weapon_shoot(bullet, location, direction, velocity) -> void:
 	emit_signal("player_shoot", bullet, location,direction, velocity)
+	
+func use_fuel(amount) -> void:
+	_set_fuel_amount(fuel - amount)
+
+func _set_fuel_amount(value) -> void:
+	fuel = clamp(value, 0, max_fuel)
+	if (fuel == 0):
+		queue_free()
