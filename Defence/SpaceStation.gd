@@ -9,9 +9,15 @@ signal player_undocked()
 signal base_turret_shoot(bullet, location, direction, velocity)
 signal base_destroyed()
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _physics_process(delta: float) -> void:
+	if !_target:
+		return
+		
+	var input := Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
+	if _target.docking_lock == false and input != 0:
+		_target.currentState = Player.states.FLYING
+		emit_signal("player_undocked")
+		_target = null
 
 func _on_EnemyTurret_turret_shoot(bullet, location, direction, velocity) -> void:
 	emit_signal("base_turret_shoot", bullet, location,direction, velocity)
@@ -31,6 +37,7 @@ func _on_DockingArea2D_body_entered(body: Player) -> void:
 	$Docking/Tween.interpolate_property(_target, "position", _target.global_position, $Docking/DockingPosition.global_position, 2.0)
 	$Docking/Tween.interpolate_property(_target.ship, "rotation", _target.ship.rotation, $Docking/DockingPosition.rotation, 2.0)
 	$Docking/Tween.start()
+	emit_signal("player_docked")
 
 func _on_DockingArea2D_body_exited(body: Player) -> void:
 	_target = null

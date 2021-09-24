@@ -55,9 +55,7 @@ func _physics_process(delta: float) -> void:
 		
 		weapon_slot.rotation = get_global_mouse_position().angle_to_point(position)
 	elif currentState == states.DOCKED:
-		if docking_lock == false:
-			if thrust < 0 or thrust > 0:
-				currentState = states.FLYING
+		pass
 
 func _on_WeaponSlot_weapon_shoot(bullet, location, direction, velocity) -> void:
 	emit_signal("player_shoot", bullet, location,direction, velocity)

@@ -68,18 +68,6 @@ visibility_rect = Rect2( -480, -270, 960, 540 )
 process_material = SubResource( 3 )
 texture = ExtResource( 3 )
 
-[node name="Camera2D" type="Camera2D" parent="World"]
-position = Vector2( 344, 164 )
-current = true
-process_mode = 0
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-smoothing_enabled = true
-drag_margin_left = 0.1
-drag_margin_top = 0.1
-drag_margin_right = 0.1
-drag_margin_bottom = 0.1
-
 [node name="SpaceStation" parent="World" instance=ExtResource( 2 )]
 position = Vector2( 480, 270 )
 
@@ -105,8 +93,24 @@ position = Vector2( 410, 86 )
 [node name="Enemy_4" parent="World/Enemies" instance=ExtResource( 6 )]
 position = Vector2( 378, 2 )
 
+[node name="Camera2D" type="Camera2D" parent="World"]
+position = Vector2( 344, 164 )
+current = true
+process_mode = 0
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
+
+[node name="CameraTween" type="Tween" parent="World"]
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource( 4 )
 
 [connection signal="base_turret_shoot" from="World/SpaceStation" to="World" method="_on_SpaceStation_base_turret_shoot"]
+[connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
+[connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
 [connection signal="player_shoot" from="World/Player" to="World" method="_on_Player_player_shoot"]
