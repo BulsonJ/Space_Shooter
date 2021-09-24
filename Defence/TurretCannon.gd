@@ -21,7 +21,11 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if _target == null:
-		_target = get_closest_target()
+		var targets = get_sorted_targets()
+		if targets.size() > 0:
+			_target = get_sorted_targets().front()
+		if $TargetRefreshTimer.is_stopped():
+			$TargetRefreshTimer.start(1)
 	else:
 		if turret_direct_sight.is_colliding():
 			if turret_direct_sight.get_collider() is Enemy:
@@ -30,10 +34,8 @@ func _physics_process(delta: float) -> void:
 					emit_signal("turret_shoot", bullet, $Turret/Muzzle.global_position, Vector2.RIGHT.rotated(turret.global_rotation), 400.0)
 					$ShootTimer.start(1.0)
 					weapon_ready = false
-		
-		if $TargetRefreshTimer.is_stopped():
-			$TargetRefreshTimer.start(2)
-			_target = get_closest_target()
+					
+				# TODO: If gun can't shoot, choose next closest target
 		
 		turret.look_at(_target.position)
 		turret.rotation = clamp(turret.rotation, default_rotation - PI / 4, default_rotation + PI / 4)
@@ -41,20 +43,7 @@ func _physics_process(delta: float) -> void:
 func _on_Turret_Vision_body_exited(body: Enemy) -> void:
 	if _target == body:
 		_target = null
-
-func get_closest_target() -> Enemy:
-	var possibleTargets = $Turret_Vision.get_overlapping_bodies()
-	var closestTarget : Enemy = null
-	if possibleTargets.size() > 0:
-		closestTarget = possibleTargets.front()
-		var closestDistance : float = closestTarget.position.distance_to(position)
-		for target in possibleTargets:
-			# BUG : Not choosing closest, choosing left to right. Maybe global positioning?
-			var targetDistance = target.position.distance_to(position)
-			if closestDistance > targetDistance:
-				closestTarget = target
-	return closestTarget
-
+	
 func _on_Timer_timeout() -> void:
 	weapon_ready = true
 	
@@ -66,4 +55,20 @@ func _set_health(value) -> void:
 	if (health == 0):
 		queue_free()
 		emit_signal("turret_destroyed")
-
+		
+# Custom sort function used to sort targets into distance to turret
+func _sort_target(a : Enemy,b: Enemy) -> bool:
+	if a != null and b != null:
+		return a.global_position.distance_to(global_position) < b.global_position.distance_to(global_position)
+	else:
+		return false
+		
+func _on_TargetRefreshTimer_timeout() -> void:
+	var targets = get_sorted_targets()
+	if targets.size() > 0:
+		_target = get_sorted_targets().front()
+	
+func get_sorted_targets() -> Enemy:
+	var possibleTargets = $Turret_Vision.get_overlapping_bodies()
+	possibleTargets.sort_custom(self, "_sort_target")
+	return possibleTargets

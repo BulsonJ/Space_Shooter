@@ -23,7 +23,7 @@ func _on_Bullet_body_entered(body: Node) -> void:
 	delete_bullet()
 	
 	if body.has_method("take_damage"):
-			body.take_damage(weapon_damage)
+		body.take_damage(weapon_damage)
 
 func delete_bullet() -> void:
 	# Stop particle, delete bullet once particle lifetime is up
