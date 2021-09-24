@@ -45,6 +45,9 @@ rotation = -1.5708
 
 [node name="Tween" type="Tween" parent="Docking"]
 
+[node name="ReleaseTimer" type="Timer" parent="Docking"]
+one_shot = true
+
 [connection signal="turret_destroyed" from="Defences/Turret" to="." method="_on_EnemyTurret_turret_destroyed"]
 [connection signal="turret_shoot" from="Defences/Turret" to="." method="_on_EnemyTurret_turret_shoot"]
 [connection signal="turret_destroyed" from="Defences/Turret2" to="." method="_on_EnemyTurret_turret_destroyed"]
@@ -52,5 +55,5 @@ rotation = -1.5708
 [connection signal="turret_destroyed" from="Defences/Turret4" to="." method="_on_EnemyTurret_turret_destroyed"]
 [connection signal="turret_shoot" from="Defences/Turret4" to="." method="_on_EnemyTurret_turret_shoot"]
 [connection signal="body_entered" from="Docking/DockingArea2D" to="." method="_on_DockingArea2D_body_entered"]
-[connection signal="body_exited" from="Docking/DockingArea2D" to="." method="_on_DockingArea2D_body_exited"]
 [connection signal="tween_all_completed" from="Docking/Tween" to="." method="_on_Tween_tween_all_completed"]
+[connection signal="timeout" from="Docking/ReleaseTimer" to="." method="_on_ReleaseTimer_timeout"]

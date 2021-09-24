@@ -15,50 +15,37 @@ onready var weapon_slot := $WeaponSlot
 onready var laser = preload("res://Weapons/LaserBeam/LaserBeam.tscn")
 onready var cannon = preload("res://Weapons/Cannon/Cannon.tscn")
 
-enum states{
-	FLYING
-	DOCKED
-}
-
-onready var currentState = states.FLYING
-
 signal player_shoot(bullet, location, direction, velocity)
 
 var max_fuel := 100.0
 onready var fuel := max_fuel
 
 func _input(event: InputEvent) -> void:
-	if currentState == states.FLYING:
-		if event.is_action_pressed("shoot"):
-			weapon_slot.fire()
-		if event.is_action_released("shoot"):
-			weapon_slot.stop_firing()
-		if event.is_action_pressed("weapon_1"):
-			weapon_slot.change_weapon(cannon)
-		if event.is_action_pressed("weapon_2"):
-			weapon_slot.change_weapon(laser)
+	if event.is_action_pressed("shoot"):
+		weapon_slot.fire()
+	if event.is_action_released("shoot"):
+		weapon_slot.stop_firing()
+	if event.is_action_pressed("weapon_1"):
+		weapon_slot.change_weapon(cannon)
+	if event.is_action_pressed("weapon_2"):
+		weapon_slot.change_weapon(laser)
 
 func _physics_process(delta: float) -> void:
 	var thrust := Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
 	var _direction := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	if currentState == states.FLYING:
-		ship.rotation += _direction / turning_drag
-		
-		if thrust < 0:
-			_velocity += thrust * backwards_acceleration * Vector2.RIGHT.rotated(ship.rotation)
-		else:
-			_velocity += thrust * acceleration * Vector2.RIGHT.rotated(ship.rotation)
-		if thrust == 0:
-			_velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * slowdown_drag)
-		
-		_velocity = _velocity.clamped(max_speed)
-		_velocity = move_and_slide(_velocity)	
-		
-		weapon_slot.rotation = get_global_mouse_position().angle_to_point(position)
-	elif currentState == states.DOCKED:
-		# TODO: Better way to stop gun shooting when docking
-		weapon_slot.stop_firing()
-		pass
+	ship.rotation += _direction / turning_drag
+	
+	if thrust < 0:
+		_velocity += thrust * backwards_acceleration * Vector2.RIGHT.rotated(ship.rotation)
+	else:
+		_velocity += thrust * acceleration * Vector2.RIGHT.rotated(ship.rotation)
+	if thrust == 0:
+		_velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * slowdown_drag)
+	
+	_velocity = _velocity.clamped(max_speed)
+	_velocity = move_and_slide(_velocity)	
+	
+	weapon_slot.rotation = get_global_mouse_position().angle_to_point(position)
 
 func _on_WeaponSlot_weapon_shoot(bullet, location, direction, velocity) -> void:
 	emit_signal("player_shoot", bullet, location,direction, velocity)
