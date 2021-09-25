@@ -1,11 +1,17 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Defence/SpaceStation.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Environment/Star_1.png" type="Texture" id=3]
 [ext_resource path="res://Environment/Backgrounds/Background.png" type="Texture" id=4]
+[ext_resource path="res://HUD/HealthBar_Empty.png" type="Texture" id=5]
 [ext_resource path="res://Enemies/Enemy_1.tscn" type="PackedScene" id=6]
+[ext_resource path="res://HUD/HealthBar_Fulll.png" type="Texture" id=7]
+[ext_resource path="res://HUD/FuelBar.gd" type="Script" id=8]
 [ext_resource path="res://World.gd" type="Script" id=9]
+[ext_resource path="res://HUD/FuelBar_Full.png" type="Texture" id=10]
+[ext_resource path="res://HUD/FuelBar_Empty.png" type="Texture" id=11]
+[ext_resource path="res://HUD/HealthBar.gd" type="Script" id=12]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.24, 0.5 ), 0.0, 0.0, 0, 0, Vector2( 0.510638, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.75, 0.509091 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
@@ -105,15 +111,44 @@ drag_margin_left = 0.1
 drag_margin_top = 0.1
 drag_margin_right = 0.1
 drag_margin_bottom = 0.1
+editor_draw_screen = false
 
 [node name="CameraTween" type="Tween" parent="World"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource( 4 )
 
-[node name="UI" type="Control" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+scale = Vector2( 2, 2 )
+transform = Transform2D( 2, 0, 0, 2, 0, 0 )
+
+[node name="UI" type="Control" parent="CanvasLayer"]
 margin_right = 40.0
 margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FuelBar" type="TextureProgress" parent="CanvasLayer/UI"]
+margin_top = 206.0
+margin_right = 128.0
+margin_bottom = 270.0
+step = 0.5
+texture_under = ExtResource( 11 )
+texture_progress = ExtResource( 10 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" type="TextureProgress" parent="CanvasLayer/UI"]
+margin_top = 238.0
+margin_right = 128.0
+margin_bottom = 270.0
+step = 0.1
+texture_under = ExtResource( 5 )
+texture_progress = ExtResource( 7 )
+script = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -121,4 +156,6 @@ __meta__ = {
 [connection signal="base_turret_shoot" from="World/SpaceStation" to="World" method="_on_SpaceStation_base_turret_shoot"]
 [connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
 [connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
+[connection signal="fuel_amount_changed" from="World/Player" to="CanvasLayer/UI/FuelBar" method="_on_Player_fuel_amount_changed"]
+[connection signal="health_amount_changed" from="World/Player" to="CanvasLayer/UI/HealthBar" method="_on_Player_health_amount_changed"]
 [connection signal="player_shoot" from="World/Player" to="World" method="_on_Player_player_shoot"]

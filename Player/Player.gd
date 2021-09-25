@@ -17,9 +17,13 @@ onready var laser = preload("res://Weapons/LaserBeam/LaserBeam.tscn")
 onready var cannon = preload("res://Weapons/Cannon/Cannon.tscn")
 
 signal player_shoot(bullet, location, direction, velocity)
+signal fuel_amount_changed(current_fuel)
+signal health_amount_changed(current_health)
 
+var max_health := 100.0
+onready var health := max_health setget _set_health
 var max_fuel := 100.0
-onready var fuel := max_fuel
+onready var fuel := max_fuel setget _set_fuel_amount
 
 var last_thrust := 0.0
 
@@ -47,8 +51,8 @@ func _physics_process(delta: float) -> void:
 	elif thrust > 0:
 		_velocity += thrust * acceleration * Vector2.RIGHT.rotated(ship.rotation)
 		animation_player.play("engine_thrust")
+	use_fuel(abs(thrust / 10.0))
 
-		
 	last_thrust = thrust
 	
 	_velocity = _velocity.clamped(max_speed)
@@ -64,8 +68,20 @@ func use_fuel(amount) -> void:
 
 func _set_fuel_amount(value) -> void:
 	fuel = clamp(value, 0, max_fuel)
+	emit_signal("fuel_amount_changed", fuel)
 	if (fuel == 0):
-		queue_free()
+		# TODO: Implement fuel empty mechanic
+		pass
+		
+func remove_health(amount) -> void:
+	_set_health(health - amount)
+
+func _set_health(value) -> void:
+	health = clamp(value, 0, max_health)
+	emit_signal("health_amount_changed", health)
+	if (health == 0):
+		# TODO: Implement health mechanic
+		pass
 		
 func stop_ship() -> void:
 	animation_player.play("engine_thrust_stop")
