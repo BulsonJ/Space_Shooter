@@ -11,6 +11,7 @@ var _velocity := Vector2.ZERO
 
 onready var ship := $Ship
 onready var weapon_slot := $WeaponSlot
+onready var animation_player := $AnimationPlayer
 
 onready var laser = preload("res://Weapons/LaserBeam/LaserBeam.tscn")
 onready var cannon = preload("res://Weapons/Cannon/Cannon.tscn")
@@ -19,6 +20,8 @@ signal player_shoot(bullet, location, direction, velocity)
 
 var max_fuel := 100.0
 onready var fuel := max_fuel
+
+var last_thrust := 0.0
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
@@ -35,16 +38,18 @@ func _physics_process(delta: float) -> void:
 	var _direction := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	ship.rotation += _direction / turning_drag
 	
-	if thrust < 0:
-		_velocity += thrust * backwards_acceleration * Vector2.RIGHT.rotated(ship.rotation)
-	else:
-		_velocity += thrust * acceleration * Vector2.RIGHT.rotated(ship.rotation)
-		$Ship/Engine.visible = true
-		$Ship/Engine.play()
+	# Calculate movement for ship and play animation
 	if thrust == 0:
+		animation_player.play("engine_thrust_stop")
 		_velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * slowdown_drag)
-		$Ship/Engine.stop()
-		$Ship/Engine.visible = false
+	elif thrust < 0:
+		_velocity += thrust * backwards_acceleration * Vector2.RIGHT.rotated(ship.rotation)
+	elif thrust > 0:
+		_velocity += thrust * acceleration * Vector2.RIGHT.rotated(ship.rotation)
+		animation_player.play("engine_thrust")
+
+		
+	last_thrust = thrust
 	
 	_velocity = _velocity.clamped(max_speed)
 	_velocity = move_and_slide(_velocity)	
@@ -63,6 +68,5 @@ func _set_fuel_amount(value) -> void:
 		queue_free()
 		
 func stop_ship() -> void:
-	$Ship/Engine.stop()
-	$Ship/Engine.visible = false
+	animation_player.play("engine_thrust_stop")
 	weapon_slot.stop_firing()

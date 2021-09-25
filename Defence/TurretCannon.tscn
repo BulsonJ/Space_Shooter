@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Enemies/Turret_1.png" type="Texture" id=1]
 [ext_resource path="res://Defence/TurretCannon.gd" type="Script" id=2]
 [ext_resource path="res://Enemies/laserLarge_003.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Defence/TurretCannon.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -37,7 +38,9 @@ cast_to = Vector2( 300, 0 )
 collision_mask = 11
 
 [node name="Base" type="Sprite" parent="."]
-texture = ExtResource( 1 )
+texture = ExtResource( 4 )
+centered = false
+offset = Vector2( -32, -32 )
 vframes = 2
 frame = 1
 

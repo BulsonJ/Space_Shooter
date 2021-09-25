@@ -19,7 +19,7 @@ func _on_SpaceStation_player_docked() -> void:
 	$Camera2D.drag_margin_h_enabled = false
 	$Camera2D.drag_margin_v_enabled = false
 	$CameraTween.interpolate_property($Camera2D, "position", $Camera2D.global_position, $SpaceStation.global_position, $SpaceStation.docking_time)
-	$CameraTween.interpolate_property($Camera2D, "zoom", $Camera2D.zoom, Vector2(2.0,2.0), 2.0)
+	$CameraTween.interpolate_property($Camera2D, "zoom", $Camera2D.zoom, Vector2(2.0,2.0), $SpaceStation.docking_time)
 	$CameraTween.start()
 
 func _on_SpaceStation_player_undocked() -> void:
@@ -27,5 +27,5 @@ func _on_SpaceStation_player_undocked() -> void:
 	$Camera2D.drag_margin_h_enabled = true
 	$Camera2D.drag_margin_v_enabled = true
 	$CameraTween.interpolate_property($Camera2D, "position", $Camera2D.global_position, $Player/RemoteTransform2D.global_position, $SpaceStation.undocking_time)
-	$CameraTween.interpolate_property($Camera2D, "zoom", $Camera2D.zoom, Vector2(1.0,1.0), $SpaceStation.undocking_time)
+	$CameraTween.interpolate_property($Camera2D, "zoom", $Camera2D.zoom, Vector2(1.0, 1.0), $SpaceStation.undocking_time)
 	$CameraTween.start()
