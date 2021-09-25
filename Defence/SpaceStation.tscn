@@ -25,6 +25,8 @@ rotation = -1.5708
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+centered = false
+offset = Vector2( -128, -128 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 112, -16, 112, 16, 16, 112, -16, 112, -85, 43, -85, -43, -16, -112, 16, -112 )

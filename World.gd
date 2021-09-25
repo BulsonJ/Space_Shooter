@@ -3,14 +3,14 @@ extends Node2D
 func _on_Player_player_shoot(bullet, location, direction, velocity) -> void:
 	var b = bullet.instance()
 	add_child(b)
-	b.rotation = direction.angle()
+	b.sprite.rotation = direction.angle()
 	b.position = location
 	b.apply_central_impulse(direction * velocity)
 
 func _on_SpaceStation_base_turret_shoot(bullet, location, direction, velocity) -> void:
 	var b = bullet.instance()
 	add_child(b)
-	b.rotation = direction.angle()
+	b.sprite.rotation = direction.angle()
 	b.position = location
 	b.apply_central_impulse(direction * velocity)
 
@@ -19,7 +19,7 @@ func _on_SpaceStation_player_docked() -> void:
 	$Camera2D.drag_margin_h_enabled = false
 	$Camera2D.drag_margin_v_enabled = false
 	$CameraTween.interpolate_property($Camera2D, "position", $Camera2D.global_position, $SpaceStation.global_position, $SpaceStation.docking_time)
-	$CameraTween.interpolate_property($Camera2D, "zoom", $Camera2D.zoom, Vector2(1.5,1.5), 2.0)
+	$CameraTween.interpolate_property($Camera2D, "zoom", $Camera2D.zoom, Vector2(2.0,2.0), 2.0)
 	$CameraTween.start()
 
 func _on_SpaceStation_player_undocked() -> void:

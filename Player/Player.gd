@@ -39,8 +39,12 @@ func _physics_process(delta: float) -> void:
 		_velocity += thrust * backwards_acceleration * Vector2.RIGHT.rotated(ship.rotation)
 	else:
 		_velocity += thrust * acceleration * Vector2.RIGHT.rotated(ship.rotation)
+		$Ship/Engine.visible = true
+		$Ship/Engine.play()
 	if thrust == 0:
 		_velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * slowdown_drag)
+		$Ship/Engine.stop()
+		$Ship/Engine.visible = false
 	
 	_velocity = _velocity.clamped(max_speed)
 	_velocity = move_and_slide(_velocity)	
@@ -57,3 +61,8 @@ func _set_fuel_amount(value) -> void:
 	fuel = clamp(value, 0, max_fuel)
 	if (fuel == 0):
 		queue_free()
+		
+func stop_ship() -> void:
+	$Ship/Engine.stop()
+	$Ship/Engine.visible = false
+	weapon_slot.stop_firing()

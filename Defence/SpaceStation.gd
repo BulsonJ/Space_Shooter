@@ -44,7 +44,7 @@ func _on_DockingArea2D_body_entered(body: Player) -> void:
 	_target = body
 	_target.set_physics_process(false)
 	_target.set_process_input(false)
-	_target.weapon_slot.stop_firing()
+	_target.stop_ship()
 	docking_finished = false
 	
 	# Position ship in dock and rotate it and weapon

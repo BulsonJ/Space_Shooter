@@ -38,11 +38,9 @@ config/icon="res://icon.png"
 
 [display]
 
-window/size/width=960
-window/size/height=540
-mouse_cursor/custom_image="res://HUD/Crosshair.png"
-mouse_cursor/custom_image_hotspot=Vector2( 32, 32 )
-window/stretch/mode="2d"
+window/size/width=640
+window/size/height=360
+window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [editor_plugins]

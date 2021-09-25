@@ -109,6 +109,13 @@ drag_margin_bottom = 0.1
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource( 4 )
 
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="base_turret_shoot" from="World/SpaceStation" to="World" method="_on_SpaceStation_base_turret_shoot"]
 [connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
 [connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
