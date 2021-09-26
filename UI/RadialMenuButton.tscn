@@ -5,7 +5,7 @@
 [ext_resource path="res://UI/RadialButton.png" type="Texture" id=3]
 [ext_resource path="res://UI/Button_Sell.png" type="Texture" id=4]
 
-[node name="RadialMenuButton" type="TextureButton"]
+[node name="TurretMenuButton" type="TextureButton"]
 margin_right = 40.0
 margin_bottom = 40.0
 texture_normal = ExtResource( 3 )

@@ -2,11 +2,11 @@ extends TextureButton
 
 export var radius = 60
 export var speed = 0.25
+export var turret_pos = 0
 
 var num
 var active = false
 var clicks:= 1
-
 
 func _ready():
 	$Buttons.hide()

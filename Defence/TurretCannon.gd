@@ -1,3 +1,4 @@
+class_name Turret
 extends Node2D
 
 export(float) var max_health = 5.0
