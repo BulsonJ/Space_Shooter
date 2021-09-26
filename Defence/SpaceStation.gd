@@ -7,8 +7,8 @@ var undocking_time := 0.5
 
 onready var turret_amount := $Defences.get_child_count()
 
-signal player_docked()
-signal player_undocked()
+signal player_docked(animation_time)
+signal player_undocked(animation_time)
 signal base_turret_shoot(bullet, location, direction, velocity)
 signal base_destroyed()
 
@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 	if docking_finished == true and input != 0:
 		if $Docking/ReleaseTimer.is_stopped():
 			$Docking/ReleaseTimer.start(undocking_time)
-			emit_signal("player_undocked")
+			emit_signal("player_undocked", undocking_time)
 			
 	if docking_finished == true:
 		_target.use_fuel(-0.1)
@@ -56,7 +56,7 @@ func _on_DockingArea2D_body_entered(body: Player) -> void:
 	$Docking/Tween.interpolate_property(_target.weapon_slot, "rotation", _target.weapon_slot.rotation, $Docking/DockingPosition.rotation, docking_time)
 	$Docking/Tween.start()
 	
-	emit_signal("player_docked")
+	emit_signal("player_docked", docking_time)
 
 func _on_Tween_tween_all_completed() -> void:
 	docking_finished = true

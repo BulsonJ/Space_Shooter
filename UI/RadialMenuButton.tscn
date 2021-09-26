@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/Button_Buy.png" type="Texture" id=1]
+[ext_resource path="res://UI/RadialMenuButton.gd" type="Script" id=2]
+[ext_resource path="res://UI/RadialButton.png" type="Texture" id=3]
+[ext_resource path="res://UI/Button_Sell.png" type="Texture" id=4]
+
+[node name="RadialMenuButton" type="TextureButton"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture_normal = ExtResource( 3 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="TurretButton" type="TextureButton" parent="Buttons"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture_normal = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TurretButton2" type="TextureButton" parent="Buttons"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture_normal = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="pressed" from="." to="." method="_on_RadialMenuButton_pressed"]
+[connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]

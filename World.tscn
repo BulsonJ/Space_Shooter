@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Defence/SpaceStation.tscn" type="PackedScene" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://HUD/FuelBar_Full.png" type="Texture" id=10]
 [ext_resource path="res://HUD/FuelBar_Empty.png" type="Texture" id=11]
 [ext_resource path="res://HUD/HealthBar.gd" type="Script" id=12]
+[ext_resource path="res://UI/RadialMenuButton.tscn" type="PackedScene" id=13]
+[ext_resource path="res://UI/SpaceStation_UI.gd" type="Script" id=14]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.24, 0.5 ), 0.0, 0.0, 0, 0, Vector2( 0.510638, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.75, 0.509091 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
@@ -122,14 +124,15 @@ environment = SubResource( 4 )
 scale = Vector2( 2, 2 )
 transform = Transform2D( 2, 0, 0, 2, 0, 0 )
 
-[node name="UI" type="Control" parent="CanvasLayer"]
+[node name="HUD" type="Control" parent="CanvasLayer"]
 margin_right = 40.0
 margin_bottom = 40.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FuelBar" type="TextureProgress" parent="CanvasLayer/UI"]
+[node name="FuelBar" type="TextureProgress" parent="CanvasLayer/HUD"]
 margin_top = 206.0
 margin_right = 128.0
 margin_bottom = 270.0
@@ -142,7 +145,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HealthBar" type="TextureProgress" parent="CanvasLayer/UI"]
+[node name="HealthBar" type="TextureProgress" parent="CanvasLayer/HUD"]
 margin_top = 238.0
 margin_right = 128.0
 margin_bottom = 270.0
@@ -155,9 +158,55 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="SpaceStation_UI" type="Control" parent="."]
+visible = false
+margin_left = 448.0
+margin_top = 120.0
+margin_right = 448.0
+margin_bottom = 120.0
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="SpaceStation_UI"]
+margin_left = 112.0
+margin_top = 118.0
+margin_right = 152.0
+margin_bottom = 158.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RadialMenuButton2" parent="SpaceStation_UI/Control" instance=ExtResource( 13 )]
+margin_right = 64.0
+margin_bottom = 64.0
+
+[node name="Control2" type="Control" parent="SpaceStation_UI"]
+margin_left = 1.0
+margin_top = 231.0
+margin_right = 41.0
+margin_bottom = 271.0
+
+[node name="RadialMenuButton3" parent="SpaceStation_UI/Control2" instance=ExtResource( 13 )]
+margin_right = 64.0
+margin_bottom = 64.0
+
+[node name="Control3" type="Control" parent="SpaceStation_UI"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="RadialMenuButton" parent="SpaceStation_UI/Control3" instance=ExtResource( 13 )]
+margin_right = 64.0
+margin_bottom = 64.0
+
+[node name="Tween" type="Tween" parent="SpaceStation_UI"]
+
 [connection signal="base_turret_shoot" from="World/SpaceStation" to="World" method="_on_SpaceStation_base_turret_shoot"]
+[connection signal="player_docked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_docked"]
 [connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
+[connection signal="player_undocked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_undocked"]
 [connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
-[connection signal="fuel_amount_changed" from="World/Player" to="CanvasLayer/UI/FuelBar" method="_on_Player_fuel_amount_changed"]
-[connection signal="health_amount_changed" from="World/Player" to="CanvasLayer/UI/HealthBar" method="_on_Player_health_amount_changed"]
+[connection signal="fuel_amount_changed" from="World/Player" to="CanvasLayer/HUD/FuelBar" method="_on_Player_fuel_amount_changed"]
+[connection signal="health_amount_changed" from="World/Player" to="CanvasLayer/HUD/HealthBar" method="_on_Player_health_amount_changed"]
 [connection signal="player_shoot" from="World/Player" to="World" method="_on_Player_player_shoot"]
