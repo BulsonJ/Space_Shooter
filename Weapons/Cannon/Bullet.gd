@@ -28,6 +28,7 @@ func _on_Bullet_body_entered(body: Node) -> void:
 func delete_bullet() -> void:
 	# Stop particle, delete bullet once particle lifetime is up
 	particle_trail.emitting = false
+	$Line2D.visible = false
 	var time = (particle_trail.lifetime * 2) / particle_trail.speed_scale
 	get_tree().create_timer(time).connect("timeout", self, "queue_free")
 	

@@ -44,15 +44,18 @@ func _physics_process(delta: float) -> void:
 	
 	# Calculate movement for ship and play animation
 	if thrust == 0:
-		animation_player.play("engine_thrust_stop")
+		if last_thrust != thrust:
+			animation_player.play("engine_thrust_stop")
 		_velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * slowdown_drag)
 	elif thrust < 0:
 		_velocity += thrust * backwards_acceleration * Vector2.RIGHT.rotated(ship.rotation)
 	elif thrust > 0:
 		_velocity += thrust * acceleration * Vector2.RIGHT.rotated(ship.rotation)
 		animation_player.play("engine_thrust")
+		#if !$EngineFX.playing:
+			#$EngineFX.play()
+		
 	use_fuel(abs(thrust / 10.0))
-
 	last_thrust = thrust
 	
 	_velocity = _velocity.clamped(max_speed)

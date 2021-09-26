@@ -23,6 +23,9 @@ func _physics_process(delta: float) -> void:
 		if $Docking/ReleaseTimer.is_stopped():
 			$Docking/ReleaseTimer.start(undocking_time)
 			emit_signal("player_undocked")
+			
+	if docking_finished == true:
+		_target.use_fuel(-0.1)
 
 func _on_EnemyTurret_turret_shoot(bullet, location, direction, velocity) -> void:
 	emit_signal("base_turret_shoot", bullet, location,direction, velocity)
