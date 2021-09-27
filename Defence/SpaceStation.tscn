@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Defence/SpaceStation_Normal.png" type="Texture" id=1]
-[ext_resource path="res://Defence/TurretCannon.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Defence/TurretManager.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Defence/SpaceStation.gd" type="Script" id=3]
-[ext_resource path="res://Defence/TurretManager.gd" type="Script" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 15.0
@@ -11,20 +10,7 @@ radius = 15.0
 [node name="SpaceStation" type="StaticBody2D"]
 script = ExtResource( 3 )
 
-[node name="TurretManager" type="Node2D" parent="."]
-script = ExtResource( 4 )
-turretPoints = PoolVector3Array( 111, 0, 0, 0, 111, 90, 0, -111, -90 )
-
-[node name="Turret" parent="TurretManager" instance=ExtResource( 2 )]
-position = Vector2( 111, 0 )
-
-[node name="Turret2" parent="TurretManager" instance=ExtResource( 2 )]
-position = Vector2( 0, 111 )
-rotation = 1.5708
-
-[node name="Turret4" parent="TurretManager" instance=ExtResource( 2 )]
-position = Vector2( 0, -111 )
-rotation = -1.5708
+[node name="TurretManager" parent="." instance=ExtResource( 2 )]
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -56,3 +42,5 @@ one_shot = true
 [connection signal="body_entered" from="Docking/DockingArea2D" to="." method="_on_DockingArea2D_body_entered"]
 [connection signal="tween_all_completed" from="Docking/Tween" to="." method="_on_Tween_tween_all_completed"]
 [connection signal="timeout" from="Docking/ReleaseTimer" to="." method="_on_ReleaseTimer_timeout"]
+
+[editable path="TurretManager"]

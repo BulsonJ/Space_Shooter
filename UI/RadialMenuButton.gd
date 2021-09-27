@@ -4,6 +4,10 @@ export var radius = 60
 export var speed = 0.25
 export var turret_pos = 0
 
+export(NodePath) var space_station_path
+onready var space_station = get_node(space_station_path)
+onready var turret_manager = space_station.get_node("TurretManager")
+
 var num
 var active = false
 var clicks:= 1
@@ -49,3 +53,12 @@ func _on_Tween_tween_all_completed():
 	active = not active
 	if not active:
 		$Buttons.hide()
+
+
+func _on_TurretButton_Sell_pressed():
+	turret_manager.delete_turret(turret_pos)
+
+
+func _on_TurretButton_Buy_pressed():
+	if turret_manager.get_turret(turret_pos) == null:
+		turret_manager.place_turret(turret_pos)

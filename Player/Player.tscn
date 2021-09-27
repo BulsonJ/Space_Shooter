@@ -11,7 +11,7 @@
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=8]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.912568 )
 colors = PoolColorArray( 0.647059, 0.188235, 0.188235, 0, 0.811765, 0.341176, 0.235294, 1 )
 
@@ -21,7 +21,7 @@ radius = 14.0357
 [sub_resource type="CircleShape2D" id=4]
 radius = 13.0
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 length = 0.5
 loop = true
 tracks/0/type = "value"
@@ -139,7 +139,7 @@ position = Vector2( -9, -14 )
 [node name="Line2D" type="Line2D" parent="Ship/Trail"]
 width = 4.0
 width_curve = SubResource( 1 )
-gradient = SubResource( 8 )
+gradient = SubResource( 2 )
 end_cap_mode = 2
 script = ExtResource( 5 )
 
@@ -149,7 +149,7 @@ position = Vector2( -9, 14 )
 [node name="Line2D" type="Line2D" parent="Ship/Trail2"]
 width = 4.0
 width_curve = SubResource( 1 )
-gradient = SubResource( 8 )
+gradient = SubResource( 2 )
 end_cap_mode = 2
 script = ExtResource( 5 )
 
@@ -183,7 +183,7 @@ collision_mask = 0
 shape = SubResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/engine_thrust = SubResource( 7 )
+anims/engine_thrust = SubResource( 5 )
 anims/engine_thrust_stop = SubResource( 6 )
 
 [node name="Tween" type="Tween" parent="."]

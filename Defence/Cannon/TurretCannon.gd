@@ -1,6 +1,7 @@
 class_name Turret
 extends Node2D
 
+export(float) var rate_of_fire = 3.0
 export(float) var max_health = 5.0
 onready var health = max_health
 
@@ -8,7 +9,7 @@ var _target : Enemy = null
 
 onready var turret := $Turret
 onready var default_rotation = turret.rotation
-export(PackedScene) var bullet = preload("res://Defence/AlliedBullet.tscn")
+export(PackedScene) var bullet = preload("res://Defence/Cannon/AlliedBullet.tscn")
 var weapon_ready = true
 
 onready var turret_direct_sight = $Turret/RayCast2D
@@ -33,7 +34,7 @@ func _physics_process(delta: float) -> void:
 				if weapon_ready:
 					$ShootFX.play()
 					emit_signal("turret_shoot", bullet, $Turret/Muzzle.global_position, Vector2.RIGHT.rotated(turret.global_rotation), 400.0)
-					$ShootTimer.start(1.0)
+					$ShootTimer.start(rate_of_fire)
 					weapon_ready = false
 					
 				# TODO: If gun can't shoot, choose next closest target

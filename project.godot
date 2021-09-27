@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Turret",
 "language": "GDScript",
-"path": "res://Defence/TurretCannon.gd"
+"path": "res://Defence/Cannon/TurretCannon.gd"
 }, {
 "base": "Node2D",
 "class": "WeaponSlot",
@@ -53,7 +53,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/Todo_Manager/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [global]
 

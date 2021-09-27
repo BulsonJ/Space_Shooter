@@ -168,6 +168,7 @@ script = ExtResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+space_station_path = NodePath("../World/SpaceStation")
 
 [node name="Control" type="Control" parent="SpaceStation_UI"]
 margin_left = 112.0
@@ -181,6 +182,7 @@ __meta__ = {
 [node name="TurretMenuButton2" parent="SpaceStation_UI/Control" instance=ExtResource( 13 )]
 margin_right = 64.0
 margin_bottom = 64.0
+space_station_path = NodePath("../../../World/SpaceStation")
 
 [node name="Control2" type="Control" parent="SpaceStation_UI"]
 margin_left = 1.0
@@ -192,6 +194,7 @@ margin_bottom = 271.0
 margin_right = 64.0
 margin_bottom = 64.0
 turret_pos = 1
+space_station_path = NodePath("../../../World/SpaceStation")
 
 [node name="Control3" type="Control" parent="SpaceStation_UI"]
 margin_right = 40.0
@@ -201,14 +204,15 @@ margin_bottom = 40.0
 margin_right = 64.0
 margin_bottom = 64.0
 turret_pos = 2
+space_station_path = NodePath("../../../World/SpaceStation")
 
 [node name="Tween" type="Tween" parent="SpaceStation_UI"]
 
 [connection signal="base_turret_shoot" from="World/SpaceStation" to="World" method="_on_SpaceStation_base_turret_shoot"]
-[connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
 [connection signal="player_docked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_docked"]
-[connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
+[connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
 [connection signal="player_undocked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_undocked"]
+[connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
 [connection signal="fuel_amount_changed" from="World/Player" to="CanvasLayer/HUD/FuelBar" method="_on_Player_fuel_amount_changed"]
 [connection signal="health_amount_changed" from="World/Player" to="CanvasLayer/HUD/HealthBar" method="_on_Player_health_amount_changed"]
 [connection signal="player_shoot" from="World/Player" to="World" method="_on_Player_player_shoot"]
