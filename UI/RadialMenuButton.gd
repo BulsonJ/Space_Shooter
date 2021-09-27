@@ -17,6 +17,7 @@ func _ready():
 	num = $Buttons.get_child_count()
 	for b in $Buttons.get_children():
 		b.rect_position = rect_position
+		b.connect("pressed", self, "hide_menu")
 
 func show_menu():
 	$Buttons.show()
@@ -57,7 +58,6 @@ func _on_Tween_tween_all_completed():
 
 func _on_TurretButton_Sell_pressed():
 	turret_manager.delete_turret(turret_pos)
-
 
 func _on_TurretButton_Buy_pressed():
 	if turret_manager.get_turret(turret_pos) == null:
