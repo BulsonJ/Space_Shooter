@@ -2,7 +2,6 @@
 # Godot-specific ignores
 .import/
 addons/
-GIFs/
 export.cfg
 export_presets.cfg
 

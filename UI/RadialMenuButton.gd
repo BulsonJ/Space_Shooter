@@ -2,7 +2,7 @@ extends TextureButton
 
 export var radius = 60
 export var speed = 0.25
-export var turret_pos = 0
+export var turret_index = 0
 
 export(NodePath) var space_station_path
 onready var space_station = get_node(space_station_path)
@@ -57,8 +57,12 @@ func _on_Tween_tween_all_completed():
 
 
 func _on_TurretButton_Sell_pressed():
-	turret_manager.delete_turret(turret_pos)
+	turret_manager.delete_turret(turret_index)
 
 func _on_TurretButton_Buy_pressed():
-	if turret_manager.get_turret(turret_pos) == null:
-		turret_manager.place_turret(turret_pos)
+	if turret_manager.get_turret(turret_index) == null:
+		turret_manager.place_turret(turret_index)
+
+
+func _on_TurretButton_Repair_pressed():
+	turret_manager.repair_turret(turret_index)

@@ -45,5 +45,11 @@ func delete_turret(turret_index : int) -> void:
 	placed_turrets[turret_index] = null
 	emit_signal("turret_removed", turret_index)
 	
+func repair_turret(turret_index : int) -> void:
+	if placed_turrets[turret_index] == null:
+		return 
+		
+	placed_turrets[turret_index].health = placed_turrets[turret_index].max_health
+	
 func get_turret(turret_index : int) -> Turret:
 	return placed_turrets[turret_index]

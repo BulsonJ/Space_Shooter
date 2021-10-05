@@ -1,14 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://UI/Button_Buy.png" type="Texture" id=1]
 [ext_resource path="res://UI/RadialMenuButton.gd" type="Script" id=2]
-[ext_resource path="res://UI/RadialButton.png" type="Texture" id=3]
+[ext_resource path="res://UI/RadialButton_Press.png" type="Texture" id=3]
 [ext_resource path="res://UI/Button_Sell.png" type="Texture" id=4]
+[ext_resource path="res://UI/Button_Repair.png" type="Texture" id=5]
+[ext_resource path="res://UI/RadialButton_Hover.png" type="Texture" id=6]
 
 [node name="TurretMenuButton" type="TextureButton"]
-margin_right = 40.0
-margin_bottom = 40.0
-texture_normal = ExtResource( 3 )
+margin_right = 64.0
+margin_bottom = 64.0
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 6 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -34,9 +37,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TurretButton_Repair" type="TextureButton" parent="Buttons"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture_normal = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Tween" type="Tween" parent="."]
 
 [connection signal="pressed" from="." to="." method="_on_RadialMenuButton_pressed"]
 [connection signal="pressed" from="Buttons/TurretButton_Buy" to="." method="_on_TurretButton_Buy_pressed"]
 [connection signal="pressed" from="Buttons/TurretButton_Sell" to="." method="_on_TurretButton_Sell_pressed"]
+[connection signal="pressed" from="Buttons/TurretButton_Repair" to="." method="_on_TurretButton_Repair_pressed"]
 [connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]

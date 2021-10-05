@@ -1,5 +1,5 @@
 class_name Turret
-extends Node2D
+extends StaticBody2D
 
 export(float) var rate_of_fire = 3.0
 export(float) var max_health = 5.0
