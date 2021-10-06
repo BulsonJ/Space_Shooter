@@ -155,7 +155,7 @@ script = ExtResource( 5 )
 
 [node name="Engine" type="Sprite" parent="Ship"]
 visible = false
-modulate = Color( 1.65, 1.65, 1.65, 1 )
+modulate = Color( 2, 2, 2, 1 )
 texture = ExtResource( 4 )
 centered = false
 offset = Vector2( -27, -32 )
