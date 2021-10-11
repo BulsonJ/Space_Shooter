@@ -5,14 +5,13 @@ extends Node2D
 # x,y position, z rotation
 export var turretPoints : PoolVector3Array
 var placed_turrets := [null, null, null]
-var number_of_turrets = 0
+var number_of_turrets := 0
 
 onready var turret_cannon = preload("res://Defence/Cannon/TurretCannon.tscn")
 
 signal turret_placed(turret_index)
 signal turret_removed(turret_index)
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for i in get_children():
 		var turret : Turret = i

@@ -9,17 +9,17 @@ onready var space_station = get_node(space_station_path)
 onready var turret_manager = space_station.get_node("TurretManager")
 
 var num
-var active = false
-var clicks:= 1
+var active := false
+var clicks := 1
 
-func _ready():
+func _ready() -> void:
 	$Buttons.hide()
 	num = $Buttons.get_child_count()
 	for b in $Buttons.get_children():
 		b.rect_position = rect_position
 		b.connect("pressed", self, "hide_menu")
 
-func show_menu():
+func show_menu() -> void:
 	$Buttons.show()
 	var spacing = TAU / num
 	for b in $Buttons.get_children():
@@ -32,7 +32,7 @@ func show_menu():
 	$Tween.start()
 
 
-func hide_menu():
+func hide_menu() -> void:
 	for b in $Buttons.get_children():
 		$Tween.interpolate_property(b, "rect_position", b.rect_position,
 				rect_position, speed, Tween.TRANS_BACK, Tween.EASE_IN)
@@ -41,7 +41,7 @@ func hide_menu():
 	$Tween.start()
 
 
-func _on_RadialMenuButton_pressed():
+func _on_RadialMenuButton_pressed() -> void:
 	clicks += 1
 	disabled = true
 	if active:
@@ -49,20 +49,18 @@ func _on_RadialMenuButton_pressed():
 	else:
 		show_menu()
 
-func _on_Tween_tween_all_completed():
+func _on_Tween_tween_all_completed() -> void:
 	disabled = false
 	active = not active
 	if not active:
 		$Buttons.hide()
 
-
-func _on_TurretButton_Sell_pressed():
+func _on_TurretButton_Sell_pressed() -> void:
 	turret_manager.delete_turret(turret_index)
 
-func _on_TurretButton_Buy_pressed():
+func _on_TurretButton_Buy_pressed() -> void:
 	if turret_manager.get_turret(turret_index) == null:
 		turret_manager.place_turret(turret_index)
 
-
-func _on_TurretButton_Repair_pressed():
+func _on_TurretButton_Repair_pressed() -> void:
 	turret_manager.repair_turret(turret_index)
