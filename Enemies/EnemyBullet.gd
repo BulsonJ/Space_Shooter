@@ -18,13 +18,12 @@ func _physics_process(delta: float) -> void:
 	if lifetime < 0:
 		delete_bullet()
 
-func _on_Bullet_body_entered(body: Enemy) -> void:
+func _on_Bullet_body_entered(body: Node) -> void:
 	
 	delete_bullet()
 	
-	if body:
-		if body.has_method("take_damage"):
-			body.take_damage(weapon_damage)
+	if body.has_method("take_damage"):
+		body.take_damage(weapon_damage)
 
 func delete_bullet() -> void:
 	# Stop particle, delete bullet once particle lifetime is up

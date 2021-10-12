@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player/Trail.gd" type="Script" id=1]
-[ext_resource path="res://Weapons/Cannon/Bullet.gd" type="Script" id=2]
+[ext_resource path="res://Enemies/EnemyBullet.gd" type="Script" id=2]
 [ext_resource path="res://Enemies/EnemyBullet.png" type="Texture" id=3]
 
 [sub_resource type="Gradient" id=1]
@@ -35,7 +35,7 @@ colors = PoolColorArray( 0.647059, 0.188235, 0.188235, 0, 0.799479, 0.533333, 1,
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 2, 1 )
 
-[node name="AlliedBullet" type="RigidBody2D"]
+[node name="EnemyBullet" type="RigidBody2D"]
 collision_layer = 32
 collision_mask = 22
 gravity_scale = 0.0

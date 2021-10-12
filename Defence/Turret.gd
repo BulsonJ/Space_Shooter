@@ -14,7 +14,6 @@ func take_damage(amount: float) -> void:
 func _set_health(value) -> void:
 	health = clamp(value, 0, max_health)
 	if (health == 0):
-		queue_free()
 		emit_signal("turret_destroyed")
 		
 # Custom sort function used to sort targets into distance to turret

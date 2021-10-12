@@ -6,7 +6,7 @@ onready var turret_manager = space_station.get_node("TurretManager")
 
 onready var turret_control_node = preload("res://UI/TurretControl.tscn")
 
-var placed_control_nodes := [null, null, null]
+var placed_control_nodes := [null, null, null, null]
 
 func _ready() -> void:
 	modulate = Color(1, 1, 1, 0)

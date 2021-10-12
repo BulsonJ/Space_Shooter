@@ -4,13 +4,14 @@
 [ext_resource path="res://Defence/TurretManager.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Defence/SpaceStation.gd" type="Script" id=3]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 15.0
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 15, 15 )
 
 [node name="SpaceStation" type="StaticBody2D"]
 script = ExtResource( 3 )
 
 [node name="TurretManager" parent="." instance=ExtResource( 2 )]
+turretPoints = PoolVector3Array( 111, 0, 0, 0, 111, 90, 0, -111, -90, -111, 0, 180 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -18,7 +19,7 @@ centered = false
 offset = Vector2( -128, -128 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 112, -16, 112, 16, 16, 112, -16, 112, -85, 43, -85, -43, -16, -112, 16, -112 )
+polygon = PoolVector2Array( 112, -16, 112, 16, 16, 112, -16, 112, -112, 17, -112, -17, -16, -112, 16, -112 )
 
 [node name="Docking" type="Node2D" parent="."]
 
@@ -27,11 +28,11 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Docking/DockingArea2D"]
-position = Vector2( -104, 1 )
+position = Vector2( -82, -77 )
 shape = SubResource( 1 )
 
 [node name="DockingPosition" type="Position2D" parent="Docking"]
-position = Vector2( -104, 4 )
+position = Vector2( -82, -73 )
 rotation = -1.5708
 
 [node name="Tween" type="Tween" parent="Docking"]

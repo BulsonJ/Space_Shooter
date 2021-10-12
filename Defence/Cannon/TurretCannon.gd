@@ -8,12 +8,13 @@ onready var default_rotation = turret.rotation
 var weapon_ready := true
 
 onready var turret_direct_sight = $Turret/RayCast2D
+onready var animation_player = $AnimationPlayer
 
 signal turret_shoot(bullet, location, direction, velocity)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	animation_player.play("build")
 
 func _physics_process(delta: float) -> void:
 	if _target == null:

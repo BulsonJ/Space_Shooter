@@ -4,7 +4,7 @@ extends Node2D
 
 # x,y position, z rotation
 export var turretPoints : PoolVector3Array
-var placed_turrets := [null, null, null]
+var placed_turrets := [null, null, null, null]
 var number_of_turrets := 0
 
 onready var turret_cannon = preload("res://Defence/Cannon/TurretCannon.tscn")
@@ -16,6 +16,7 @@ func _ready() -> void:
 	place_turret(0)
 	place_turret(1)
 	place_turret(2)
+	place_turret(3)
 
 func place_turret(turret_index : int) -> void:
 	if placed_turrets[turret_index] != null:
@@ -36,7 +37,7 @@ func delete_turret(turret_index : int) -> void:
 	if placed_turrets[turret_index] == null:
 		return 
 		
-	remove_child(placed_turrets[turret_index])
+	placed_turrets[turret_index].animation_player.play("sell")
 	placed_turrets[turret_index] = null
 	emit_signal("turret_removed", turret_index)
 	
