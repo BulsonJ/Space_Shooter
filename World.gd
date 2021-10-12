@@ -22,3 +22,9 @@ func _on_SpaceStation_player_undocked(undocking_time : float) -> void:
 	$CameraTween.interpolate_property($Camera2D, "position", $Camera2D.global_position, $Player/RemoteTransform2D.global_position, undocking_time)
 	#$CameraTween.interpolate_property($Camera2D, "zoom", $Camera2D.zoom, Vector2(1.0, 1.0), undocking_time)
 	$CameraTween.start()
+
+func _on_spawn_enemy(enemy, location) -> void:
+	var e = enemy.instance()
+	e.position = location
+	e.main_target = $SpaceStation
+	$Enemies.add_child(e)

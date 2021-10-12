@@ -29,7 +29,7 @@ colors = PoolColorArray( 0.647059, 0.188235, 0.188235, 0, 1, 0.820313, 0.820313,
 extents = Vector2( 5, 3 )
 
 [node name="Bullet" type="RigidBody2D"]
-collision_layer = 4
+collision_layer = 32
 collision_mask = 9
 gravity_scale = 0.0
 continuous_cd = 1

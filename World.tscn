@@ -5,13 +5,13 @@
 [ext_resource path="res://Environment/Star_1.png" type="Texture" id=3]
 [ext_resource path="res://Environment/Backgrounds/Background.png" type="Texture" id=4]
 [ext_resource path="res://HUD/HealthBar_Empty.png" type="Texture" id=5]
-[ext_resource path="res://Enemies/Enemy_1.tscn" type="PackedScene" id=6]
 [ext_resource path="res://HUD/HealthBar_Fulll.png" type="Texture" id=7]
 [ext_resource path="res://HUD/FuelBar.gd" type="Script" id=8]
 [ext_resource path="res://World.gd" type="Script" id=9]
 [ext_resource path="res://HUD/FuelBar_Full.png" type="Texture" id=10]
 [ext_resource path="res://HUD/FuelBar_Empty.png" type="Texture" id=11]
 [ext_resource path="res://HUD/HealthBar.gd" type="Script" id=12]
+[ext_resource path="res://Enemies/EnemySpawner.tscn" type="PackedScene" id=13]
 [ext_resource path="res://UI/SpaceStation_UI.gd" type="Script" id=14]
 
 [sub_resource type="Curve" id=1]
@@ -32,7 +32,10 @@ orbit_velocity_random = 0.0
 scale_random = 1.0
 scale_curve = SubResource( 2 )
 
-[sub_resource type="Environment" id=4]
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 640, 20 )
+
+[sub_resource type="Environment" id=5]
 background_mode = 4
 glow_enabled = true
 glow_levels/1 = true
@@ -42,9 +45,6 @@ glow_levels/5 = false
 glow_blend_mode = 0
 glow_hdr_threshold = 1.5
 glow_bicubic_upscale = true
-
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 640, 20 )
 
 [node name="GameInitialiser" type="Node"]
 
@@ -85,6 +85,8 @@ process_material = SubResource( 3 )
 texture = ExtResource( 3 )
 
 [node name="SpaceStation" parent="World" instance=ExtResource( 2 )]
+collision_layer = 16
+collision_mask = 26
 
 [node name="Player" parent="World" instance=ExtResource( 1 )]
 position = Vector2( -170, -1 )
@@ -94,19 +96,31 @@ remote_path = NodePath("../../Camera2D")
 
 [node name="Environment" type="Node" parent="World"]
 
+[node name="Boundary" type="StaticBody2D" parent="World/Environment"]
+collision_layer = 524288
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Environment/Boundary"]
+position = Vector2( 0, 480 )
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Environment/Boundary"]
+position = Vector2( 0, -480 )
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="World/Environment/Boundary"]
+position = Vector2( -480, 0 )
+rotation = 1.5708
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="World/Environment/Boundary"]
+position = Vector2( 480, 0 )
+rotation = 1.5708
+shape = SubResource( 4 )
+
+[node name="EnemySpawner" parent="World" instance=ExtResource( 13 )]
+
 [node name="Enemies" type="Node" parent="World"]
-
-[node name="Enemy_1" parent="World/Enemies" instance=ExtResource( 6 )]
-position = Vector2( 262, -33 )
-
-[node name="Enemy_3" parent="World/Enemies" instance=ExtResource( 6 )]
-position = Vector2( 20, -248 )
-
-[node name="Enemy_2" parent="World/Enemies" instance=ExtResource( 6 )]
-position = Vector2( 119, -225 )
-
-[node name="Enemy_4" parent="World/Enemies" instance=ExtResource( 6 )]
-position = Vector2( -186, -239 )
 
 [node name="Camera2D" type="Camera2D" parent="World"]
 position = Vector2( -170, -1 )
@@ -124,29 +138,7 @@ editor_draw_screen = false
 [node name="CameraTween" type="Tween" parent="World"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
-environment = SubResource( 4 )
-
-[node name="Boundary" type="StaticBody2D" parent="World"]
-collision_layer = 524288
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Boundary"]
-position = Vector2( 0, 480 )
-shape = SubResource( 5 )
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Boundary"]
-position = Vector2( 0, -480 )
-shape = SubResource( 5 )
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="World/Boundary"]
-position = Vector2( -480, 0 )
-rotation = 1.5708
-shape = SubResource( 5 )
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="World/Boundary"]
-position = Vector2( 480, 0 )
-rotation = 1.5708
-shape = SubResource( 5 )
+environment = SubResource( 5 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2( 2, 2 )
@@ -203,3 +195,4 @@ space_station_path = NodePath("../World/SpaceStation")
 [connection signal="fuel_amount_changed" from="World/Player" to="CanvasLayer/HUD/FuelBar" method="_on_Player_fuel_amount_changed"]
 [connection signal="health_amount_changed" from="World/Player" to="CanvasLayer/HUD/HealthBar" method="_on_Player_health_amount_changed"]
 [connection signal="player_shoot" from="World/Player" to="World" method="_on_bullet_shoot"]
+[connection signal="spawn_enemy" from="World/EnemySpawner" to="World" method="_on_spawn_enemy"]
