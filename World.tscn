@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Defence/SpaceStation.tscn" type="PackedScene" id=2]
@@ -43,6 +43,9 @@ glow_blend_mode = 0
 glow_hdr_threshold = 1.5
 glow_bicubic_upscale = true
 
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 640, 20 )
+
 [node name="GameInitialiser" type="Node"]
 
 [node name="World" type="Node2D" parent="."]
@@ -82,10 +85,9 @@ process_material = SubResource( 3 )
 texture = ExtResource( 3 )
 
 [node name="SpaceStation" parent="World" instance=ExtResource( 2 )]
-position = Vector2( 480, 270 )
 
 [node name="Player" parent="World" instance=ExtResource( 1 )]
-position = Vector2( 344, 164 )
+position = Vector2( -170, -1 )
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="World/Player"]
 remote_path = NodePath("../../Camera2D")
@@ -95,19 +97,19 @@ remote_path = NodePath("../../Camera2D")
 [node name="Enemies" type="Node" parent="World"]
 
 [node name="Enemy_1" parent="World/Enemies" instance=ExtResource( 6 )]
-position = Vector2( 561, 92 )
+position = Vector2( 262, -33 )
 
 [node name="Enemy_3" parent="World/Enemies" instance=ExtResource( 6 )]
-position = Vector2( 504, 33 )
+position = Vector2( 20, -248 )
 
 [node name="Enemy_2" parent="World/Enemies" instance=ExtResource( 6 )]
-position = Vector2( 723, 240 )
+position = Vector2( 119, -225 )
 
 [node name="Enemy_4" parent="World/Enemies" instance=ExtResource( 6 )]
-position = Vector2( 378, 2 )
+position = Vector2( -186, -239 )
 
 [node name="Camera2D" type="Camera2D" parent="World"]
-position = Vector2( 344, 164 )
+position = Vector2( -170, -1 )
 current = true
 process_mode = 0
 drag_margin_h_enabled = true
@@ -123,6 +125,28 @@ editor_draw_screen = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource( 4 )
+
+[node name="Boundary" type="StaticBody2D" parent="World"]
+collision_layer = 524288
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Boundary"]
+position = Vector2( 0, 480 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Boundary"]
+position = Vector2( 0, -480 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="World/Boundary"]
+position = Vector2( -480, 0 )
+rotation = 1.5708
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="World/Boundary"]
+position = Vector2( 480, 0 )
+rotation = 1.5708
+shape = SubResource( 5 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2( 2, 2 )
@@ -163,7 +187,6 @@ __meta__ = {
 }
 
 [node name="SpaceStation_UI" type="Control" parent="."]
-visible = false
 script = ExtResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -180,6 +203,3 @@ space_station_path = NodePath("../World/SpaceStation")
 [connection signal="fuel_amount_changed" from="World/Player" to="CanvasLayer/HUD/FuelBar" method="_on_Player_fuel_amount_changed"]
 [connection signal="health_amount_changed" from="World/Player" to="CanvasLayer/HUD/HealthBar" method="_on_Player_health_amount_changed"]
 [connection signal="player_shoot" from="World/Player" to="World" method="_on_bullet_shoot"]
-
-[editable path="World/SpaceStation"]
-[editable path="World/SpaceStation/TurretManager"]

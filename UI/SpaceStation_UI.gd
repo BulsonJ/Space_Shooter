@@ -26,7 +26,6 @@ func hide_ui(time : float) -> void:
 	  Color(1, 1, 1, 1), Color(1, 1, 1, 0), time)
 	$Tween.start()
 
-
 func _on_SpaceStation_player_docked(animation_time) -> void:
 	show_ui(animation_time)
 

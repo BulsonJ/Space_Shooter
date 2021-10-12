@@ -1,6 +1,6 @@
 extends Turret
 
-export(float) var rate_of_fire = 0.2
+export(float) var rate_of_fire = 2.0
 export(PackedScene) var bullet = preload("res://Defence/Cannon/AlliedBullet.tscn")
 
 onready var turret := $Turret

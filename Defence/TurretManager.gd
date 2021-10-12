@@ -13,7 +13,9 @@ signal turret_placed(turret_index)
 signal turret_removed(turret_index)
 
 func _ready() -> void:
-	pass	
+	place_turret(0)
+	place_turret(1)
+	place_turret(2)
 
 func place_turret(turret_index : int) -> void:
 	if placed_turrets[turret_index] != null:
