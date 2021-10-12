@@ -51,14 +51,15 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Turret_Vision"]
 shape = SubResource( 2 )
 
-[node name="ShootTimer" type="Timer" parent="."]
+[node name="WeaponShootTimer" type="Timer" parent="."]
 
 [node name="ShootFX" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource( 3 )
 bus = "SoundEffects"
 
-[node name="TargetRefreshTimer" type="Timer" parent="."]
+[node name="TargetListTimer" type="Timer" parent="."]
+autostart = true
 
 [connection signal="body_exited" from="Turret_Vision" to="." method="_on_Turret_Vision_body_exited"]
-[connection signal="timeout" from="ShootTimer" to="." method="_on_Timer_timeout"]
-[connection signal="timeout" from="TargetRefreshTimer" to="." method="_on_TargetRefreshTimer_timeout"]
+[connection signal="timeout" from="WeaponShootTimer" to="." method="_on_WeaponShootTimer_timeout"]
+[connection signal="timeout" from="TargetListTimer" to="." method="_on_TargetListTimer_timeout"]

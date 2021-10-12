@@ -5,12 +5,13 @@ export(PackedScene) var bullet = preload("res://Defence/Cannon/AlliedBullet.tscn
 
 onready var turret := $Turret
 onready var default_rotation = turret.rotation
-var weapon_ready = true
+var weapon_ready := true
 
 onready var turret_direct_sight = $Turret/RayCast2D
 
+var sorted_target_list = []
+
 signal turret_shoot(bullet, location, direction, velocity)
-signal turret_destroyed()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,11 +19,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if _target == null:
-		var targets = get_sorted_targets()
-		if targets.size() > 0:
-			_target = get_sorted_targets().front()
-		if $TargetRefreshTimer.is_stopped():
-			$TargetRefreshTimer.start(1)
+		return
 	else:
 		if turret_direct_sight.is_colliding():
 			if turret_direct_sight.get_collider() is Enemy:
@@ -40,16 +37,16 @@ func _physics_process(delta: float) -> void:
 func _on_Turret_Vision_body_exited(body: Enemy) -> void:
 	if _target == body:
 		_target = null
-	
-func _on_Timer_timeout() -> void:
-	weapon_ready = true
-		
-func _on_TargetRefreshTimer_timeout() -> void:
-	var targets = get_sorted_targets()
-	if targets.size() > 0:
-		_target = get_sorted_targets().front()
-	
+
 func get_sorted_targets() -> Enemy:
 	var possibleTargets = $Turret_Vision.get_overlapping_bodies()
 	possibleTargets.sort_custom(self, "_sort_target")
 	return possibleTargets
+
+func _on_TargetListTimer_timeout():
+	sorted_target_list = get_sorted_targets()
+	if sorted_target_list.size() > 0:
+		_target = sorted_target_list.front()
+
+func _on_WeaponShootTimer_timeout():
+	weapon_ready = true

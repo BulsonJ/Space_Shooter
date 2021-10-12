@@ -6,6 +6,8 @@ onready var health = max_health
 
 var _target : Enemy = null
 
+signal turret_destroyed()
+
 func take_damage(amount: float) -> void:
 	_set_health(health - amount)
 
