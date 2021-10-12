@@ -13,13 +13,7 @@ signal turret_placed(turret_index)
 signal turret_removed(turret_index)
 
 func _ready() -> void:
-	for i in get_children():
-		var turret : Turret = i
-		turret.connect("turret_shoot", get_parent(), "_on_EnemyTurret_turret_shoot")
-		turret.connect("turret_destroyed", get_parent(), "_on_EnemyTurret_turret_destroyed")
-		placed_turrets[number_of_turrets] = turret
-		number_of_turrets += 1
-		
+	pass	
 
 func place_turret(turret_index : int) -> void:
 	if placed_turrets[turret_index] != null:

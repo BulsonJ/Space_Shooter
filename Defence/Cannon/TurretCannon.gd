@@ -1,6 +1,6 @@
 extends Turret
 
-export(float) var rate_of_fire = 3.0
+export(float) var rate_of_fire = 0.2
 export(PackedScene) var bullet = preload("res://Defence/Cannon/AlliedBullet.tscn")
 
 onready var turret := $Turret
@@ -8,8 +8,6 @@ onready var default_rotation = turret.rotation
 var weapon_ready := true
 
 onready var turret_direct_sight = $Turret/RayCast2D
-
-var sorted_target_list = []
 
 signal turret_shoot(bullet, location, direction, velocity)
 
@@ -26,7 +24,7 @@ func _physics_process(delta: float) -> void:
 				if weapon_ready:
 					$ShootFX.play()
 					emit_signal("turret_shoot", bullet, $Turret/Muzzle.global_position, Vector2.RIGHT.rotated(turret.global_rotation), 400.0)
-					$ShootTimer.start(rate_of_fire)
+					$WeaponShootTimer.start(rate_of_fire)
 					weapon_ready = false
 					
 				# TODO: If gun can't shoot, choose next closest target
@@ -44,9 +42,9 @@ func get_sorted_targets() -> Enemy:
 	return possibleTargets
 
 func _on_TargetListTimer_timeout():
-	sorted_target_list = get_sorted_targets()
-	if sorted_target_list.size() > 0:
-		_target = sorted_target_list.front()
+	var targets = get_sorted_targets()
+	if targets.size() > 0:
+		_target = targets.front()
 
 func _on_WeaponShootTimer_timeout():
 	weapon_ready = true

@@ -172,11 +172,14 @@ space_station_path = NodePath("../World/SpaceStation")
 
 [node name="Tween" type="Tween" parent="SpaceStation_UI"]
 
-[connection signal="base_turret_shoot" from="World/SpaceStation" to="World" method="_on_SpaceStation_base_turret_shoot"]
-[connection signal="player_docked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_docked"]
+[connection signal="base_turret_shoot" from="World/SpaceStation" to="World" method="_on_bullet_shoot"]
 [connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
-[connection signal="player_undocked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_undocked"]
+[connection signal="player_docked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_docked"]
 [connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
+[connection signal="player_undocked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_undocked"]
 [connection signal="fuel_amount_changed" from="World/Player" to="CanvasLayer/HUD/FuelBar" method="_on_Player_fuel_amount_changed"]
 [connection signal="health_amount_changed" from="World/Player" to="CanvasLayer/HUD/HealthBar" method="_on_Player_health_amount_changed"]
-[connection signal="player_shoot" from="World/Player" to="World" method="_on_Player_player_shoot"]
+[connection signal="player_shoot" from="World/Player" to="World" method="_on_bullet_shoot"]
+
+[editable path="World/SpaceStation"]
+[editable path="World/SpaceStation/TurretManager"]
