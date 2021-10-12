@@ -32,8 +32,8 @@ func place_turret(turret_index : int) -> void:
 	add_child(turret)
 	placed_turrets[turret_index] = turret
 	
-	turret.connect("turret_shoot", get_parent(), "_on_EnemyTurret_turret_shoot")
-	turret.connect("turret_destroyed", get_parent(), "_on_EnemyTurret_turret_destroyed")
+	turret.connect("turret_shoot", get_parent(), "_on_defence_turret_shoot")
+	#turret.connect("turret_destroyed", get_parent(), "_on_EnemyTurret_turret_destroyed")
 	emit_signal("turret_placed", turret_index)
 	
 func delete_turret(turret_index : int) -> void:

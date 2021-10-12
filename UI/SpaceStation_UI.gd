@@ -13,7 +13,7 @@ func _ready() -> void:
 	visible = false
 	for i in turret_manager.turretPoints.size():
 		add_turret_control(i)
-	
+			
 func show_ui(time : float) -> void:
 	visible = true
 	$Tween.interpolate_property(self, "modulate", 
@@ -55,5 +55,8 @@ func add_turret_control(turret_index : int) -> void:
 	add_child(control_node)
 	
 func remove_turret_control(turret_index : int) -> void:
-	remove_child(turret_control_node[turret_index])
+	if placed_control_nodes[turret_index] == null:
+		return
+		
+	remove_child(placed_control_nodes[turret_index])
 	placed_control_nodes[turret_index] = null

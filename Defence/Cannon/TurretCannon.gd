@@ -1,15 +1,10 @@
-class_name Turret
-extends StaticBody2D
+extends Turret
 
 export(float) var rate_of_fire = 3.0
-export(float) var max_health = 5.0
-onready var health = max_health
-
-var _target : Enemy = null
+export(PackedScene) var bullet = preload("res://Defence/Cannon/AlliedBullet.tscn")
 
 onready var turret := $Turret
 onready var default_rotation = turret.rotation
-export(PackedScene) var bullet = preload("res://Defence/Cannon/AlliedBullet.tscn")
 var weapon_ready = true
 
 onready var turret_direct_sight = $Turret/RayCast2D
@@ -48,22 +43,6 @@ func _on_Turret_Vision_body_exited(body: Enemy) -> void:
 	
 func _on_Timer_timeout() -> void:
 	weapon_ready = true
-	
-func take_damage(amount: float) -> void:
-	_set_health(health - amount)
-
-func _set_health(value) -> void:
-	health = clamp(value, 0, max_health)
-	if (health == 0):
-		queue_free()
-		emit_signal("turret_destroyed")
-		
-# Custom sort function used to sort targets into distance to turret
-func _sort_target(a : Enemy,b: Enemy) -> bool:
-	if a != null and b != null:
-		return a.global_position.distance_to(global_position) < b.global_position.distance_to(global_position)
-	else:
-		return false
 		
 func _on_TargetRefreshTimer_timeout() -> void:
 	var targets = get_sorted_targets()

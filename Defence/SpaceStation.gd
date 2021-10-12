@@ -27,15 +27,8 @@ func _physics_process(delta: float) -> void:
 	if docking_finished == true:
 		_target.use_fuel(-0.1)
 
-func _on_EnemyTurret_turret_shoot(bullet, location, direction, velocity) -> void:
+func _on_defence_turret_shoot(bullet, location, direction, velocity) -> void:
 	emit_signal("base_turret_shoot", bullet, location,direction, velocity)
-
-func _on_EnemyTurret_turret_destroyed() -> void:
-	turret_amount -= 1
-	
-	if turret_amount <= 0:
-		emit_signal("base_destroyed")
-		$Sprite.texture = load("res://Defence/SpaceStation_Destroyed.png")
 
 # Create timers to control docking maybe?
 # Set time somewhere so that it is more constant
