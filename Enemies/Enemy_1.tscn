@@ -51,27 +51,18 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource( 3 )
 
-[node name="VisionRaycasts" type="Node2D" parent="."]
-
-[node name="RayCast2D" type="RayCast2D" parent="VisionRaycasts"]
+[node name="Weapon_Vision" type="RayCast2D" parent="."]
+rotation = 3.14159
 enabled = true
-cast_to = Vector2( 0, -100 )
-collision_mask = 3
+cast_to = Vector2( 0, 250 )
+collision_mask = 2
 
-[node name="RayCast2D2" type="RayCast2D" parent="VisionRaycasts"]
-enabled = true
-cast_to = Vector2( 100, 0 )
-collision_mask = 3
+[node name="Muzzle" type="Position2D" parent="."]
+position = Vector2( 0, -40 )
 
-[node name="RayCast2D3" type="RayCast2D" parent="VisionRaycasts"]
-enabled = true
-cast_to = Vector2( 0, 100 )
-collision_mask = 3
-
-[node name="RayCast2D4" type="RayCast2D" parent="VisionRaycasts"]
-enabled = true
-cast_to = Vector2( -100, 0 )
-collision_mask = 3
+[node name="Weapon_Timer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="body_entered" from="Player_Detection_Area" to="." method="_on_DetectionArea_body_entered"]
 [connection signal="body_exited" from="Player_Detection_Area" to="." method="_on_DetectionArea_body_exited"]
+[connection signal="timeout" from="Weapon_Timer" to="." method="_on_Weapon_Timer_timeout"]

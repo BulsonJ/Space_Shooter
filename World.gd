@@ -27,4 +27,5 @@ func _on_spawn_enemy(enemy, location) -> void:
 	var e = enemy.instance()
 	e.position = location
 	e.main_target = $SpaceStation
+	e.connect("enemy_shoot", self, "_on_bullet_shoot")
 	$Enemies.add_child(e)
