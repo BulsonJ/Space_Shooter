@@ -8,8 +8,8 @@
 [ext_resource path="res://UI/RadialButton_Hover.png" type="Texture" id=6]
 
 [node name="TurretMenuButton" type="TextureButton"]
-margin_right = 64.0
-margin_bottom = 64.0
+margin_right = 32.0
+margin_bottom = 32.0
 texture_pressed = ExtResource( 3 )
 texture_hover = ExtResource( 6 )
 script = ExtResource( 2 )
@@ -18,28 +18,22 @@ __meta__ = {
 }
 
 [node name="Buttons" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
 
 [node name="TurretButton_Buy" type="TextureButton" parent="Buttons"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 32.0
+margin_bottom = 32.0
 texture_normal = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TurretButton_Sell" type="TextureButton" parent="Buttons"]
-margin_right = 40.0
-margin_bottom = 40.0
 texture_normal = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TurretButton_Repair" type="TextureButton" parent="Buttons"]
-margin_right = 40.0
-margin_bottom = 40.0
 texture_normal = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false

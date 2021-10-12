@@ -25,6 +25,8 @@ onready var health := max_health setget _set_health
 var max_fuel := 100.0
 onready var fuel := max_fuel setget _set_fuel_amount
 
+var targetable = true
+
 var last_thrust := 0.0
 
 func _input(event: InputEvent) -> void:

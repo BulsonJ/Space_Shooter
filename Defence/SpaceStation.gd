@@ -40,6 +40,7 @@ func _on_DockingArea2D_body_entered(body: Player) -> void:
 	_target = body
 	_target.set_physics_process(false)
 	_target.set_process_input(false)
+	_target.targetable = false
 	_target.stop_ship()
 	docking_finished = false
 	
@@ -57,4 +58,5 @@ func _on_Tween_tween_all_completed() -> void:
 func _on_ReleaseTimer_timeout() -> void:
 	_target.set_physics_process(true)
 	_target.set_process_input(true)
+	_target.targetable = true
 	_target = null

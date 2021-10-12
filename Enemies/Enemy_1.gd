@@ -17,13 +17,14 @@ export(PackedScene) var bullet = preload("res://Enemies/EnemyBullet.tscn")
 signal enemy_shoot(bullet, location, direction, velocity)
 
 func _physics_process(delta: float) -> void:
-	if _target:
+	if _target && _target.targetable:
 		move_toward_target(_target)
 		weapon_fire_if_able()
 	else:
 		if main_target:
 			if global_position.distance_to(main_target.global_position) > engage_distance:	
 				move_toward_target(main_target)
+				weapon_fire_if_able()
 				
 	_velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * drag)
 	_velocity = _velocity.clamped(max_speed)

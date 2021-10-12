@@ -1,7 +1,7 @@
 class_name Enemy
 extends KinematicBody2D
 
-var max_health := 5.0
+var max_health := 1.0
 onready var health = max_health
 
 func take_damage(amount) -> void:

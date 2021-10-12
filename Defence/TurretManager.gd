@@ -29,7 +29,7 @@ func place_turret(turret_index : int) -> void:
 	placed_turrets[turret_index] = turret
 	
 	turret.connect("turret_shoot", get_parent(), "_on_defence_turret_shoot")
-	#turret.connect("turret_destroyed", get_parent(), "_on_EnemyTurret_turret_destroyed")
+	turret.connect("turret_destroyed", self, "_on_defence_turret_destroyed", [turret_index])
 	emit_signal("turret_placed", turret_index)
 	
 func delete_turret(turret_index : int) -> void:
@@ -48,3 +48,6 @@ func repair_turret(turret_index : int) -> void:
 	
 func get_turret(turret_index : int) -> Turret:
 	return placed_turrets[turret_index]
+
+func _on_defence_turret_destroyed(turret_index) -> void:
+	delete_turret(turret_index)

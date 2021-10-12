@@ -54,6 +54,7 @@ script = ExtResource( 9 )
 [node name="ParallaxBackground" type="ParallaxBackground" parent="World"]
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="World/ParallaxBackground"]
+motion_mirroring = Vector2( 960, 540 )
 
 [node name="Background" type="Sprite" parent="World/ParallaxBackground/ParallaxLayer3"]
 position = Vector2( 480, 270 )

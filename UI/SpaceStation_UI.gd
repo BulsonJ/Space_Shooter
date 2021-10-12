@@ -38,7 +38,7 @@ func add_turret_control(turret_index : int) -> void:
 	
 	# Gets middle of turret, applies translation based on rotation
 	var vec3_pos : Vector3 = turret_manager.turretPoints[turret_index]
-	var pos : Vector2 = Vector2(vec3_pos.x - 32, vec3_pos.y - 32)
+	var pos : Vector2 = Vector2(vec3_pos.x - 16, vec3_pos.y - 16)
 	if vec3_pos.z == 0:
 		pos = pos + Vector2(16, 0)
 	elif vec3_pos.z == 90:
