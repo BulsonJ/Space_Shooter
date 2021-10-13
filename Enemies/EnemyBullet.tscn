@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Player/Trail.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/EnemyBullet.gd" type="Script" id=2]
 [ext_resource path="res://Enemies/EnemyBullet.png" type="Texture" id=3]
+[ext_resource path="res://Weapons/Hitbox.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.781457, 1 )
@@ -17,7 +18,7 @@ _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.644318 ), 0.0, 0.0, 0, 
 [sub_resource type="CurveTexture" id=4]
 curve = SubResource( 3 )
 
-[sub_resource type="ParticlesMaterial" id=8]
+[sub_resource type="ParticlesMaterial" id=5]
 emission_shape = 2
 emission_box_extents = Vector3( 4, 4, 1 )
 spread = 20.0
@@ -33,7 +34,10 @@ offsets = PoolRealArray( 0, 0.830601 )
 colors = PoolColorArray( 0.647059, 0.188235, 0.188235, 0, 0.799479, 0.533333, 1, 1 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 2, 1 )
+extents = Vector2( 3, 2 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 3, 2 )
 
 [node name="EnemyBullet" type="RigidBody2D"]
 collision_layer = 32
@@ -49,7 +53,7 @@ amount = 32
 lifetime = 0.75
 visibility_rect = Rect2( -480, -270, 960, 540 )
 local_coords = false
-process_material = SubResource( 8 )
+process_material = SubResource( 5 )
 
 [node name="Line2D" type="Line2D" parent="."]
 width = 1.0
@@ -65,4 +69,14 @@ shape = SubResource( 7 )
 
 [node name="BulletFadeTween" type="Tween" parent="."]
 
-[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
+[node name="Hitbox" parent="." instance=ExtResource( 4 )]
+monitorable = false
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource( 8 )
+
+[connection signal="body_entered" from="." to="." method="_on_EnemyBullet_body_entered"]
+
+[editable path="Hitbox"]

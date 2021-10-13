@@ -18,13 +18,6 @@ func _physics_process(delta: float) -> void:
 	if lifetime < 0:
 		delete_bullet()
 
-func _on_Bullet_body_entered(body: Node) -> void:
-	
-	delete_bullet()
-	
-	if body.has_method("take_damage"):
-		body.take_damage(weapon_damage)
-
 func delete_bullet() -> void:
 	# Stop particle, delete bullet once particle lifetime is up
 	particle_trail.emitting = false
@@ -35,3 +28,14 @@ func delete_bullet() -> void:
 	# Hide sprite and disable collision so can't be seen while waiting for trail to finish
 	$Sprite.visible = false
 	$CollisionShape2D.call_deferred("set_disabled", true)
+
+
+func _on_Hitbox_body_entered(body):
+	pass # Replace with function body.
+
+
+func _on_EnemyBullet_body_entered(body):
+	delete_bullet()
+	
+	if body.has_method("take_damage"):
+		body.take_damage(weapon_damage)
