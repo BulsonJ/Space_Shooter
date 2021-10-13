@@ -20,31 +20,29 @@ signal enemy_shoot(bullet, location, direction, velocity)
 
 func _physics_process(delta: float) -> void:
 	weapon_fire_if_able()
+	
 	if _defence_target:
 		var test = global_position.distance_to(_defence_target.global_position)
 		if global_position.distance_to(_defence_target.global_position) > engage_distance:	
-			move_toward_target(_defence_target, delta)
-	else:
+			move_toward_target(_defence_target)
+	elif _target && _target.targetable:
 		if _target && _target.targetable:
-			move_toward_target(_target, delta)
-		else:
-			if main_target:
-				if global_position.distance_to(main_target.global_position) > engage_distance:	
-					move_toward_target(main_target, delta)
+			move_toward_target(_target)
+	elif main_target:
+		if global_position.distance_to(main_target.global_position) > engage_distance:	
+			move_toward_target(main_target)
 			
 	_velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * drag)
 	_velocity = _velocity.clamped(max_speed)
 	rotation = _velocity.angle() + PI / 2
 	_velocity = move_and_slide(_velocity)
 
-func move_toward_target(target : Node, delta : float) -> void:
+func move_toward_target(target : Node) -> void:
 	var direction := global_position.direction_to(target.global_position)
 	var desired_velocity := direction * max_speed
 	var steering := desired_velocity - _velocity
 	
 	_velocity += steering / drag
-	
-	
 
 func weapon_fire_if_able() -> void:
 	if weapon_vision.is_colliding():

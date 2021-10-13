@@ -1,7 +1,7 @@
 class_name Turret
 extends StaticBody2D
 
-export(float) var max_health = 5.0
+export(float) var max_health = 100.0
 onready var health = max_health
 
 var _target : Enemy = null

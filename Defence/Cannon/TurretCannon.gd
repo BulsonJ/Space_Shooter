@@ -49,3 +49,7 @@ func _on_TargetListTimer_timeout():
 
 func _on_WeaponShootTimer_timeout():
 	weapon_ready = true
+	
+func take_damage(amount: float) -> void:
+	.take_damage(amount)
+	animation_player.play("hit")

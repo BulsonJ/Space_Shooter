@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Defence/Cannon/TurretCannon.gd" type="Script" id=2]
 [ext_resource path="res://Enemies/laserLarge_003.ogg" type="AudioStream" id=3]
@@ -26,7 +26,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 7, 8, 9, 10, 11 ]
+"values": [ 15, 16, 17, 18, 19 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Turret:frame")
@@ -38,7 +38,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 1, 2, 3, 4, 5 ]
+"values": [ 10, 11, 12, 13, 14 ]
 }
 tracks/2/type = "method"
 tracks/2/path = NodePath(".")
@@ -58,40 +58,44 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "sell"
-length = 0.5
+[sub_resource type="Animation" id=6]
+resource_name = "hit"
+length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Base:frame")
+tracks/0/path = NodePath("Turret:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 11, 10, 9, 8, 7 ]
+"values": [ 20, 0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Turret:frame")
+tracks/1/path = NodePath("Base:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 5, 4, 3, 2, 1 ]
+"values": [ 25, 5 ]
 }
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
+
+[sub_resource type="Animation" id=5]
+resource_name = "sell"
+length = 0.5
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
@@ -102,19 +106,43 @@ tracks/2/keys = {
 "method": "set_physics_process"
 } ]
 }
-tracks/3/type = "method"
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0.5 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
 "method": "queue_free"
 } ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Base:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 19, 18, 17, 16, 15 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Turret:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 14, 13, 12, 11, 10 ]
 }
 
 [node name="TurretCannon" type="StaticBody2D"]
@@ -123,18 +151,22 @@ collision_mask = 10
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="Turret" type="Sprite" parent="."]
 texture = ExtResource( 4 )
-hframes = 6
-vframes = 2
-frame = 1
+centered = false
+offset = Vector2( -32, -32 )
+hframes = 5
+vframes = 6
 
 [node name="Muzzle" type="Position2D" parent="Turret"]
+visible = false
 position = Vector2( 29, 0 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Turret"]
+visible = false
 position = Vector2( 8, 0 )
 enabled = true
 cast_to = Vector2( 300, 0 )
@@ -144,11 +176,12 @@ collision_mask = 11
 texture = ExtResource( 4 )
 centered = false
 offset = Vector2( -32, -32 )
-hframes = 6
-vframes = 2
-frame = 7
+hframes = 5
+vframes = 6
+frame = 5
 
 [node name="Turret_Vision" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 8
 
@@ -166,6 +199,7 @@ autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/build = SubResource( 4 )
+anims/hit = SubResource( 6 )
 anims/sell = SubResource( 5 )
 
 [connection signal="body_exited" from="Turret_Vision" to="." method="_on_Turret_Vision_body_exited"]
