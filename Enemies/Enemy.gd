@@ -4,6 +4,7 @@ extends KinematicBody2D
 var max_health := 1.0
 onready var health = max_health
 
+
 func take_damage(amount) -> void:
 	_set_health(health - amount)
 

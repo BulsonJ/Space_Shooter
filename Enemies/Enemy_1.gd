@@ -16,6 +16,8 @@ onready var weapon_vision := $Weapon_Vision
 var weapon_ready := true
 export(PackedScene) var bullet = preload("res://Enemies/EnemyBullet.tscn")
 
+onready var animation_player = $AnimationPlayer
+
 signal enemy_shoot(bullet, location, direction, velocity)
 
 func _physics_process(delta: float) -> void:
@@ -65,3 +67,7 @@ func _on_DetectionArea_body_exited(body: Node) -> void:
 
 func _on_Weapon_Timer_timeout() -> void:
 	weapon_ready = true
+	
+func take_damage(amount: float) -> void:
+	.take_damage(amount)
+	animation_player.play("hit")

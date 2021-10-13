@@ -17,7 +17,8 @@ signal weapon_shoot(bullet, location, direction, velocity)
 func _ready() -> void:
 	current_weapon = get_child(0)
 	if current_weapon.has_signal("shoot"):
-		current_weapon.connect("shoot", self, "_on_shoot")
+		if !current_weapon.is_connected("shoot", self, "_on_shoot"):
+			current_weapon.connect("shoot", self, "_on_shoot")
 	
 
 func _physics_process(delta: float) -> void:

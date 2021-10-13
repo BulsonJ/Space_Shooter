@@ -38,6 +38,7 @@ func delete_turret(turret_index : int) -> void:
 		return 
 		
 	placed_turrets[turret_index].animation_player.play("sell")
+	placed_turrets[turret_index].invincible = true
 	placed_turrets[turret_index] = null
 	emit_signal("turret_removed", turret_index)
 	

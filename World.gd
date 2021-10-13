@@ -12,7 +12,7 @@ func _on_SpaceStation_player_docked(docking_time : float) -> void:
 	$Camera2D.drag_margin_h_enabled = false
 	$Camera2D.drag_margin_v_enabled = false
 	$CameraTween.interpolate_property($Camera2D, "position", $Camera2D.global_position, $SpaceStation.global_position, docking_time)
-	#$CameraTween.interpolate_property($Camera2D, "zoom", $Camera2D.zoom, Vector2(1.0,1.0), docking_time)
+	$CameraTween.interpolate_property($Camera2D, "zoom", $Camera2D.zoom, Vector2(1.0,1.0), docking_time)
 	$CameraTween.start()
 
 func _on_SpaceStation_player_undocked(undocking_time : float) -> void:
@@ -20,7 +20,7 @@ func _on_SpaceStation_player_undocked(undocking_time : float) -> void:
 	$Camera2D.drag_margin_h_enabled = true
 	$Camera2D.drag_margin_v_enabled = true
 	$CameraTween.interpolate_property($Camera2D, "position", $Camera2D.global_position, $Player/RemoteTransform2D.global_position, undocking_time)
-	#$CameraTween.interpolate_property($Camera2D, "zoom", $Camera2D.zoom, Vector2(1.0, 1.0), undocking_time)
+	$CameraTween.interpolate_property($Camera2D, "zoom", $Camera2D.zoom, Vector2(1.0, 1.0), undocking_time)
 	$CameraTween.start()
 
 func _on_spawn_enemy(enemy, location) -> void:

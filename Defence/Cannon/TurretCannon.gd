@@ -16,7 +16,7 @@ signal turret_shoot(bullet, location, direction, velocity)
 func _ready() -> void:
 	animation_player.play("build")
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if _target == null:
 		return
 	else:
@@ -51,5 +51,6 @@ func _on_WeaponShootTimer_timeout():
 	weapon_ready = true
 	
 func take_damage(amount: float) -> void:
-	.take_damage(amount)
-	animation_player.play("hit")
+	if !invincible:
+		.take_damage(amount)
+		animation_player.play("hit")
