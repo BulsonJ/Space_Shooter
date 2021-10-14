@@ -1,7 +1,7 @@
 extends Node2D
 
 export(PackedScene) var bullet = preload("res://Weapons/Cannon/Bullet.tscn")
-export(float) var rate_of_fire = 0.3
+export(float) var rate_of_fire = 0.2
 
 onready var shoot_timer := $ShootTimer
 onready var shoot_sound := $ShootFX
@@ -21,9 +21,6 @@ func fire() -> void:
 	$MuzzleFX.play("default")
 	
 	shoot_sound.play()
-#	shoot_sound.set_pitch_scale(sound_pitch)
-#	sound_pitch += 0.2
-#	sound_pitch = clamp(sound_pitch, default_sound_pitch, max_sound_pitch)
 		
 	emit_signal("shoot", bullet, to_global($Muzzle.position), Vector2.RIGHT.rotated(get_parent().rotation), 400.0)
 	
@@ -35,9 +32,6 @@ func set_is_casting(cast: bool) -> void:
 			sound_pitch = default_sound_pitch
 			fire()
 			shoot_timer.start(rate_of_fire)
-	else:
-		#shoot_timer.stop()
-		pass
 		
 func _on_ShootTimer_timeout() -> void:
 	if is_casting:

@@ -18,6 +18,8 @@ export(PackedScene) var bullet = preload("res://Enemies/EnemyBullet.tscn")
 
 onready var animation_player = $AnimationPlayer
 
+const DeathEffect = preload("res://Enemies/Effects/Enemy_1_DeathEffect.tscn")
+
 signal enemy_shoot(bullet, location, direction, velocity)
 
 func _physics_process(delta: float) -> void:
@@ -68,6 +70,21 @@ func _on_DetectionArea_body_exited(body: Node) -> void:
 func _on_Weapon_Timer_timeout() -> void:
 	weapon_ready = true
 	
+func create_death_effect() -> void:
+	var effect = DeathEffect.instance()
+	var world = get_tree().current_scene
+	world.add_child(effect)
+	effect.global_position = global_position
+	
 func take_damage(amount: float) -> void:
 	.take_damage(amount)
 	animation_player.play("hit")
+	
+func _set_health(value) -> void:
+	health = clamp(value, 0, max_health)
+	if (health == 0):
+		emit_signal("enemy_destroyed")
+		create_death_effect()
+		queue_free()
+		
+
