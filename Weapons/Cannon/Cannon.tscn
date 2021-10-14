@@ -57,8 +57,7 @@ bus = "SoundEffects"
 [node name="MuzzleFX" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 7 )
-frame = 1
-speed_scale = 6.0
+speed_scale = 12.0
 offset = Vector2( 5, 0 )
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
