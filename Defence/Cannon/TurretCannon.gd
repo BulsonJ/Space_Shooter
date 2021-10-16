@@ -1,6 +1,7 @@
 extends Turret
 
 export(float) var rate_of_fire = 2.0
+export var rotation_speed := 4.0
 export(PackedScene) var bullet = preload("res://Defence/Cannon/AlliedBullet.tscn")
 
 onready var turret := $Turret
@@ -16,7 +17,7 @@ signal turret_shoot(bullet, location, direction, velocity)
 func _ready() -> void:
 	animation_player.play("build")
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if _target == null:
 		return
 	else:
@@ -30,8 +31,13 @@ func _physics_process(_delta: float) -> void:
 					
 				# TODO: If gun can't shoot, choose next closest target
 		
-		turret.look_at(_target.position)
-		turret.rotation = clamp(turret.rotation, default_rotation - PI / 4, default_rotation + PI / 4)
+		var v = _target.global_position - global_position
+		var angle = v.angle()
+		var r = turret.global_rotation
+		var angle_delta = rotation_speed * delta
+		angle = lerp_angle(r, angle, 1.0)
+		angle = clamp(angle, r - angle_delta, r + angle_delta)
+		turret.global_rotation = lerp_angle(r, angle, 0.2)
 
 func _on_Turret_Vision_body_exited(body: Enemy) -> void:
 	if _target == body:
