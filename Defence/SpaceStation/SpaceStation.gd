@@ -10,9 +10,8 @@ onready var turret_amount = $TurretManager.number_of_turrets
 signal player_docked(animation_time)
 signal player_undocked(animation_time)
 signal base_turret_shoot(bullet, location, direction, velocity)
-signal base_destroyed()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if !_target:
 		return
 		

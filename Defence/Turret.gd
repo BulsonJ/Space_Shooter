@@ -3,7 +3,6 @@ extends StaticBody2D
 
 export(float) var max_health = 5.0
 onready var health = max_health setget _set_health
-var invincible := false
 
 var _target : Enemy = null
 
@@ -29,15 +28,18 @@ func get_sorted_targets() -> Enemy:
 	return possibleTargets
 
 func repair_turret() -> void:
-	current_state = state.REPAIRING
-	animation_player.play("repair")
+	if health != max_health:
+		current_state = state.REPAIRING
+		animation_player.play("repair")
 	
 func _repair_animation_finished() -> void:
+	$RepairFX.play()
 	current_state = state.FUNCTIONAL
+	set_physics_process(true)
 	_set_health(max_health)
 
 func take_damage(amount: float) -> void:
-	if !invincible:
+	if current_state == state.FUNCTIONAL:
 		_set_health(health - amount)
 		animation_player.play("hit")
 		if health == 0:

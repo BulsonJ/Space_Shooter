@@ -18,10 +18,10 @@ func _ready() -> void:
 	current_weapon = get_child(0)
 	if current_weapon.has_signal("shoot"):
 		if !current_weapon.is_connected("shoot", self, "_on_shoot"):
-			current_weapon.connect("shoot", self, "_on_shoot")
+			var _err = current_weapon.connect("shoot", self, "_on_shoot")
 	
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if rotate_with_node:
 		rotation = get_node(rotation_node).rotation
 
@@ -34,7 +34,7 @@ func change_weapon(weapon: PackedScene) -> void:
 		current_weapon = new_weapon
 	
 	if current_weapon.has_signal("shoot"):
-		current_weapon.connect("shoot", self, "_on_shoot")
+		var _err = current_weapon.connect("shoot", self, "_on_shoot")
 		
 	
 ## Fires the weapon in the weapon slot	

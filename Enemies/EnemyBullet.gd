@@ -23,16 +23,11 @@ func delete_bullet() -> void:
 	particle_trail.emitting = false
 	$Line2D.visible = false
 	var time = (particle_trail.lifetime * 2) / particle_trail.speed_scale
-	get_tree().create_timer(time).connect("timeout", self, "queue_free")
+	var _err = get_tree().create_timer(time).connect("timeout", self, "queue_free")
 	
 	# Hide sprite and disable collision so can't be seen while waiting for trail to finish
 	$Sprite.visible = false
 	$CollisionShape2D.call_deferred("set_disabled", true)
-
-
-func _on_Hitbox_body_entered(body):
-	pass # Replace with function body.
-
 
 func _on_EnemyBullet_body_entered(body):
 	delete_bullet()

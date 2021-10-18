@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
+[ext_resource path="res://Defence/Cannon/repair.ogg" type="AudioStream" id=1]
 [ext_resource path="res://Defence/Cannon/TurretCannon.gd" type="Script" id=2]
 [ext_resource path="res://Enemies/laserLarge_003.ogg" type="AudioStream" id=3]
 [ext_resource path="res://Defence/Cannon/TurretCannon.png" type="Texture" id=4]
@@ -113,7 +114,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=7]
 resource_name = "repair"
-length = 0.1
+length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("Turret:frame")
 tracks/0/interp = 1
@@ -121,7 +122,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.6 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 0 ]
@@ -133,7 +134,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.6 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 5 ]
@@ -145,7 +146,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.1 ),
+"times": PoolRealArray( 0.7 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -270,6 +271,10 @@ anims/destroyed = SubResource( 6 )
 anims/hit = SubResource( 4 )
 anims/repair = SubResource( 7 )
 anims/sell = SubResource( 5 )
+
+[node name="RepairFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
+bus = "SoundEffects"
 
 [connection signal="body_exited" from="Turret_Vision" to="." method="_on_Turret_Vision_body_exited"]
 [connection signal="timeout" from="WeaponShootTimer" to="." method="_on_WeaponShootTimer_timeout"]

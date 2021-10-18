@@ -26,7 +26,6 @@ func _physics_process(delta: float) -> void:
 	weapon_fire_if_able()
 	
 	if _defence_target:
-		var test = global_position.distance_to(_defence_target.global_position)
 		if global_position.distance_to(_defence_target.global_position) > engage_distance:	
 			move_toward_target(_defence_target)
 	elif _target && _target.targetable:
