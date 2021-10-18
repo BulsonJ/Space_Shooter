@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Defence/SpaceStation.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Defence/SpaceStation/SpaceStation.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Environment/Star_1.png" type="Texture" id=3]
 [ext_resource path="res://Environment/Backgrounds/Background.png" type="Texture" id=4]
 [ext_resource path="res://HUD/HealthBar_Empty.png" type="Texture" id=5]
@@ -191,10 +191,10 @@ space_station_path = NodePath("../World/SpaceStation")
 [node name="Tween" type="Tween" parent="SpaceStation_UI"]
 
 [connection signal="base_turret_shoot" from="World/SpaceStation" to="World" method="_on_bullet_shoot"]
-[connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
 [connection signal="player_docked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_docked"]
-[connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
+[connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
 [connection signal="player_undocked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_undocked"]
+[connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
 [connection signal="fuel_amount_changed" from="World/Player" to="CanvasLayer/HUD/FuelBar" method="_on_Player_fuel_amount_changed"]
 [connection signal="health_amount_changed" from="World/Player" to="CanvasLayer/HUD/HealthBar" method="_on_Player_health_amount_changed"]
 [connection signal="player_shoot" from="World/Player" to="World" method="_on_bullet_shoot"]

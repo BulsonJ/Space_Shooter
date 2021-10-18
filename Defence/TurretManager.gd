@@ -4,7 +4,7 @@ extends Node2D
 
 # x,y position, z rotation
 export var turretPoints : PoolVector3Array
-var placed_turrets := [null, null, null, null]
+var placed_turrets = [null, null, null, null]
 var number_of_turrets := 0
 
 onready var turret_cannon = preload("res://Defence/Cannon/TurretCannon.tscn")
@@ -30,7 +30,6 @@ func place_turret(turret_index : int) -> void:
 	placed_turrets[turret_index] = turret
 	
 	turret.connect("turret_shoot", get_parent(), "_on_defence_turret_shoot")
-	turret.connect("turret_destroyed", self, "_on_defence_turret_destroyed", [turret_index])
 	emit_signal("turret_placed", turret_index)
 	
 func delete_turret(turret_index : int) -> void:
@@ -46,10 +45,8 @@ func repair_turret(turret_index : int) -> void:
 	if placed_turrets[turret_index] == null:
 		return 
 		
-	placed_turrets[turret_index].health = placed_turrets[turret_index].max_health
+	placed_turrets[turret_index].repair_turret()
 	
 func get_turret(turret_index : int) -> Turret:
 	return placed_turrets[turret_index]
 
-func _on_defence_turret_destroyed(turret_index) -> void:
-	delete_turret(turret_index)

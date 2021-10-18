@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SpaceStation.png-986744024e880fa5eb1fe27163763dd8.stex"
+path="res://.import/SpaceStation_Destroyed.png-a0542a972e7036f703b103c6685bc392.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Defence/SpaceStation.png"
-dest_files=[ "res://.import/SpaceStation.png-986744024e880fa5eb1fe27163763dd8.stex" ]
+source_file="res://Defence/SpaceStation/SpaceStation_Destroyed.png"
+dest_files=[ "res://.import/SpaceStation_Destroyed.png-a0542a972e7036f703b103c6685bc392.stex" ]
 
 [params]
 
