@@ -51,7 +51,8 @@ func weapon_fire_if_able() -> void:
 	if weapon_vision.is_colliding():
 		if weapon_ready:
 			weapon_ready = false
-			$Weapon_Timer.start(1.0)
+			$Weapon_Timer.start(2.0)
+			#$ShootFX.play()
 			emit_signal("enemy_shoot", bullet, $Muzzle.global_position, Vector2.RIGHT.rotated(global_rotation - PI / 2), 400.0)
 
 func _on_DetectionArea_body_entered(body: Node) -> void:

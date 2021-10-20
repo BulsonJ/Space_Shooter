@@ -1,6 +1,6 @@
 extends Node2D
 
-export var spawn_timer := 3.0
+export var spawn_timer := 5.0
 export var spawn_distance := 650.0 * 1
 
 export(PackedScene) var enemy_type = preload("res://Enemies/Enemy_1.tscn")

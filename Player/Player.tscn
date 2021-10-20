@@ -154,13 +154,12 @@ end_cap_mode = 2
 script = ExtResource( 5 )
 
 [node name="Engine" type="Sprite" parent="Ship"]
-visible = false
 modulate = Color( 2, 2, 2, 1 )
 texture = ExtResource( 4 )
 centered = false
 offset = Vector2( -27, -32 )
 hframes = 4
-frame = 2
+frame = 1
 
 [node name="Spaceship" type="Sprite" parent="Ship"]
 texture = ExtResource( 1 )
@@ -190,7 +189,7 @@ anims/engine_thrust_stop = SubResource( 6 )
 
 [node name="EngineFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
-volume_db = -80.0
+volume_db = -5.474
 bus = "ShipEffects"
 
 [connection signal="weapon_shoot" from="WeaponSlot" to="." method="_on_WeaponSlot_weapon_shoot"]

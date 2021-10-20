@@ -11,6 +11,12 @@ signal player_docked(animation_time)
 signal player_undocked(animation_time)
 signal base_turret_shoot(bullet, location, direction, velocity)
 
+signal health_amount_changed(health)
+signal base_destroyed()
+
+var max_health := 100.0
+onready var health := max_health setget _set_health
+
 func _physics_process(_delta: float) -> void:
 	if !_target:
 		return
@@ -59,3 +65,13 @@ func _on_ReleaseTimer_timeout() -> void:
 	_target.set_process_input(true)
 	_target.targetable = true
 	_target = null
+	
+func take_damage(amount) -> void:
+	_set_health(health - amount)
+
+func _set_health(value) -> void:
+	health = clamp(value, 0, max_health)
+	emit_signal("health_amount_changed", health)
+	if (health == 0):
+		emit_signal("base_destroyed")
+		pass

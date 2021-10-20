@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/laser_sound.ogg-53d72ba3fe6b3803969af57ec8e34bbc.oggstr"
+
+[deps]
+
+source_file="res://Weapons/Cannon/laser_sound.ogg"
+dest_files=[ "res://.import/laser_sound.ogg-53d72ba3fe6b3803969af57ec8e34bbc.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
