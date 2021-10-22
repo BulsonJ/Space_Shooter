@@ -53,7 +53,7 @@ func weapon_fire_if_able() -> void:
 			weapon_ready = false
 			$Weapon_Timer.start(2.0)
 			#$ShootFX.play()
-			emit_signal("enemy_shoot", bullet, $Muzzle.global_position, Vector2.RIGHT.rotated(global_rotation - PI / 2), 400.0)
+			emit_signal("enemy_shoot", bullet, $Muzzle.global_position, Vector2.RIGHT.rotated(global_rotation - PI / 2), 200.0)
 
 func _on_DetectionArea_body_entered(body: Node) -> void:
 	if body is Player:

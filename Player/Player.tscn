@@ -159,7 +159,6 @@ texture = ExtResource( 4 )
 centered = false
 offset = Vector2( -27, -32 )
 hframes = 4
-frame = 1
 
 [node name="Spaceship" type="Sprite" parent="Ship"]
 texture = ExtResource( 1 )

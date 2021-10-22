@@ -154,6 +154,30 @@ margin_top = 475.0
 margin_right = 48.0
 margin_bottom = 515.0
 rect_scale = Vector2( 2, 2 )
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
+margin_left = -4.0
+margin_top = -237.0
+margin_right = 476.0
+margin_bottom = -102.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StationHealthBar" type="TextureProgress" parent="CanvasLayer/Control/CenterContainer"]
+margin_left = 120.0
+margin_right = 360.0
+margin_bottom = 135.0
+mouse_filter = 2
+value = 100.0
+texture_under = ExtResource( 16 )
+texture_progress = ExtResource( 17 )
+script = ExtResource( 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -185,31 +209,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="Control" parent="CanvasLayer"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 2, 2 )
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/MarginContainer"]
-margin_right = 504.0
-margin_bottom = 135.0
-
-[node name="StationHealthBar" type="TextureProgress" parent="CanvasLayer/MarginContainer/CenterContainer"]
-margin_left = 132.0
-margin_right = 372.0
-margin_bottom = 135.0
-value = 100.0
-texture_under = ExtResource( 16 )
-texture_progress = ExtResource( 17 )
-script = ExtResource( 15 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
-margin_right = 504.0
-margin_bottom = 135.0
-
 [node name="SpaceStation_UI" type="Control" parent="."]
 script = ExtResource( 14 )
 __meta__ = {
@@ -220,7 +219,7 @@ space_station_path = NodePath("../World/SpaceStation")
 [node name="Tween" type="Tween" parent="SpaceStation_UI"]
 
 [connection signal="base_turret_shoot" from="World/SpaceStation" to="World" method="_on_bullet_shoot"]
-[connection signal="health_amount_changed" from="World/SpaceStation" to="CanvasLayer/MarginContainer/CenterContainer/StationHealthBar" method="_on_SpaceStation_health_amount_changed"]
+[connection signal="health_amount_changed" from="World/SpaceStation" to="CanvasLayer/Control/CenterContainer/StationHealthBar" method="_on_SpaceStation_health_amount_changed"]
 [connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
 [connection signal="player_docked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_docked"]
 [connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]

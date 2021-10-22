@@ -9,7 +9,7 @@ onready var bullet_fade = $BulletFadeTween
 onready var sprite = $Sprite
 
 func _ready() -> void:
-	bullet_fade.interpolate_property($Sprite, "modulate", $Sprite.modulate, Color(1.5,1.5,1.5), lifetime)
+	#bullet_fade.interpolate_property($Sprite, "modulate", $Sprite.modulate, Color(1.5,1.5,1.5), lifetime)
 	bullet_fade.start()
 
 func _physics_process(delta: float) -> void:
