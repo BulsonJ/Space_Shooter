@@ -1,7 +1,8 @@
-extends RigidBody2D
+extends Area2D
 
 export(float) var weapon_damage = 1.0
 export(float) var max_lifetime = 3.0
+export(float) var speed = 250.0
 
 onready var lifetime = max_lifetime
 onready var particle_trail = $Trail
@@ -14,6 +15,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	lifetime -= delta
+	
+	position += transform.x * speed * delta
 	
 	if lifetime < 0:
 		delete_bullet()

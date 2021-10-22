@@ -5,7 +5,6 @@ func _on_bullet_shoot(bullet, location, direction, velocity) -> void:
 	add_child(b)
 	b.rotation = direction.angle()
 	b.position = location
-	b.apply_central_impulse(direction * velocity)
 
 func _on_SpaceStation_player_docked(docking_time : float) -> void:
 	$Player/RemoteTransform2D.update_position = false

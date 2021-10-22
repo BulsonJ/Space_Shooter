@@ -94,10 +94,33 @@ collision_layer = 16
 collision_mask = 26
 
 [node name="Player" parent="World" instance=ExtResource( 1 )]
-position = Vector2( -149.31, -68.4094 )
+position = Vector2( -150, -70 )
+
+[node name="RemoteTransform2D2" type="RemoteTransform2D" parent="World/Player"]
+remote_path = NodePath("../../UIPivot")
+update_rotation = false
+update_scale = false
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="World/Player"]
 remote_path = NodePath("../../Camera2D")
+
+[node name="UIPivot" type="Node2D" parent="World"]
+position = Vector2( -150, -70 )
+
+[node name="HealthBar" type="TextureProgress" parent="World/UIPivot"]
+margin_left = -48.0
+margin_top = -48.0
+margin_right = 48.0
+margin_bottom = 48.0
+mouse_filter = 2
+step = 0.1
+value = 100.0
+texture_under = ExtResource( 5 )
+texture_progress = ExtResource( 7 )
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Environment" type="Node" parent="World"]
 
@@ -128,7 +151,7 @@ shape = SubResource( 4 )
 [node name="Enemies" type="Node" parent="World"]
 
 [node name="Camera2D" type="Camera2D" parent="World"]
-position = Vector2( -149.31, -68.4094 )
+position = Vector2( -150, -70 )
 current = true
 process_mode = 0
 drag_margin_h_enabled = true
@@ -182,23 +205,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HealthBar" type="TextureProgress" parent="CanvasLayer/Control"]
-margin_right = 504.0
-margin_bottom = 32.0
-step = 0.1
-value = 100.0
-texture_under = ExtResource( 5 )
-texture_progress = ExtResource( 7 )
-script = ExtResource( 12 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="FuelBar" type="TextureProgress" parent="CanvasLayer/Control"]
-margin_left = 1.5
-margin_top = -32.0
-margin_right = 505.5
-margin_bottom = 103.0
+margin_left = -32.5
+margin_top = -2.5
+margin_right = 471.5
+margin_bottom = 132.5
+mouse_filter = 2
 size_flags_horizontal = 0
 step = 0.5
 value = 100.0
@@ -220,11 +232,11 @@ space_station_path = NodePath("../World/SpaceStation")
 
 [connection signal="base_turret_shoot" from="World/SpaceStation" to="World" method="_on_bullet_shoot"]
 [connection signal="health_amount_changed" from="World/SpaceStation" to="CanvasLayer/Control/CenterContainer/StationHealthBar" method="_on_SpaceStation_health_amount_changed"]
-[connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
 [connection signal="player_docked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_docked"]
-[connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
+[connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
 [connection signal="player_undocked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_undocked"]
+[connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
 [connection signal="fuel_amount_changed" from="World/Player" to="CanvasLayer/Control/FuelBar" method="_on_Player_fuel_amount_changed"]
-[connection signal="health_amount_changed" from="World/Player" to="CanvasLayer/Control/HealthBar" method="_on_Player_health_amount_changed"]
+[connection signal="health_amount_changed" from="World/Player" to="World/UIPivot/HealthBar" method="_on_Player_health_amount_changed"]
 [connection signal="player_shoot" from="World/Player" to="World" method="_on_bullet_shoot"]
 [connection signal="spawn_enemy" from="World/EnemySpawner" to="World" method="_on_spawn_enemy"]

@@ -35,13 +35,9 @@ colors = PoolColorArray( 0.647059, 0.188235, 0.188235, 0, 0.521569, 1, 1, 1 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 4, 2 )
 
-[node name="AlliedBullet" type="RigidBody2D"]
+[node name="AlliedBullet" type="Area2D"]
 collision_layer = 32
 collision_mask = 9
-gravity_scale = 0.0
-continuous_cd = 1
-contacts_reported = 1
-contact_monitor = true
 script = ExtResource( 2 )
 
 [node name="Trail" type="Particles2D" parent="."]
