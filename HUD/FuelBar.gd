@@ -1,14 +1,12 @@
 extends TextureProgress
 
-
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
+export (Resource) var player_fuel
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	if player_fuel:
+		player_fuel.connect("fuel_amount_changed", self, "_on_Player_fuel_amount_changed")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

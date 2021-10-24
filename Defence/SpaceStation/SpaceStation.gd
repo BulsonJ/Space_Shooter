@@ -30,7 +30,7 @@ func _physics_process(_delta: float) -> void:
 			emit_signal("player_undocked", undocking_time)
 			
 	if docking_finished == true:
-		_target.fuel_system.use_fuel(-0.1)
+		_target.fuel.use_fuel(-0.1)
 
 func _on_defence_turret_shoot(bullet, location, direction, velocity) -> void:
 	emit_signal("base_turret_shoot", bullet, location,direction, velocity)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Player/Player_Ship.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Player/Trail.gd" type="Script" id=5]
 [ext_resource path="res://Weapons/Cannon/Cannon.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Player/spaceEngineLow_001.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Player/PlayerHealth.tres" type="Resource" id=8]
+[ext_resource path="res://Player/PlayerFuel.tres" type="Resource" id=9]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
@@ -130,6 +132,8 @@ tracks/3/keys = {
 collision_layer = 2
 collision_mask = 29
 script = ExtResource( 2 )
+health = ExtResource( 8 )
+fuel = ExtResource( 9 )
 
 [node name="Ship" type="Node2D" parent="."]
 

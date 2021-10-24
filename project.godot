@@ -19,6 +19,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Player/Player.gd"
 }, {
+"base": "Resource",
+"class": "PlayerFuel",
+"language": "GDScript",
+"path": "res://FuelScript.gd"
+}, {
+"base": "Resource",
+"class": "PlayerHealth",
+"language": "GDScript",
+"path": "res://HealthScript.gd"
+}, {
 "base": "StaticBody2D",
 "class": "Turret",
 "language": "GDScript",
@@ -32,6 +42,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Enemy": "",
 "Player": "",
+"PlayerFuel": "",
+"PlayerHealth": "",
 "Turret": "",
 "WeaponSlot": ""
 }

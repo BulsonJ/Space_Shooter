@@ -1,8 +1,9 @@
 extends Resource
+class_name PlayerFuel
 
 signal fuel_amount_changed(current_fuel)
 
-var max_fuel := 100.0
+export var max_fuel := 100.0
 var fuel := 0.0 setget _set_fuel_amount
 
 func _init() -> void:

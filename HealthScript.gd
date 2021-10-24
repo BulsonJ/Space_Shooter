@@ -1,8 +1,9 @@
 extends Resource
+class_name PlayerHealth
 
 signal health_amount_changed(current_health)
 
-var max_health := 100.0
+export var max_health := 100.0
 var health := 0.0 setget _set_health
 
 func _init() -> void:
