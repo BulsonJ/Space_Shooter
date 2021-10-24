@@ -17,17 +17,21 @@ onready var laser = preload("res://Weapons/LaserBeam/LaserBeam.tscn")
 onready var cannon = preload("res://Weapons/Cannon/Cannon.tscn")
 
 signal player_shoot(bullet, location, direction, velocity)
-signal fuel_amount_changed(current_fuel)
 signal health_amount_changed(current_health)
+signal fuel_amount_changed(current_fuel)
 
-var max_health := 100.0
-onready var health := max_health setget _set_health
-var max_fuel := 100.0
-onready var fuel := max_fuel setget _set_fuel_amount
+onready var health_resource := preload("res://HealthScript.gd")
+onready var health_system = health_resource.new()
+onready var fuel_resource := preload("res://FuelScript.gd")
+onready var fuel_system = fuel_resource.new()
 
 var targetable = true
-
 var last_thrust := 0.0
+
+func _ready() -> void:
+	#health_system.connect("health_amount_changed", self, "emit_signal(health_amount_changed)")
+	#fuel_system.connect("fuel_amount_changed", self, "emit_signal(fuel_amount_changed)")
+	pass
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
@@ -50,14 +54,15 @@ func _physics_process(delta: float) -> void:
 			animation_player.play("engine_thrust_stop")
 		_velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * slowdown_drag)
 	elif thrust < 0:
+		fuel_system.use_fuel(abs(thrust / 10.0))
 		_velocity += thrust * backwards_acceleration * Vector2.RIGHT.rotated(ship.rotation)
 	elif thrust > 0:
+		fuel_system.use_fuel(abs(thrust / 10.0))
 		_velocity += thrust * acceleration * Vector2.RIGHT.rotated(ship.rotation)
 		animation_player.play("engine_thrust")
 		#if !$EngineFX.playing:
 			#$EngineFX.play()
 		
-	use_fuel(abs(thrust / 10.0))
 	last_thrust = thrust
 	
 	_velocity = _velocity.clamped(max_speed)
@@ -67,26 +72,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_WeaponSlot_weapon_shoot(bullet, location, direction, velocity) -> void:
 	emit_signal("player_shoot", bullet, location,direction, velocity)
-	
-func use_fuel(amount) -> void:
-	_set_fuel_amount(fuel - amount)
-
-func _set_fuel_amount(value) -> void:
-	fuel = clamp(value, 0, max_fuel)
-	emit_signal("fuel_amount_changed", fuel)
-	if (fuel == 0):
-		# TODO: Implement fuel empty mechanic
-		pass
-		
-func remove_health(amount) -> void:
-	_set_health(health - amount)
-
-func _set_health(value) -> void:
-	health = clamp(value, 0, max_health)
-	emit_signal("health_amount_changed", health)
-	if (health == 0):
-		# TODO: Implement health mechanic
-		pass
 		
 func stop_ship() -> void:
 	animation_player.play("engine_thrust_stop")

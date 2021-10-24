@@ -30,7 +30,7 @@ func _physics_process(_delta: float) -> void:
 			emit_signal("player_undocked", undocking_time)
 			
 	if docking_finished == true:
-		_target.use_fuel(-0.1)
+		_target.fuel_system.use_fuel(-0.1)
 
 func _on_defence_turret_shoot(bullet, location, direction, velocity) -> void:
 	emit_signal("base_turret_shoot", bullet, location,direction, velocity)
@@ -38,7 +38,6 @@ func _on_defence_turret_shoot(bullet, location, direction, velocity) -> void:
 # Create timers to control docking maybe?
 # Set time somewhere so that it is more constant
 # Have start docking and finish docking signals(start undocking and finish undocking)
-
 
 func _on_DockingArea2D_body_entered(body: Player) -> void:
 	# Start the docking procedure and disable player process & input
