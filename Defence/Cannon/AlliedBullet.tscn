@@ -36,7 +36,8 @@ colors = PoolColorArray( 0.647059, 0.188235, 0.188235, 0, 0.521569, 1, 1, 1 )
 extents = Vector2( 4, 2 )
 
 [node name="AlliedBullet" type="Area2D"]
-collision_layer = 32
+monitorable = false
+collision_layer = 0
 collision_mask = 9
 script = ExtResource( 2 )
 
