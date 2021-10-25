@@ -4,9 +4,8 @@ export var radius = 60
 export var speed = 0.25
 export var turret_index = 0
 
-export(NodePath) var space_station_path
-onready var space_station = get_node(space_station_path)
-onready var turret_manager = space_station.get_node("TurretManager")
+var turret_manager = null
+var player_currency = null
 
 var num
 var active := false
@@ -56,11 +55,14 @@ func _on_Tween_tween_all_completed() -> void:
 		$Buttons.hide()
 
 func _on_TurretButton_Sell_pressed() -> void:
-	turret_manager.delete_turret(turret_index)
+	if turret_manager.get_turret(turret_index) != null:
+		turret_manager.delete_turret(turret_index)
+		player_currency.add(10)
 
 func _on_TurretButton_Buy_pressed() -> void:
 	if turret_manager.get_turret(turret_index) == null:
 		turret_manager.place_turret(turret_index)
+		player_currency.spend(10)
 
 func _on_TurretButton_Repair_pressed() -> void:
 	turret_manager.repair_turret(turret_index)

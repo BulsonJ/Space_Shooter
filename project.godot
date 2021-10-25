@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://Player/Player.gd"
 }, {
 "base": "Resource",
+"class": "PlayerCurrency",
+"language": "GDScript",
+"path": "res://CurrencyScript.gd"
+}, {
+"base": "Resource",
 "class": "PlayerFuel",
 "language": "GDScript",
 "path": "res://FuelScript.gd"
@@ -42,6 +47,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Enemy": "",
 "Player": "",
+"PlayerCurrency": "",
 "PlayerFuel": "",
 "PlayerHealth": "",
 "Turret": "",

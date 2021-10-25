@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Defence/SpaceStation/SpaceStation.tscn" type="PackedScene" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://UI/Currency.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Player/PlayerHealth.tres" type="Resource" id=19]
 [ext_resource path="res://Player/PlayerFuel.tres" type="Resource" id=20]
+[ext_resource path="res://Player/PlayerCurrency.tres" type="Resource" id=21]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.24, 0.5 ), 0.0, 0.0, 0, 0, Vector2( 0.510638, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.75, 0.509091 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
@@ -173,6 +174,16 @@ script = ExtResource( 6 )
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource( 5 )
 
+[node name="SpaceStation_UI" type="Control" parent="."]
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+space_station_path = NodePath("../World/SpaceStation")
+player_currency = ExtResource( 21 )
+
+[node name="Tween" type="Tween" parent="SpaceStation_UI"]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
@@ -233,16 +244,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 0
+player_currency = ExtResource( 21 )
 
-[node name="SpaceStation_UI" type="Control" parent="."]
-script = ExtResource( 14 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-space_station_path = NodePath("../World/SpaceStation")
-
-[node name="Tween" type="Tween" parent="SpaceStation_UI"]
-
+[connection signal="base_ready" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_base_ready"]
 [connection signal="base_turret_shoot" from="World/SpaceStation" to="World" method="_on_bullet_shoot"]
 [connection signal="health_amount_changed" from="World/SpaceStation" to="CanvasLayer/Control/CenterContainer/StationHealthBar" method="_on_SpaceStation_health_amount_changed"]
 [connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]

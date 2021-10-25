@@ -1,18 +1,17 @@
 extends Control
 
 export(NodePath) var space_station_path
-onready var space_station = get_node(space_station_path)
-onready var turret_manager = space_station.get_node("TurretManager")
+var turret_manager = null
 
-onready var turret_control_node = preload("res://UI/TurretControl.tscn")
+var turret_control_node = preload("res://UI/TurretControl.tscn")
 
 var placed_control_nodes := [null, null, null, null]
+
+export (Resource) var player_currency 
 
 func _ready() -> void:
 	modulate = Color(1, 1, 1, 0)
 	visible = false
-	for i in turret_manager.turretPoints.size():
-		add_turret_control(i)
 			
 func show_ui(time : float) -> void:
 	visible = true
@@ -35,6 +34,8 @@ func _on_SpaceStation_player_undocked(animation_time) -> void:
 func add_turret_control(turret_index : int) -> void:
 	var control_node = turret_control_node.instance()
 	control_node.get_node("TurretMenuButton").turret_index = turret_index
+	control_node.get_node("TurretMenuButton").turret_manager = turret_manager
+	control_node.get_node("TurretMenuButton").player_currency = player_currency
 	
 	# Gets middle of turret, applies translation based on rotation
 	var vec3_pos : Vector3 = turret_manager.turretPoints[turret_index]
@@ -59,3 +60,8 @@ func remove_turret_control(turret_index : int) -> void:
 		
 	remove_child(placed_control_nodes[turret_index])
 	placed_control_nodes[turret_index] = null
+
+func _on_SpaceStation_base_ready() -> void:
+	turret_manager = get_node(space_station_path).get_node("TurretManager")
+	for i in turret_manager.turretPoints.size():
+		add_turret_control(i)

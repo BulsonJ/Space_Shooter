@@ -11,11 +11,15 @@ signal player_docked(animation_time)
 signal player_undocked(animation_time)
 signal base_turret_shoot(bullet, location, direction, velocity)
 
+signal base_ready()
 signal health_amount_changed(health)
 signal base_destroyed()
 
 var max_health := 100.0
 onready var health := max_health setget _set_health
+
+func _ready() -> void:
+	emit_signal("base_ready")
 
 func _physics_process(_delta: float) -> void:
 	if !_target:
