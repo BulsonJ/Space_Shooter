@@ -23,6 +23,8 @@ func _physics_process(delta: float) -> void:
 
 func delete_bullet() -> void:
 	# Stop particle, delete bullet once particle lifetime is up
+	set_physics_process(false)
+	
 	particle_trail.emitting = false
 	$Line2D.visible = false
 	var time = (particle_trail.lifetime * 2) / particle_trail.speed_scale

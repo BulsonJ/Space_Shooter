@@ -99,6 +99,7 @@ collision_mask = 26
 
 [node name="Player" parent="World" instance=ExtResource( 1 )]
 position = Vector2( -169, -101 )
+currency = ExtResource( 21 )
 
 [node name="RemoteTransform2D2" type="RemoteTransform2D" parent="World/Player"]
 remote_path = NodePath("../../UIPivot")
@@ -152,6 +153,7 @@ rotation = 1.5708
 shape = SubResource( 4 )
 
 [node name="EnemySpawner" parent="World" instance=ExtResource( 13 )]
+spawning = true
 
 [node name="Enemies" type="Node" parent="World"]
 
@@ -248,6 +250,7 @@ player_currency = ExtResource( 21 )
 
 [connection signal="base_ready" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_base_ready"]
 [connection signal="base_turret_shoot" from="World/SpaceStation" to="World" method="_on_bullet_shoot"]
+[connection signal="health_amount_changed" from="World/SpaceStation" to="World/Camera2D" method="_on_SpaceStation_health_amount_changed"]
 [connection signal="health_amount_changed" from="World/SpaceStation" to="CanvasLayer/Control/CenterContainer/StationHealthBar" method="_on_SpaceStation_health_amount_changed"]
 [connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
 [connection signal="player_docked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_docked"]

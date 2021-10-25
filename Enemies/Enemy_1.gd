@@ -5,7 +5,6 @@ export var dodge_speed := 20.0
 export var drag := 8.0
 
 export var engage_distance := 200.0
-
 var _target: Player = null
 var main_target : Node
 var _defence_target : Node
@@ -19,6 +18,7 @@ export(PackedScene) var bullet = preload("res://Enemies/EnemyBullet.tscn")
 onready var animation_player = $AnimationPlayer
 
 const DeathEffect = preload("res://Enemies/Effects/Enemy_1_DeathEffect.tscn")
+const Currency = preload("res://CurrencySystem/Currency.tscn")
 
 signal enemy_shoot(bullet, location, direction, velocity)
 
@@ -71,8 +71,15 @@ func _on_Weapon_Timer_timeout() -> void:
 	weapon_ready = true
 	
 func create_death_effect() -> void:
-	var effect = DeathEffect.instance()
 	var world = get_tree().current_scene
+	
+	var amount := int(rand_range(1,3))
+	for i in amount:
+		var currency_pickup = Currency.instance()
+		world.call_deferred("add_child", currency_pickup)
+		currency_pickup.global_position = global_position
+	
+	var effect = DeathEffect.instance()
 	world.add_child(effect)
 	effect.global_position = global_position
 	

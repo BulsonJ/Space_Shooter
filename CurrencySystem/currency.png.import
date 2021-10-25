@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/currency.png-ad28ea13646d42542b5169293a191079.stex"
+path="res://.import/currency.png-08242ac5d35574bbaf0b03dcc98f000d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/currency.png"
-dest_files=[ "res://.import/currency.png-ad28ea13646d42542b5169293a191079.stex" ]
+source_file="res://CurrencySystem/currency.png"
+dest_files=[ "res://.import/currency.png-08242ac5d35574bbaf0b03dcc98f000d.stex" ]
 
 [params]
 

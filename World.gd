@@ -27,5 +27,4 @@ func _on_spawn_enemy(enemy, location) -> void:
 	e.position = location
 	e.main_target = $SpaceStation
 	e.connect("enemy_shoot", self, "_on_bullet_shoot")
-	e.connect("enemy_destroyed", $Camera2D, "add_trauma", [0.3])
 	$Enemies.add_child(e)

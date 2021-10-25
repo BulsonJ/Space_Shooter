@@ -20,6 +20,7 @@ signal player_shoot(bullet, location, direction, velocity)
 
 export (Resource) var health
 export (Resource) var fuel
+export (Resource) var currency
 
 var targetable = true
 var last_thrust := 0.0

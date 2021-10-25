@@ -150,6 +150,7 @@ weapon_2={
 2d_physics/layer_4="Enemy"
 2d_physics/layer_5="Space_Station"
 2d_physics/layer_6="Projectile"
+2d_physics/layer_7="Pickups"
 2d_physics/layer_20="Boundary"
 
 [physics]
