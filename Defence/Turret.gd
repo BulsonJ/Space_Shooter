@@ -20,7 +20,7 @@ onready var animation_player = $AnimationPlayer
 signal turret_destroyed()
 
 func _ready() -> void:
-	animation_player.play("build")
+	animation_player.queue("build")
 	
 func get_sorted_targets() -> Enemy:
 	var possibleTargets = $Turret_Vision.get_overlapping_bodies()
@@ -30,7 +30,7 @@ func get_sorted_targets() -> Enemy:
 func repair_turret() -> void:
 	if health != max_health:
 		current_state = state.REPAIRING
-		animation_player.play("repair")
+		animation_player.queue("repair")
 	
 func _repair_animation_finished() -> void:
 	$RepairFX.play()
@@ -41,7 +41,7 @@ func _repair_animation_finished() -> void:
 func take_damage(amount: float) -> void:
 	if current_state == state.FUNCTIONAL:
 		_set_health(health - amount)
-		animation_player.play("hit")
+		animation_player.queue("hit")
 		if health == 0:
 			animation_player.queue("destroyed")
 			current_state = state.DESTROYED
