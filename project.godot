@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "StaticBody2D",
 "class": "Turret",
 "language": "GDScript",
-"path": "res://Defence/Turret.gd"
+"path": "res://Defence/BaseTurrets/Turret.gd"
 }, {
 "base": "Node2D",
 "class": "WeaponSlot",

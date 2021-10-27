@@ -15,9 +15,11 @@ enum state{
 var initial_state = state.FUNCTIONAL
 onready var current_state = initial_state
 
-onready var animation_player = $AnimationPlayer
-
 signal turret_destroyed()
+
+# must implement in scene
+onready var animation_player = $AnimationPlayer
+onready var repair_sound = $RepairFX
 
 func _ready() -> void:
 	animation_player.queue("build")
@@ -33,7 +35,7 @@ func repair_turret() -> void:
 		animation_player.queue("repair")
 	
 func _repair_animation_finished() -> void:
-	$RepairFX.play()
+	repair_sound.play()
 	current_state = state.FUNCTIONAL
 	set_physics_process(true)
 	_set_health(max_health)
@@ -63,3 +65,14 @@ func _sort_target(a : Enemy,b: Enemy) -> bool:
 		return a.global_position.distance_to(global_position) < b.global_position.distance_to(global_position)
 	else:
 		return false
+		
+func _physics_process(delta: float) -> void:
+	if current_state == state.DESTROYED:
+		call_deferred("set", "$CollisionShape2D.disabled", true)
+		return
+	else:
+		call_deferred("set", "$CollisionShape2D.disabled", false)
+	
+	if current_state == state.REPAIRING:
+		return
+		

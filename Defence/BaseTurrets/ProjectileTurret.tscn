@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Defence/BaseTurrets/BaseTurret.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Defence/BaseTurrets/ProjectileTurret.gd" type="Script" id=2]
+
+[node name="ProjectileTurret" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="WeaponShootTimer" type="Timer" parent="." index="3"]
+
+[node name="ShootFX" type="AudioStreamPlayer2D" parent="." index="5"]

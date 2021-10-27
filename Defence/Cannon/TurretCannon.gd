@@ -12,16 +12,7 @@ onready var turret_direct_sight = $Turret/RayCast2D
 
 signal turret_shoot(bullet, location, direction, velocity)
 
-func _physics_process(delta: float) -> void:
-	if current_state == state.DESTROYED:
-		call_deferred("set", "$CollisionShape2D.disabled", true)
-		return
-	else:
-		call_deferred("set", "$CollisionShape2D.disabled", false)
-	
-	if current_state == state.REPAIRING:
-		return
-		
+func _physics_process(delta: float) -> void:		
 	if _target == null:
 		return
 	else:
