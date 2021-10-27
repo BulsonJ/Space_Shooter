@@ -4,19 +4,19 @@
 [ext_resource path="res://Defence/SpaceStation/SpaceStation.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Environment/Star_1.png" type="Texture" id=3]
 [ext_resource path="res://Environment/Backgrounds/Background.png" type="Texture" id=4]
-[ext_resource path="res://HUD/HealthBar_Empty.png" type="Texture" id=5]
+[ext_resource path="res://HUD/HealthBarEmpty.png" type="Texture" id=5]
 [ext_resource path="res://Camera2D.gd" type="Script" id=6]
-[ext_resource path="res://HUD/HealthBar_Fulll.png" type="Texture" id=7]
+[ext_resource path="res://HUD/HealthBarFull.png" type="Texture" id=7]
 [ext_resource path="res://HUD/FuelBar.gd" type="Script" id=8]
 [ext_resource path="res://World.gd" type="Script" id=9]
-[ext_resource path="res://HUD/FuelBar_Full.png" type="Texture" id=10]
-[ext_resource path="res://HUD/FuelBar_Empty.png" type="Texture" id=11]
+[ext_resource path="res://HUD/FuelBarFull.png" type="Texture" id=10]
+[ext_resource path="res://HUD/FuelBarEmpty.png" type="Texture" id=11]
 [ext_resource path="res://HUD/HealthBar.gd" type="Script" id=12]
 [ext_resource path="res://Enemies/EnemySpawner.tscn" type="PackedScene" id=13]
 [ext_resource path="res://UI/SpaceStation_UI.gd" type="Script" id=14]
 [ext_resource path="res://HUD/StationHealthBar.gd" type="Script" id=15]
-[ext_resource path="res://HUD/Space_HealthBar_Empty.png" type="Texture" id=16]
-[ext_resource path="res://HUD/Space_HealthBar_Full.png" type="Texture" id=17]
+[ext_resource path="res://HUD/BaseHealthBarEmpty.png" type="Texture" id=16]
+[ext_resource path="res://HUD/BaseHealthBarFull.png" type="Texture" id=17]
 [ext_resource path="res://UI/Currency.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Player/PlayerHealth.tres" type="Resource" id=19]
 [ext_resource path="res://Player/PlayerFuel.tres" type="Resource" id=20]
@@ -65,9 +65,10 @@ script = ExtResource( 9 )
 motion_mirroring = Vector2( 960, 540 )
 
 [node name="Background" type="Sprite" parent="World/ParallaxBackground/ParallaxLayer3"]
-position = Vector2( 480, 271 )
+position = Vector2( 114.75, -106.5 )
 scale = Vector2( 90, 51 )
 texture = ExtResource( 4 )
+offset = Vector2( 4.05833, 7.40196 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="World/ParallaxBackground"]
 motion_scale = Vector2( 0.25, 0.25 )
@@ -113,9 +114,9 @@ remote_path = NodePath("../../Camera2D")
 position = Vector2( -169, -101 )
 
 [node name="HealthBar" type="TextureProgress" parent="World/UIPivot"]
-margin_left = -48.0
+margin_left = -16.0
 margin_top = -48.0
-margin_right = 48.0
+margin_right = 16.0
 margin_bottom = 48.0
 mouse_filter = 2
 step = 0.1
@@ -127,6 +128,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 player_health = ExtResource( 19 )
+
+[node name="FuelBar" type="TextureProgress" parent="World/UIPivot"]
+margin_left = -48.0
+margin_top = -16.0
+margin_right = 48.0
+margin_bottom = 16.0
+mouse_filter = 2
+size_flags_horizontal = 0
+step = 0.1
+value = 100.0
+texture_under = ExtResource( 11 )
+texture_progress = ExtResource( 10 )
+fill_mode = 3
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+player_fuel = ExtResource( 20 )
 
 [node name="Environment" type="Node" parent="World"]
 
@@ -210,8 +229,8 @@ __meta__ = {
 }
 
 [node name="StationHealthBar" type="TextureProgress" parent="CanvasLayer/Control/CenterContainer"]
-margin_left = 120.0
-margin_right = 360.0
+margin_left = 177.0
+margin_right = 303.0
 margin_bottom = 135.0
 mouse_filter = 2
 value = 100.0
@@ -221,23 +240,6 @@ script = ExtResource( 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="FuelBar" type="TextureProgress" parent="CanvasLayer/Control"]
-margin_left = -4.0
-margin_top = -3.0
-margin_right = 124.0
-margin_bottom = 61.0
-mouse_filter = 2
-size_flags_horizontal = 0
-step = 0.5
-value = 100.0
-texture_under = ExtResource( 11 )
-texture_progress = ExtResource( 10 )
-script = ExtResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-player_fuel = ExtResource( 20 )
 
 [node name="Currency" parent="CanvasLayer" instance=ExtResource( 18 )]
 anchor_left = 1.0
@@ -250,11 +252,11 @@ player_currency = ExtResource( 21 )
 
 [connection signal="base_ready" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_base_ready"]
 [connection signal="base_turret_shoot" from="World/SpaceStation" to="World" method="_on_bullet_shoot"]
-[connection signal="health_amount_changed" from="World/SpaceStation" to="World/Camera2D" method="_on_SpaceStation_health_amount_changed"]
 [connection signal="health_amount_changed" from="World/SpaceStation" to="CanvasLayer/Control/CenterContainer/StationHealthBar" method="_on_SpaceStation_health_amount_changed"]
-[connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
+[connection signal="health_amount_changed" from="World/SpaceStation" to="World/Camera2D" method="_on_SpaceStation_health_amount_changed"]
 [connection signal="player_docked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_docked"]
-[connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
+[connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
 [connection signal="player_undocked" from="World/SpaceStation" to="SpaceStation_UI" method="_on_SpaceStation_player_undocked"]
+[connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
 [connection signal="player_shoot" from="World/Player" to="World" method="_on_bullet_shoot"]
 [connection signal="spawn_enemy" from="World/EnemySpawner" to="World" method="_on_spawn_enemy"]

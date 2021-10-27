@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/HealthBar_Empty.png-51db16373a0cbe5083cc017e677c981b.stex"
+path="res://.import/FuelBarFull.png-733fc6531d54dc7c8cd8397ca7f42346.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://HUD/HealthBar_Empty.png"
-dest_files=[ "res://.import/HealthBar_Empty.png-51db16373a0cbe5083cc017e677c981b.stex" ]
+source_file="res://HUD/FuelBarFull.png"
+dest_files=[ "res://.import/FuelBarFull.png-733fc6531d54dc7c8cd8397ca7f42346.stex" ]
 
 [params]
 

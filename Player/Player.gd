@@ -52,8 +52,6 @@ func _physics_process(delta: float) -> void:
 		fuel.use_fuel(abs(thrust / 10.0))
 		_velocity += thrust * acceleration * Vector2.RIGHT.rotated(ship.rotation)
 		animation_player.play("engine_thrust")
-		#if !$EngineFX.playing:
-			#$EngineFX.play()
 		
 	last_thrust = thrust
 	

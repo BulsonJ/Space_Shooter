@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Defence/Cannon/repair.ogg" type="AudioStream" id=1]
 [ext_resource path="res://Defence/Cannon/TurretCannon.gd" type="Script" id=2]
@@ -6,6 +6,25 @@
 [ext_resource path="res://Defence/Cannon/TurretCannon.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0.724138, 1 )
+colors = PoolColorArray( 0.539063, 1, 0.931129, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+flag_disable_z = true
+spread = 20.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 50.0
+initial_velocity_random = 0.4
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 20.0
+scale = 3.0
+color_ramp = SubResource( 10 )
 
 [sub_resource type="AudioStreamRandomPitch" id=2]
 audio_stream = ExtResource( 3 )
@@ -227,6 +246,16 @@ offset = Vector2( -32, -32 )
 hframes = 5
 vframes = 8
 frame = 14
+
+[node name="MuzzleParticles" type="Particles2D" parent="Turret"]
+modulate = Color( 1.8, 1.8, 1.8, 1 )
+position = Vector2( 22, 0 )
+emitting = false
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.7
+local_coords = false
+process_material = SubResource( 8 )
 
 [node name="Muzzle" type="Position2D" parent="Turret"]
 visible = false

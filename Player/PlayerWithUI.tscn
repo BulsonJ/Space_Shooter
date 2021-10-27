@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Player/PlayerCurrency.tres" type="Resource" id=2]
+[ext_resource path="res://HUD/HealthBar.gd" type="Script" id=3]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Player/PlayerHealth.tres" type="Resource" id=8]
+
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/HealthBar_Empty.png-51db16373a0cbe5083cc017e677c981b.stex"
+
+[sub_resource type="StreamTexture" id=2]
+load_path = "res://.import/HealthBar_Fulll.png-e0c08b215d659b81a193a008497e23c6.stex"
+
+[node name="PlayerWithUI" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 7 )]
+currency = ExtResource( 2 )
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../UIPivot")
+
+[node name="UIPivot" type="Node2D" parent="."]
+
+[node name="HealthBar" type="TextureProgress" parent="UIPivot"]
+margin_left = -48.0
+margin_top = -48.0
+margin_right = 48.0
+margin_bottom = 48.0
+mouse_filter = 2
+step = 0.1
+value = 100.0
+texture_under = SubResource( 1 )
+texture_progress = SubResource( 2 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+player_health = ExtResource( 8 )

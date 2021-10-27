@@ -31,6 +31,7 @@ func _physics_process(delta: float) -> void:
 					$ShootFX.play()
 					emit_signal("turret_shoot", bullet, $Turret/Muzzle.global_position, Vector2.RIGHT.rotated(turret.global_rotation), 400.0)
 					$WeaponShootTimer.start(rate_of_fire)
+					$Turret/MuzzleParticles.emitting = true
 					weapon_ready = false
 					
 				# TODO: If gun can't shoot, choose next closest target

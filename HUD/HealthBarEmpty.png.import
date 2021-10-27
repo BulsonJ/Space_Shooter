@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Space_HealthBar_Full.png-839a5473082d4ede6bb3acec26bc824f.stex"
+path="res://.import/HealthBarEmpty.png-608ac1a7ceaf00ee2dffae5b0a5b10c6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://HUD/Space_HealthBar_Full.png"
-dest_files=[ "res://.import/Space_HealthBar_Full.png-839a5473082d4ede6bb3acec26bc824f.stex" ]
+source_file="res://HUD/HealthBarEmpty.png"
+dest_files=[ "res://.import/HealthBarEmpty.png-608ac1a7ceaf00ee2dffae5b0a5b10c6.stex" ]
 
 [params]
 
