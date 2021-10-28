@@ -8,4 +8,4 @@ script = ExtResource( 2 )
 
 [node name="WeaponShootTimer" type="Timer" parent="." index="3"]
 
-[node name="ShootFX" type="AudioStreamPlayer2D" parent="." index="5"]
+[connection signal="timeout" from="WeaponShootTimer" to="." method="_on_WeaponShootTimer_timeout"]

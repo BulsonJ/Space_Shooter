@@ -65,14 +65,14 @@ func _sort_target(a : Enemy,b: Enemy) -> bool:
 		return a.global_position.distance_to(global_position) < b.global_position.distance_to(global_position)
 	else:
 		return false
+
+func _on_Turret_Vision_body_exited(body: Enemy) -> void:
+	if _target == body:
+		_target = null
 		
 func _physics_process(delta: float) -> void:
 	if current_state == state.DESTROYED:
 		call_deferred("set", "$CollisionShape2D.disabled", true)
 		return
-	else:
-		call_deferred("set", "$CollisionShape2D.disabled", false)
 	
-	if current_state == state.REPAIRING:
-		return
-		
+	call_deferred("set", "$CollisionShape2D.disabled", false)

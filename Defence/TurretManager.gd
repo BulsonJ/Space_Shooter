@@ -7,7 +7,7 @@ export var turretPoints : PoolVector3Array
 var placed_turrets = [null, null, null, null]
 var number_of_turrets := 0
 
-onready var turret_cannon = preload("res://Defence/Cannon/TurretCannon.tscn")
+onready var turret_cannon = preload("res://Defence/Cannon/Cannon.tscn")
 
 signal turret_placed(turret_index)
 signal turret_removed(turret_index)

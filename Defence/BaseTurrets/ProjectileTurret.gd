@@ -1,15 +1,20 @@
+class_name ProjectileTurret
 extends Turret
 
-const bullet_scene = preload("res://Defence/Cannon/AlliedBullet.tscn")
+export var rate_of_fire := 2.0
+export var rotation_speed := 4.0
+
+var bullet_scene = null
 
 var weapon_ready := true
 
 signal turret_shoot(bullet, location, direction, velocity)
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
+func shoot_weapon(location, direction, velocity) -> void:
+	$ShootFX.play()
+	emit_signal("turret_shoot", bullet_scene, location, direction, velocity)
+	$WeaponShootTimer.start(rate_of_fire)
+	weapon_ready = false
 
 func _on_WeaponShootTimer_timeout():
 	weapon_ready = true
