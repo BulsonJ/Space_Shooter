@@ -7,7 +7,7 @@ export var turretPoints : PoolVector3Array
 var placed_turrets = [null, null, null, null]
 var number_of_turrets := 0
 
-onready var turret_cannon = preload("res://Defence/Cannon/Cannon.tscn")
+onready var turret_cannon = preload("res://Defence/Beam/Beam.tscn")
 
 signal turret_placed(turret_index)
 signal turret_removed(turret_index)
@@ -23,13 +23,14 @@ func place_turret(turret_index : int) -> void:
 		return
 		
 	var turret = turret_cannon.instance()
-	turret.rotation_degrees = turretPoints[turret_index].z
+	turret.rotation_degrees = (turretPoints[turret_index].z)
 	turret.position = Vector2(turretPoints[turret_index].x,turretPoints[turret_index].y)
 	
 	add_child(turret)
 	placed_turrets[turret_index] = turret
 	
-	turret.connect("turret_shoot", get_parent(), "_on_defence_turret_shoot")
+	if (turret.has_signal("turret_shoot")):
+		turret.connect("turret_shoot", get_parent(), "_on_defence_turret_shoot")
 	emit_signal("turret_placed", turret_index)
 	
 func delete_turret(turret_index : int) -> void:

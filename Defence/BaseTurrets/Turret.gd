@@ -1,7 +1,7 @@
 class_name Turret
 extends StaticBody2D
 
-export(float) var max_health = 5.0
+export(float) var max_health = 50.0
 onready var health = max_health setget _set_health
 
 var _target : Enemy = null
@@ -70,7 +70,7 @@ func _on_Turret_Vision_body_exited(body: Enemy) -> void:
 	if _target == body:
 		_target = null
 		
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if current_state == state.DESTROYED:
 		call_deferred("set", "$CollisionShape2D.disabled", true)
 		return
