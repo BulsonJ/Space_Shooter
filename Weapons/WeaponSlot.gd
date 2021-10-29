@@ -11,7 +11,7 @@ export(NodePath) var rotation_node = get_parent()
 
 var current_weapon : Node = null
 
-signal weapon_shoot(bullet, location, direction, velocity)
+signal weapon_shoot(bullet, location, direction)
 
 
 func _ready() -> void:
@@ -49,5 +49,5 @@ func stop_firing() -> void:
 		current_weapon.is_casting = false
 
 
-func _on_shoot(bullet, location, direction, velocity) -> void:
-	emit_signal("weapon_shoot", bullet, location, direction, velocity)
+func _on_shoot(bullet, location, direction) -> void:
+	emit_signal("weapon_shoot", bullet, location, direction)

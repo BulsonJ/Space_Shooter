@@ -8,11 +8,11 @@ var bullet_scene = null
 
 var weapon_ready := true
 
-signal turret_shoot(bullet, location, direction, velocity)
+signal turret_shoot(bullet, location, direction)
 
-func shoot_weapon(location, direction, velocity) -> void:
+func shoot_weapon(location, direction) -> void:
 	$ShootFX.play()
-	emit_signal("turret_shoot", bullet_scene, location, direction, velocity)
+	emit_signal("turret_shoot", bullet_scene, location, direction)
 	$WeaponShootTimer.start(rate_of_fire)
 	weapon_ready = false
 

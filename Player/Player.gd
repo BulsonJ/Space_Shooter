@@ -16,7 +16,7 @@ onready var animation_player := $AnimationPlayer
 onready var laser = preload("res://Weapons/LaserBeam/LaserBeam.tscn")
 onready var cannon = preload("res://Weapons/Cannon/Cannon.tscn")
 
-signal player_shoot(bullet, location, direction, velocity)
+signal player_shoot(bullet, location, direction)
 
 export (Resource) var health
 export (Resource) var fuel
@@ -60,8 +60,8 @@ func _physics_process(delta: float) -> void:
 	
 	weapon_slot.rotation = get_global_mouse_position().angle_to_point(position)
 
-func _on_WeaponSlot_weapon_shoot(bullet, location, direction, velocity) -> void:
-	emit_signal("player_shoot", bullet, location,direction, velocity)
+func _on_WeaponSlot_weapon_shoot(bullet, location, direction) -> void:
+	emit_signal("player_shoot", bullet, location, direction)
 		
 func stop_ship() -> void:
 	animation_player.play("engine_thrust_stop")

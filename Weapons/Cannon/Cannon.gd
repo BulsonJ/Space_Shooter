@@ -9,7 +9,7 @@ onready var shoot_sound := $ShootFX
 var can_fire: bool = true
 var is_casting := false setget set_is_casting
 
-signal shoot(bullet, location, direction, velocity)
+signal shoot(bullet, location, direction)
 
 func fire() -> void:
 	$MuzzleFX.visible = true
@@ -18,7 +18,7 @@ func fire() -> void:
 	
 	shoot_sound.play()
 		
-	emit_signal("shoot", bullet, to_global($Muzzle.position), Vector2.RIGHT.rotated(get_parent().rotation), 500.0)
+	emit_signal("shoot", bullet, to_global($Muzzle.position), Vector2.RIGHT.rotated(get_parent().rotation))
 	
 func set_is_casting(cast: bool) -> void:
 	is_casting = cast

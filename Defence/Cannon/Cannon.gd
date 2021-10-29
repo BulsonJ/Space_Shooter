@@ -17,7 +17,7 @@ func _physics_process(delta: float) -> void:
 		if turret_direct_sight.is_colliding():
 			if turret_direct_sight.get_collider() is Enemy:
 				if weapon_ready:
-					shoot_weapon($Turret/Muzzle.global_position, Vector2.RIGHT.rotated(turret.global_rotation), 400.0)
+					shoot_weapon($Turret/Muzzle.global_position, Vector2.RIGHT.rotated(turret.global_rotation))
 					$Turret/MuzzleParticles.emitting = true
 					
 				# TODO: If gun can't shoot, choose next closest target
