@@ -82,6 +82,7 @@ enabled=PoolStringArray(  )
 [global]
 
 cursor=false
+delta=true
 
 [importer_defaults]
 

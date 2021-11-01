@@ -239,6 +239,7 @@ vframes = 8
 frame = 35
 
 [node name="RayCast2D" type="RayCast2D" parent="Turret" index="0"]
+visible = false
 enabled = true
 cast_to = Vector2( 300, 0 )
 collision_mask = 8

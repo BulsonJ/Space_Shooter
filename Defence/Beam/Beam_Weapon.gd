@@ -36,13 +36,9 @@ func set_is_casting(cast: bool) -> void:
 
 	if is_casting:
 		fill.points[1] = cast_to
-		
 		appear()
 	else:
-		
-		# Reset the cast_to point and line, then show the beam
 		cast_to = Vector2.ZERO
-		
 		disappear()
 
 	# Starts/stops physics process
@@ -68,11 +64,11 @@ func cast_beam() -> void:
 func appear() -> void:
 	if tween.is_active():
 		tween.stop_all()
-	tween.interpolate_property(fill, "width", 1, line_width, 1.0, Tween.TRANS_QUAD)
+	tween.interpolate_property(fill, "width", 0, line_width, 1.0, Tween.TRANS_QUAD)
 	tween.start()
 
 func disappear() -> void:
 	if tween.is_active():
 		tween.stop_all()
-	tween.interpolate_property(fill, "width", fill.width, 0, 1.0 / 4)
+	tween.interpolate_property(fill, "width", fill.width, 0.0, 0.25)
 	tween.start()

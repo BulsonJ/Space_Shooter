@@ -12,6 +12,21 @@ export (Resource) var player_currency
 func _ready() -> void:
 	modulate = Color(1, 1, 1, 0)
 	visible = false
+	
+func _process(delta: float) -> void:
+	for control_node in placed_control_nodes:
+		if control_node != null:
+			var vec3_pos : Vector3 = turret_manager.turretPoints[control_node.get_node("TurretMenuButton").turret_index]
+			var pos : Vector2 = Vector2(vec3_pos.x - 16, vec3_pos.y - 16)
+			if vec3_pos.z == 0:
+				pos = pos + Vector2(16, 0)
+			elif vec3_pos.z == 90:
+				pos = pos + Vector2(0, 16)
+			elif vec3_pos.z == 180:
+				pos = pos + Vector2(-16, 0)
+			elif vec3_pos.z == -90:
+				pos = pos + Vector2(0, -16)
+			control_node.set_global_position(turret_manager.get_global_transform_with_canvas().origin + pos, false)
 			
 func show_ui(time : float) -> void:
 	visible = true
@@ -50,7 +65,7 @@ func add_turret_control(turret_index : int) -> void:
 		pos = pos + Vector2(0, -16)
 		
 	pos = turret_manager.to_global(pos)
-	control_node.rect_global_position = pos
+	control_node.set_global_position(pos, false)
 	placed_control_nodes[turret_index] = control_node
 	add_child(control_node)
 	
