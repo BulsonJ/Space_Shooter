@@ -96,7 +96,7 @@ environment = SubResource( 5 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="HUD" type="Control" parent="CanvasLayer"]
 margin_left = 8.0
 margin_top = 475.0
 margin_right = 48.0
@@ -107,7 +107,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/HUD"]
 margin_left = -4.0
 margin_top = -237.0
 margin_right = 476.0
@@ -117,7 +117,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StationHealthBar" type="TextureProgress" parent="CanvasLayer/Control/CenterContainer"]
+[node name="StationHealthBar" type="TextureProgress" parent="CanvasLayer/HUD/CenterContainer"]
 margin_left = 177.0
 margin_right = 303.0
 margin_bottom = 135.0
@@ -131,17 +131,15 @@ __meta__ = {
 }
 
 [node name="Currency" parent="CanvasLayer" instance=ExtResource( 18 )]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -47.0
-margin_bottom = -1.0
+margin_left = 862.0
+margin_top = 493.0
+margin_right = 960.0
+margin_bottom = 539.0
 grow_horizontal = 0
 grow_vertical = 0
 player_currency = ExtResource( 21 )
 
-[node name="PlayerUI" parent="CanvasLayer" instance=ExtResource( 5 )]
+[node name="PlayerHUD" parent="CanvasLayer" instance=ExtResource( 5 )]
 
 [node name="SpaceStation_UI" type="Control" parent="CanvasLayer"]
 script = ExtResource( 14 )
@@ -155,11 +153,11 @@ player_currency = ExtResource( 21 )
 
 [connection signal="base_ready" from="World/SpaceStation" to="CanvasLayer/SpaceStation_UI" method="_on_SpaceStation_base_ready"]
 [connection signal="base_turret_shoot" from="World/SpaceStation" to="World" method="_on_bullet_shoot"]
-[connection signal="health_amount_changed" from="World/SpaceStation" to="CanvasLayer/Control/CenterContainer/StationHealthBar" method="_on_SpaceStation_health_amount_changed"]
 [connection signal="health_amount_changed" from="World/SpaceStation" to="World/Camera2D" method="_on_SpaceStation_health_amount_changed"]
-[connection signal="player_docked" from="World/SpaceStation" to="CanvasLayer/SpaceStation_UI" method="_on_SpaceStation_player_docked"]
+[connection signal="health_amount_changed" from="World/SpaceStation" to="CanvasLayer/HUD/CenterContainer/StationHealthBar" method="_on_SpaceStation_health_amount_changed"]
 [connection signal="player_docked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_docked"]
-[connection signal="player_undocked" from="World/SpaceStation" to="CanvasLayer/SpaceStation_UI" method="_on_SpaceStation_player_undocked"]
+[connection signal="player_docked" from="World/SpaceStation" to="CanvasLayer/SpaceStation_UI" method="_on_SpaceStation_player_docked"]
 [connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
+[connection signal="player_undocked" from="World/SpaceStation" to="CanvasLayer/SpaceStation_UI" method="_on_SpaceStation_player_undocked"]
 [connection signal="player_shoot" from="World/Player" to="World" method="_on_bullet_shoot"]
 [connection signal="spawn_enemy" from="World/EnemySpawner" to="World" method="_on_spawn_enemy"]

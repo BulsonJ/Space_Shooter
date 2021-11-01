@@ -21,9 +21,8 @@ func _physics_process(delta: float) -> void:
 	else:
 				
 		if turret_direct_sight.is_colliding():
-			cast_beam(true)
 			if turret_direct_sight.get_collider() is Enemy:
-				#cast_beam(true)
+				cast_beam(true)
 				if $Turret/Beam.is_colliding():
 					var collider = $Turret/Beam.get_collider()
 					if collider is Enemy:

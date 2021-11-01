@@ -64,11 +64,13 @@ func cast_beam() -> void:
 func appear() -> void:
 	if tween.is_active():
 		tween.stop_all()
+		tween.remove_all()
 	tween.interpolate_property(fill, "width", 0, line_width, 1.0, Tween.TRANS_QUAD)
 	tween.start()
 
 func disappear() -> void:
 	if tween.is_active():
 		tween.stop_all()
+		tween.remove_all()
 	tween.interpolate_property(fill, "width", fill.width, 0.0, 0.25)
 	tween.start()
