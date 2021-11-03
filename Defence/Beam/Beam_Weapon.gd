@@ -65,7 +65,7 @@ func appear() -> void:
 	if tween.is_active():
 		tween.stop_all()
 		tween.remove_all()
-	tween.interpolate_property(fill, "width", 0, line_width, 1.0, Tween.TRANS_QUAD)
+	tween.interpolate_property(fill, "width", 0, line_width, 0.5, Tween.TRANS_QUAD)
 	tween.start()
 
 func disappear() -> void:

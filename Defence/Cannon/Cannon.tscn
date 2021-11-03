@@ -6,11 +6,11 @@
 
 [sub_resource type="CircleShape2D" id=1]
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=2]
 resource_name = "build"
 length = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("Turret:frame")
+tracks/0/path = NodePath("Base:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -22,7 +22,7 @@ tracks/0/keys = {
 "values": [ 15, 16, 17, 18, 19 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Base:frame")
+tracks/1/path = NodePath("Turret:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -51,11 +51,11 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=3]
 resource_name = "destroyed"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Base:frame")
+tracks/0/path = NodePath("Turret:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -67,7 +67,7 @@ tracks/0/keys = {
 "values": [ 30 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Turret:frame")
+tracks/1/path = NodePath("Base:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -79,11 +79,11 @@ tracks/1/keys = {
 "values": [ 35 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=4]
 resource_name = "hit"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Base:frame")
+tracks/0/path = NodePath("Turret:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -95,7 +95,7 @@ tracks/0/keys = {
 "values": [ 20, 0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Turret:frame")
+tracks/1/path = NodePath("Base:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -111,7 +111,7 @@ tracks/1/keys = {
 resource_name = "repair"
 length = 0.7
 tracks/0/type = "value"
-tracks/0/path = NodePath("Base:frame")
+tracks/0/path = NodePath("Turret:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -123,7 +123,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Turret:frame")
+tracks/1/path = NodePath("Base:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -184,7 +184,7 @@ tracks/1/keys = {
 } ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Turret:frame")
+tracks/2/path = NodePath("Base:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -196,7 +196,7 @@ tracks/2/keys = {
 "values": [ 19, 18, 17, 16, 15 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Base:frame")
+tracks/3/path = NodePath("Turret:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -237,9 +237,9 @@ shape = SubResource( 1 )
 visible = true
 
 [node name="AnimationPlayer" parent="." index="6"]
-anims/build = SubResource( 10 )
-anims/destroyed = SubResource( 11 )
-anims/hit = SubResource( 12 )
+anims/build = SubResource( 2 )
+anims/destroyed = SubResource( 3 )
+anims/hit = SubResource( 4 )
 anims/repair = SubResource( 5 )
 anims/sell = SubResource( 6 )
 
@@ -249,7 +249,7 @@ centered = false
 offset = Vector2( -32, -32 )
 hframes = 5
 vframes = 8
-frame = 19
+frame = 14
 
 [node name="MuzzleParticles" type="Particles2D" parent="Turret" index="0"]
 modulate = Color( 1.8, 1.8, 1.8, 1 )
@@ -266,7 +266,7 @@ position = Vector2( 28, 0 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Turret" index="2"]
 enabled = true
-cast_to = Vector2( 0, -300 )
+cast_to = Vector2( 300, 0 )
 collision_mask = 11
 
 [node name="Base" type="Sprite" parent="." index="8"]
@@ -275,4 +275,4 @@ centered = false
 offset = Vector2( -32, -32 )
 hframes = 5
 vframes = 8
-frame = 14
+frame = 19

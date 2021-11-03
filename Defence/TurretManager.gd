@@ -7,24 +7,36 @@ export var turretPoints : PoolVector3Array
 var placed_turrets = [null, null, null, null]
 var number_of_turrets := 0
 
-onready var turret_cannon = preload("res://Defence/Beam/Beam.tscn")
+onready var turret_beam = preload("res://Defence/Beam/Beam.tscn")
+onready var turret_cannon = preload("res://Defence/Cannon/Cannon.tscn")
 
 signal turret_placed(turret_index)
 signal turret_removed(turret_index)
 
-func _ready() -> void:
-	place_turret(0)
-	place_turret(1)
-	place_turret(2)
-	place_turret(3)
+enum turret_types{
+	cannon,
+	beam
+}
 
-func place_turret(turret_index : int) -> void:
+func _ready() -> void:
+	place_turret(0, turret_types.cannon)
+	place_turret(1, turret_types.cannon)
+	place_turret(2, turret_types.cannon)
+	place_turret(3, turret_types.cannon)
+
+func place_turret(turret_index : int, turret_type: int) -> void:
 	if placed_turrets[turret_index] != null:
 		return
 		
-	var turret = turret_cannon.instance()
+	var turret = null
+	if turret_type == turret_types.cannon:
+		turret = turret_cannon.instance()
+	elif turret_type == turret_types.beam:
+		turret = turret_beam.instance()
+		
 	turret.rotation_degrees = (turretPoints[turret_index].z)
 	turret.position = Vector2(turretPoints[turret_index].x,turretPoints[turret_index].y)
+	
 	
 	add_child(turret)
 	placed_turrets[turret_index] = turret
