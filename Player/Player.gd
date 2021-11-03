@@ -39,6 +39,10 @@ func _physics_process(delta: float) -> void:
 	var thrust := Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
 	var _direction := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	ship.rotation += _direction / turning_drag
+	if ship.rotation_degrees > 180:
+		ship.rotation_degrees -= 360
+	elif ship.rotation_degrees < -180:
+		ship.rotation_degrees += 360
 	
 	# Calculate movement for ship and play animation
 	if thrust == 0:
