@@ -4,7 +4,7 @@ extends KinematicBody2D
 export var max_speed := 128.0
 export var acceleration := 32.0
 export var backwards_acceleration := 8.0
-export var slowdown_drag := 1.5
+export var slowdown_drag := 0.5
 export var turning_drag := 16.0
 
 var _velocity := Vector2.ZERO
@@ -70,3 +70,6 @@ func _on_WeaponSlot_weapon_shoot(bullet, location, direction) -> void:
 func stop_ship() -> void:
 	animation_player.play("engine_thrust_stop")
 	weapon_slot.stop_firing()
+	
+func take_damage(weapon_damage: int) -> void:
+	health.remove_health(weapon_damage)
