@@ -5,7 +5,6 @@ extends Node2D
 # Weapon can be used using fire() method.
 # For held weapons, stop_firing() can be called on key release to stop the weapon
 
-export(NodePath) var initial_weapon = null
 export(bool) var rotate_with_node := true
 export(NodePath) var rotation_node = get_parent()
 
