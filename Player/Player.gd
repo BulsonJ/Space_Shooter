@@ -3,11 +3,14 @@ extends KinematicBody2D
 
 export var max_speed := 128.0
 export var acceleration := 32.0
+export var horizontal_acceleration := 16.0
 export var backwards_acceleration := 8.0
 export var slowdown_drag := 0.5
 export var turning_drag := 16.0
+export var rotation_speed := 32.0
 
 var _velocity := Vector2.ZERO
+var last_thrust := Vector2.ZERO
 
 onready var ship := $Ship
 onready var weapon_slot := $WeaponSlot
@@ -23,7 +26,6 @@ export (Resource) var fuel
 export (Resource) var currency
 
 var targetable = true
-var last_thrust := 0.0
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
@@ -36,33 +38,26 @@ func _input(event: InputEvent) -> void:
 		weapon_slot.change_weapon(laser)
 
 func _physics_process(delta: float) -> void:
-	var thrust := Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
-	var _direction := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	ship.rotation += _direction / turning_drag
-	if ship.rotation_degrees > 180:
-		ship.rotation_degrees -= 360
-	elif ship.rotation_degrees < -180:
-		ship.rotation_degrees += 360
+	var thrust := Vector2(Input.get_action_strength("turn_right") - Input.get_action_strength("turn_left"),
+	Input.get_action_strength("move_up") - Input.get_action_strength("move_down"))
+
+	_velocity += thrust.y * acceleration * Vector2.RIGHT.rotated(ship.rotation)
+	_velocity += thrust.x * horizontal_acceleration * Vector2.RIGHT.rotated(ship.rotation + PI / 2)
 	
-	# Calculate movement for ship and play animation
-	if thrust == 0:
-		if last_thrust != thrust:
-			animation_player.play("engine_thrust_stop")
-		_velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * slowdown_drag)
-	elif thrust < 0:
-		fuel.use_fuel(abs(thrust / 10.0))
-		_velocity += thrust * backwards_acceleration * Vector2.RIGHT.rotated(ship.rotation)
-	elif thrust > 0:
-		fuel.use_fuel(abs(thrust / 10.0))
-		_velocity += thrust * acceleration * Vector2.RIGHT.rotated(ship.rotation)
+	if Input.get_action_strength("ship_brake") == 1:
+		_velocity = lerp(_velocity, Vector2.ZERO, delta)
+
+	if thrust.y > 0:
 		animation_player.play("engine_thrust")
-		
+	else:
+		animation_player.play("engine_thrust_stop")
+	
 	last_thrust = thrust
 	
 	_velocity = _velocity.clamped(max_speed)
 	_velocity = move_and_slide(_velocity)	
 	
-	weapon_slot.rotation = get_global_mouse_position().angle_to_point(position)
+	rotate_ship(get_global_mouse_position(), delta)
 
 func _on_WeaponSlot_weapon_shoot(bullet, location, direction) -> void:
 	emit_signal("player_shoot", bullet, location, direction)
@@ -73,3 +68,12 @@ func stop_ship() -> void:
 	
 func take_damage(weapon_damage: int) -> void:
 	health.remove_health(weapon_damage)
+
+func rotate_ship(target_position: Vector2, delta: float):
+	var v = target_position - global_position
+	var angle = v.angle()
+	var r = ship.global_rotation
+	var angle_delta = rotation_speed * delta
+	angle = lerp_angle(r, angle, 1.0)
+	angle = clamp(angle, r - angle_delta, r + angle_delta)
+	ship.global_rotation = lerp_angle(r, angle, 0.2)

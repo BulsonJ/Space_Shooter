@@ -258,6 +258,7 @@ local_coords = false
 process_material = SubResource( 5 )
 
 [node name="WeaponSlot" parent="." instance=ExtResource( 3 )]
+rotate_with_node = true
 
 [node name="Cannon" parent="WeaponSlot" instance=ExtResource( 6 )]
 
