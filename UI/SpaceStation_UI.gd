@@ -13,7 +13,7 @@ func _ready() -> void:
 	modulate = Color(1, 1, 1, 0)
 	visible = false
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	for control_node in placed_control_nodes:
 		if control_node != null:
 			var vec3_pos : Vector3 = turret_manager.turretPoints[control_node.get_node("TurretMenuButton").turret_index]

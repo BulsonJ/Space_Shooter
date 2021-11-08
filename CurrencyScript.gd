@@ -15,6 +15,6 @@ func spend(amount) -> void:
 func add(amount) -> void:
 	_set_currency_amount(currency + amount)
 
-func _set_currency_amount(value) -> void:
-	currency = clamp(value, 0.0, value)
+func _set_currency_amount(value : int) -> void:
+	currency = int(clamp(value, 0, value))
 	emit_signal("currency_amount_changed", currency)
