@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Defence/BaseTurrets/ProjectileTurret.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Defence/Cannon/Cannon.png" type="Texture" id=2]
+[ext_resource path="res://Defence/Cannon/CannonBase.png" type="Texture" id=2]
 [ext_resource path="res://Defence/Cannon/Cannon.gd" type="Script" id=3]
+[ext_resource path="res://Shaders/flash_shader.gdshader" type="Shader" id=4]
+[ext_resource path="res://Defence/Cannon/CannonTurret.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -19,7 +21,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 15, 16, 17, 18, 19 ]
+"values": [ 5, 6, 7, 8, 9 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Turret:frame")
@@ -31,7 +33,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 10, 11, 12, 13, 14 ]
+"values": [ 5, 6, 7, 8, 9 ]
 }
 tracks/2/type = "method"
 tracks/2/path = NodePath(".")
@@ -64,7 +66,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 30 ]
+"values": [ 10 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Base:frame")
@@ -76,35 +78,23 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 35 ]
+"values": [ 10 ]
 }
 
 [sub_resource type="Animation" id=4]
 resource_name = "hit"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Turret:frame")
+tracks/0/path = NodePath("Turret:material:shader_param/flash_modifier")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ 20, 0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Base:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ 25, 5 ]
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -193,7 +183,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 19, 18, 17, 16, 15 ]
+"values": [ 9, 8, 7, 6, 5 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Turret:frame")
@@ -205,8 +195,14 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 14, 13, 12, 11, 10 ]
+"values": [ 9, 8, 7, 6, 5 ]
 }
+
+[sub_resource type="ShaderMaterial" id=10]
+resource_local_to_scene = true
+shader = ExtResource( 4 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_modifier = 0.0
 
 [sub_resource type="Gradient" id=7]
 offsets = PoolRealArray( 0.724138, 1 )
@@ -244,12 +240,13 @@ anims/repair = SubResource( 5 )
 anims/sell = SubResource( 6 )
 
 [node name="Turret" type="Sprite" parent="." index="7"]
-texture = ExtResource( 2 )
+material = SubResource( 10 )
+texture = ExtResource( 5 )
 centered = false
 offset = Vector2( -32, -32 )
 hframes = 5
-vframes = 8
-frame = 14
+vframes = 3
+frame = 9
 
 [node name="MuzzleParticles" type="Particles2D" parent="Turret" index="0"]
 modulate = Color( 1.8, 1.8, 1.8, 1 )
@@ -270,9 +267,10 @@ cast_to = Vector2( 300, 0 )
 collision_mask = 11
 
 [node name="Base" type="Sprite" parent="." index="8"]
+material = SubResource( 10 )
 texture = ExtResource( 2 )
 centered = false
 offset = Vector2( -32, -32 )
 hframes = 5
-vframes = 8
-frame = 19
+vframes = 3
+frame = 9
