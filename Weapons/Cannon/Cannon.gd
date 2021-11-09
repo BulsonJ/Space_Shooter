@@ -5,6 +5,7 @@ export(float) var rate_of_fire = 0.33
 
 onready var shoot_timer := $ShootTimer
 onready var shoot_sound := $ShootFX
+onready var weapon_sprite := $Turret
 
 var can_fire: bool = true
 var is_casting := false setget set_is_casting

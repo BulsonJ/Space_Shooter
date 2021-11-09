@@ -8,7 +8,11 @@ var max_speed := 200.0
 var _velocity := Vector2.ZERO
 
 func _ready() -> void:
-	connect("body_entered", self, "_on_body_entered")
+	
+	var error_code := connect("body_entered", self, "_on_body_entered")
+	if error_code != 0:
+		print("ERROR: ", error_code)
+
 	rotation_degrees = rand_range(0, 360)
 	
 	$Tween.interpolate_property(self, "scale", Vector2(0,0), Vector2(0.5,0.5), 1.0)

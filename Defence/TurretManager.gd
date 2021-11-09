@@ -19,9 +19,9 @@ enum turret_types{
 }
 
 func _ready() -> void:
-	place_turret(0, turret_types.cannon)
+	place_turret(0, turret_types.beam)
 	place_turret(1, turret_types.cannon)
-	place_turret(2, turret_types.cannon)
+	place_turret(2, turret_types.beam)
 	place_turret(3, turret_types.cannon)
 
 func place_turret(turret_index : int, turret_type: int) -> void:

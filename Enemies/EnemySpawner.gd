@@ -23,7 +23,7 @@ signal wave_end(wave_number)
 func _ready() -> void:
 	$WaveTimer.start(wave_timer)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if enemies_spawning && _spawning:
 		spawn_wave()
 		monitor_enemies()

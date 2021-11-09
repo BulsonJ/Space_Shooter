@@ -27,6 +27,9 @@ export (Resource) var currency
 
 var targetable = true
 
+func _ready() -> void:
+	animation_player.play("ready")
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
 		weapon_slot.fire()
@@ -68,6 +71,12 @@ func stop_ship() -> void:
 	
 func take_damage(weapon_damage: int) -> void:
 	health.remove_health(weapon_damage)
+	frame_freeze(0.05, 0.5)
+	$Ship/Spaceship.material.set_shader_param("flash_modifier", 1)
+	$WeaponSlot/Cannon.weapon_sprite.material.set_shader_param("flash_modifier", 1)
+	yield(get_tree().create_timer(0.01), "timeout")
+	$Ship/Spaceship.material.set_shader_param("flash_modifier", 0)
+	$WeaponSlot/Cannon.weapon_sprite.material.set_shader_param("flash_modifier", 0)
 
 func rotate_ship(target_position: Vector2, delta: float):
 	var v = target_position - global_position
@@ -77,3 +86,8 @@ func rotate_ship(target_position: Vector2, delta: float):
 	angle = lerp_angle(r, angle, 1.0)
 	angle = clamp(angle, r - angle_delta, r + angle_delta)
 	ship.global_rotation = lerp_angle(r, angle, 0.2)
+	
+func frame_freeze(timeScale, duration) -> void:
+	Engine.time_scale = timeScale
+	yield(get_tree().create_timer(duration * timeScale), "timeout")
+	Engine.time_scale = 1
