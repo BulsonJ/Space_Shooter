@@ -264,6 +264,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id=14]
 resource_name = "ready"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Ship/Particles2D:visible")
 tracks/0/interp = 1
@@ -367,6 +368,7 @@ end_cap_mode = 2
 script = ExtResource( 5 )
 
 [node name="Engine" type="Sprite" parent="Ship"]
+visible = false
 modulate = Color( 2, 2, 2, 1 )
 texture = ExtResource( 4 )
 centered = false
@@ -398,6 +400,7 @@ local_coords = false
 process_material = SubResource( 5 )
 
 [node name="WeaponSlot" parent="." instance=ExtResource( 3 )]
+rotate_with_node = true
 
 [node name="Cannon" parent="WeaponSlot" instance=ExtResource( 6 )]
 
@@ -433,7 +436,6 @@ anims/ready = SubResource( 14 )
 
 [node name="EngineFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
-volume_db = -5.474
 bus = "ShipEffects"
 
 [connection signal="weapon_shoot" from="WeaponSlot" to="." method="_on_WeaponSlot_weapon_shoot"]
