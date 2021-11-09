@@ -5,8 +5,6 @@ var docking_finished := false
 var docking_time := 2.0
 var undocking_time := 0.5
 
-onready var turret_amount = $TurretManager.number_of_turrets
-
 signal player_docked(animation_time)
 signal player_undocked(animation_time)
 signal base_turret_shoot(bullet, location, direction)

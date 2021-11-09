@@ -11,7 +11,8 @@ extents = Vector2( 15, 15 )
 script = ExtResource( 3 )
 
 [node name="TurretManager" parent="." instance=ExtResource( 2 )]
-turretPoints = PoolVector3Array( 111, 0, 0, 0, 111, 90, 0, -111, -90, -111, 0, 180 )
+turretPoints = PoolVector3Array( 111, 0, 0, 0, 111, 90, -111, 0, 180, 0, -111, -90 )
+default_turrets = [ 1, 0, 1, 0 ]
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

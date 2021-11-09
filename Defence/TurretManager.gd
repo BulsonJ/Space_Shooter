@@ -4,8 +4,7 @@ extends Node2D
 
 # x,y position, z rotation
 export var turretPoints : PoolVector3Array
-var placed_turrets = [null, null, null, null]
-var number_of_turrets := 0
+var placed_turrets : Array
 
 onready var turret_beam = preload("res://Defence/Beam/Beam.tscn")
 onready var turret_cannon = preload("res://Defence/Cannon/Cannon.tscn")
@@ -15,14 +14,16 @@ signal turret_removed(turret_index)
 
 enum turret_types{
 	cannon,
-	beam
+	beam,
 }
 
+export(Array, turret_types) var default_turrets : Array
+
 func _ready() -> void:
-	place_turret(0, turret_types.beam)
-	place_turret(1, turret_types.cannon)
-	place_turret(2, turret_types.beam)
-	place_turret(3, turret_types.cannon)
+	for i in turretPoints.size():
+		placed_turrets.append(null)
+		place_turret(i, turret_types.values()[default_turrets[i]])
+
 
 func place_turret(turret_index : int, turret_type: int) -> void:
 	if placed_turrets[turret_index] != null:
@@ -36,7 +37,6 @@ func place_turret(turret_index : int, turret_type: int) -> void:
 		
 	turret.rotation_degrees = (turretPoints[turret_index].z)
 	turret.position = Vector2(turretPoints[turret_index].x,turretPoints[turret_index].y)
-	
 	
 	add_child(turret)
 	placed_turrets[turret_index] = turret
