@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Weapons/Cannon/Cannon.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player_Ship_Turret.png" type="Texture" id=2]
 [ext_resource path="res://Weapons/Cannon/laser_sound.ogg" type="AudioStream" id=3]
 [ext_resource path="res://Weapons/Cannon/shoot_animation.png" type="Texture" id=4]
+[ext_resource path="res://Player/PlayerTechnology.tres" type="Resource" id=5]
 
 [sub_resource type="AudioStreamRandomPitch" id=1]
 audio_stream = ExtResource( 3 )
@@ -39,6 +40,7 @@ animations = [ {
 
 [node name="Cannon" type="Node2D"]
 script = ExtResource( 1 )
+player_tech = ExtResource( 5 )
 
 [node name="Muzzle" type="Position2D" parent="."]
 position = Vector2( 15, 0 )

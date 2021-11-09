@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Player/Player_Ship.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Player/PlayerFuel.tres" type="Resource" id=9]
 [ext_resource path="res://Shaders/flash_shader.gdshader" type="Shader" id=10]
 [ext_resource path="res://Player/PlayerCurrency.tres" type="Resource" id=11]
+[ext_resource path="res://Player/PlayerTechnology.tres" type="Resource" id=12]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
@@ -346,6 +347,7 @@ script = ExtResource( 2 )
 health = ExtResource( 8 )
 fuel = ExtResource( 9 )
 currency = ExtResource( 11 )
+player_technology = ExtResource( 12 )
 
 [node name="Ship" type="Node2D" parent="."]
 

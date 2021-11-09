@@ -39,10 +39,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Defence/BaseTurrets/ProjectileTurret.gd"
 }, {
-"base": "Reference",
+"base": "Resource",
 "class": "Technology",
 "language": "GDScript",
 "path": "res://Systems/Upgrades/Technology.gd"
+}, {
+"base": "Resource",
+"class": "TechnologyTracker",
+"language": "GDScript",
+"path": "res://Systems/Upgrades/TechnologyTracker.gd"
 }, {
 "base": "StaticBody2D",
 "class": "Turret",
@@ -62,6 +67,7 @@ _global_script_class_icons={
 "PlayerHealth": "",
 "ProjectileTurret": "",
 "Technology": "",
+"TechnologyTracker": "",
 "Turret": "",
 "WeaponSlot": ""
 }
