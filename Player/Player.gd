@@ -24,7 +24,6 @@ signal player_brake(brake_value)
 export (Resource) var health
 export (Resource) var fuel
 export (Resource) var currency
-export (Resource) var player_technology
 var targetable = true
 
 func _ready() -> void:
@@ -38,7 +37,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("weapon_1"):
 		weapon_slot.change_weapon(cannon)
 	if event.is_action_pressed("weapon_2"):
-		player_technology.unlock_tech(0)
+		weapon_slot.change_weapon(laser)
 	if event.is_action_pressed("ship_brake"):
 		_ship_brake = !_ship_brake
 		emit_signal("player_brake", _ship_brake)

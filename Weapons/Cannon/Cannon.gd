@@ -10,8 +10,6 @@ onready var weapon_sprite := $Turret
 var can_fire: bool = true
 var is_casting := false setget set_is_casting
 
-export(Resource) var player_tech
-
 signal shoot(bullet, location, direction)
 
 func fire() -> void:
@@ -20,6 +18,7 @@ func fire() -> void:
 	$MuzzleFX.play("default")
 	
 	shoot_sound.play()
+		
 	emit_signal("shoot", bullet, to_global($Muzzle.position), Vector2.RIGHT.rotated(get_parent().rotation))
 	
 func set_is_casting(cast: bool) -> void:
@@ -28,12 +27,12 @@ func set_is_casting(cast: bool) -> void:
 	if is_casting:
 		if shoot_timer.is_stopped():
 			fire()
-			shoot_timer.start(player_tech.calculate_rate_of_fire(rate_of_fire))
+			shoot_timer.start(rate_of_fire)
 		
 func _on_ShootTimer_timeout() -> void:
 	if is_casting:
 		fire()
-		shoot_timer.start(player_tech.calculate_rate_of_fire(rate_of_fire))
+		shoot_timer.start(rate_of_fire)
 
 func _on_MuzzleFX_animation_finished() -> void:
 	$MuzzleFX.visible = false
