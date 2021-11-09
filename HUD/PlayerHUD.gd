@@ -8,3 +8,5 @@ func _process(_delta: float) -> void:
 	
 	set_global_position(actor_position, false) 
 	
+func _on_player_brake(brake_value: bool) -> void:
+	$BrakeIndicator.visible = brake_value

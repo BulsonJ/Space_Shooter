@@ -182,6 +182,7 @@ player_currency = ExtResource( 21 )
 [connection signal="player_docked" from="World/SpaceStation" to="CanvasLayer/SpaceStation_UI" method="_on_SpaceStation_player_docked"]
 [connection signal="player_undocked" from="World/SpaceStation" to="World" method="_on_SpaceStation_player_undocked"]
 [connection signal="player_undocked" from="World/SpaceStation" to="CanvasLayer/SpaceStation_UI" method="_on_SpaceStation_player_undocked"]
+[connection signal="player_brake" from="World/Player" to="CanvasLayer/PlayerHUD" method="_on_player_brake"]
 [connection signal="player_shoot" from="World/Player" to="World" method="_on_bullet_shoot"]
 [connection signal="spawn_enemy" from="World/EnemySpawner" to="World" method="_on_spawn_enemy"]
 [connection signal="wave_start" from="World/EnemySpawner" to="CanvasLayer/HUD" method="_on_wave_start"]

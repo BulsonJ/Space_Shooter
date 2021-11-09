@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Player/PlayerHealth.tres" type="Resource" id=1]
 [ext_resource path="res://HUD/PlayerHUD.gd" type="Script" id=2]
@@ -9,6 +9,11 @@
 [ext_resource path="res://HUD/HealthBarEmpty.png" type="Texture" id=7]
 [ext_resource path="res://HUD/FuelBarFull.png" type="Texture" id=8]
 [ext_resource path="res://Player/PlayerFuel.tres" type="Resource" id=9]
+[ext_resource path="res://m3x6.ttf" type="DynamicFontData" id=10]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 10 )
 
 [node name="PlayerUI" type="Control"]
 margin_right = 40.0
@@ -52,3 +57,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 player_fuel = ExtResource( 9 )
+
+[node name="BrakeIndicator" type="Label" parent="."]
+margin_left = 25.0
+margin_top = 8.0
+margin_right = 65.0
+margin_bottom = 37.0
+custom_colors/font_color = Color( 0.827451, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "B"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

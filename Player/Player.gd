@@ -5,12 +5,11 @@ export var max_speed := 128.0
 export var acceleration := 32.0
 export var horizontal_acceleration := 16.0
 export var backwards_acceleration := 8.0
-export var slowdown_drag := 0.5
-export var turning_drag := 16.0
 export var rotation_speed := 32.0
 
 var _velocity := Vector2.ZERO
-var last_thrust := Vector2.ZERO
+var _last_thrust:= Vector2.ZERO
+var _ship_brake := true
 
 onready var ship := $Ship
 onready var weapon_slot := $WeaponSlot
@@ -20,11 +19,11 @@ onready var laser = preload("res://Weapons/LaserBeam/LaserBeam.tscn")
 onready var cannon = preload("res://Weapons/Cannon/Cannon.tscn")
 
 signal player_shoot(bullet, location, direction)
+signal player_brake(brake_value)
 
 export (Resource) var health
 export (Resource) var fuel
 export (Resource) var currency
-
 var targetable = true
 
 func _ready() -> void:
@@ -39,23 +38,28 @@ func _input(event: InputEvent) -> void:
 		weapon_slot.change_weapon(cannon)
 	if event.is_action_pressed("weapon_2"):
 		weapon_slot.change_weapon(laser)
+	if event.is_action_pressed("ship_brake"):
+		_ship_brake = !_ship_brake
+		emit_signal("player_brake", _ship_brake)
 
 func _physics_process(delta: float) -> void:
 	var thrust := Vector2(Input.get_action_strength("turn_right") - Input.get_action_strength("turn_left"),
 	Input.get_action_strength("move_up") - Input.get_action_strength("move_down"))
 
-	_velocity += thrust.y * acceleration * Vector2.RIGHT.rotated(ship.rotation)
 	_velocity += thrust.x * horizontal_acceleration * Vector2.RIGHT.rotated(ship.rotation + PI / 2)
+	if thrust.y > 0:
+		_velocity += thrust.y * acceleration * Vector2.RIGHT.rotated(ship.rotation)
+	elif thrust.y < 0:
+		_velocity += thrust.y * backwards_acceleration * Vector2.RIGHT.rotated(ship.rotation)
 	
-	if Input.get_action_strength("ship_brake") == 1:
+	if _ship_brake:
 		_velocity = lerp(_velocity, Vector2.ZERO, delta)
 
 	if thrust.y > 0:
 		animation_player.play("engine_thrust")
-	else:
+	elif thrust != _last_thrust:
 		animation_player.play("engine_thrust_stop")
-	
-	last_thrust = thrust
+	_last_thrust = thrust
 	
 	_velocity = _velocity.clamped(max_speed)
 	_velocity = move_and_slide(_velocity)	
