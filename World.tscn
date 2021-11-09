@@ -78,7 +78,6 @@ rotation = 1.5708
 shape = SubResource( 1 )
 
 [node name="EnemySpawner" parent="World" instance=ExtResource( 13 )]
-enemies_spawning = false
 enemy_spawn_node_path = NodePath("../Enemies")
 
 [node name="Enemies" type="Node" parent="World"]
