@@ -36,8 +36,8 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="."]
 
 [connection signal="pressed" from="." to="." method="_on_RadialMenuButton_pressed"]
-[connection signal="pressed" from="Buttons/TurretButtonBuy/Buttons/ButtonCannon" to="." method="hide_menu"]
 [connection signal="pressed" from="Buttons/TurretButtonBuy/Buttons/ButtonCannon" to="." method="_on_ButtonCannon_pressed"]
+[connection signal="pressed" from="Buttons/TurretButtonBuy/Buttons/ButtonCannon" to="." method="hide_menu"]
 [connection signal="pressed" from="Buttons/TurretButtonBuy/Buttons/ButtonBeam" to="." method="hide_menu"]
 [connection signal="pressed" from="Buttons/TurretButtonBuy/Buttons/ButtonBeam" to="." method="_on_ButtonBeam_pressed"]
 [connection signal="pressed" from="Buttons/TurretButton_Sell" to="." method="_on_TurretButton_Sell_pressed"]

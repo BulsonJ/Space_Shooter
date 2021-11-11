@@ -102,6 +102,13 @@ environment = SubResource( 2 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="ResearchSystem" type="Control" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HUD" type="Control" parent="CanvasLayer"]
 margin_left = 8.0
 margin_top = 475.0

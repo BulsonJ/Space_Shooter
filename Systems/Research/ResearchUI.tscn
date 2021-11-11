@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Systems/Research/ResearchButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Systems/Research/ResearchUI.gd" type="Script" id=2]
+
+[node name="ResearchUI" type="Control"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lines" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Technologies" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Research" parent="Technologies" instance=ExtResource( 1 )]
+margin_left = 48.0
+margin_top = 32.0
+margin_right = 80.0
+margin_bottom = 64.0
+researchable = true
+
+[node name="Research2" parent="Technologies" instance=ExtResource( 1 )]
+margin_left = 16.0
+margin_top = 80.0
+margin_right = 48.0
+margin_bottom = 112.0
+prereq = [ NodePath("../Research") ]
+
+[node name="Research3" parent="Technologies" instance=ExtResource( 1 )]
+margin_left = 80.0
+margin_top = 80.0
+margin_right = 112.0
+margin_bottom = 112.0
+prereq = [ NodePath("../Research") ]
+
+[node name="Research4" parent="Technologies" instance=ExtResource( 1 )]
+margin_left = 16.0
+margin_top = 136.0
+margin_right = 48.0
+margin_bottom = 168.0
+prereq = [ NodePath("../Research2") ]
+
+[node name="Research5" parent="Technologies" instance=ExtResource( 1 )]
+margin_left = 80.0
+margin_top = 136.0
+margin_right = 112.0
+margin_bottom = 168.0
+prereq = [ NodePath("../Research3"), NodePath("../Research2") ]
+
+[node name="Research6" parent="Technologies" instance=ExtResource( 1 )]
+margin_left = 48.0
+margin_top = 192.0
+margin_right = 80.0
+margin_bottom = 224.0
+prereq = [ NodePath("../Research4"), NodePath("../Research5") ]
