@@ -7,7 +7,6 @@ var undocking_time := 0.5
 
 signal player_docked(animation_time)
 signal player_undocked(animation_time)
-signal base_turret_shoot(bullet, location, direction)
 
 signal base_ready()
 signal health_amount_changed(health)
@@ -33,9 +32,6 @@ func _physics_process(_delta: float) -> void:
 			
 	if docking_finished == true:
 		_target.fuel.use_fuel(-1.0)
-
-func _on_defence_turret_shoot(bullet, location, direction) -> void:
-	emit_signal("base_turret_shoot", bullet, location,direction)
 
 # Create timers to control docking maybe?
 # Set time somewhere so that it is more constant

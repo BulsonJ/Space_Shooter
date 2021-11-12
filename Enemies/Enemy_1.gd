@@ -20,8 +20,6 @@ onready var animation_player = $AnimationPlayer
 const DeathEffect = preload("res://Enemies/Effects/Enemy_1_DeathEffect.tscn")
 const Currency = preload("res://CurrencySystem/Currency.tscn")
 
-signal enemy_shoot(bullet, location, direction)
-
 func _physics_process(delta: float) -> void:
 	weapon_fire_if_able()
 	
@@ -53,7 +51,7 @@ func weapon_fire_if_able() -> void:
 			weapon_ready = false
 			$Weapon_Timer.start(2.0)
 			#$ShootFX.play()
-			emit_signal("enemy_shoot", bullet, $Muzzle.global_position, Vector2.RIGHT.rotated(global_rotation - PI / 2))
+			Events.emit_signal("bullet_shoot", bullet, $Muzzle.global_position, Vector2.RIGHT.rotated(global_rotation - PI / 2))
 
 func _on_DetectionArea_body_entered(body: Node) -> void:
 	if body is Player:

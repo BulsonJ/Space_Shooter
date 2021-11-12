@@ -1,5 +1,10 @@
 extends Node2D
 
+func _ready() -> void:
+	var error_code := Events.connect("bullet_shoot",self, "_on_bullet_shoot")
+	if error_code != 0:
+		print("ERROR: ", error_code)
+
 func _on_bullet_shoot(bullet, location, direction) -> void:
 	var b = bullet.instance()
 	add_child(b)

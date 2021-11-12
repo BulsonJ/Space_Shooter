@@ -39,11 +39,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Defence/BaseTurrets/ProjectileTurret.gd"
 }, {
-"base": "Reference",
-"class": "Technology",
-"language": "GDScript",
-"path": "res://Systems/Upgrades/Technology.gd"
-}, {
 "base": "StaticBody2D",
 "class": "Turret",
 "language": "GDScript",
@@ -61,7 +56,6 @@ _global_script_class_icons={
 "PlayerFuel": "",
 "PlayerHealth": "",
 "ProjectileTurret": "",
-"Technology": "",
 "Turret": "",
 "WeaponSlot": ""
 }
@@ -71,6 +65,10 @@ _global_script_class_icons={
 config/name="Space_Shooter"
 run/main_scene="res://World.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Events="*res://Events.gd"
 
 [display]
 
