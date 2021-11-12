@@ -1,4 +1,4 @@
-extends Button
+extends TextureButton
 
 export(Array, NodePath) var prereq
 var prereq_nodes := []
@@ -39,5 +39,5 @@ func update_node() -> void:
 
 
 func _on_research_pressed() -> void:
-	researched = true
+	researched = !researched
 	emit_signal("technology_researched")

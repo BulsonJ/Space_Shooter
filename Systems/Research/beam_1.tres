@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Systems/Research/TechnologyResource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+technology_name = "Beam 1"
+technology_cost = 50
+technology_effects = {
+4: "beam"
+}
