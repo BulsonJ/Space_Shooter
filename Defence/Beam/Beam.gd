@@ -4,8 +4,6 @@ onready var turret := $Turret
 onready var default_rotation = turret.rotation
 onready var turret_direct_sight = $Turret/RayCast2D
 
-export var rotation_speed := 8.0
-
 var _shooting = false
 
 func _physics_process(delta: float) -> void:

@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Defence/BaseTurrets/ProjectileTurret.gd"
 }, {
+"base": "TurretResource",
+"class": "ProjectileTurretResource",
+"language": "GDScript",
+"path": "res://Defence/BaseTurrets/ProjectileTurretResource.gd"
+}, {
 "base": "Resource",
 "class": "Technology",
 "language": "GDScript",
@@ -48,6 +53,11 @@ _global_script_classes=[ {
 "class": "Turret",
 "language": "GDScript",
 "path": "res://Defence/BaseTurrets/Turret.gd"
+}, {
+"base": "Resource",
+"class": "TurretResource",
+"language": "GDScript",
+"path": "res://Defence/BaseTurrets/TurretResource.gd"
 }, {
 "base": "Node2D",
 "class": "WeaponSlot",
@@ -61,8 +71,10 @@ _global_script_class_icons={
 "PlayerFuel": "",
 "PlayerHealth": "",
 "ProjectileTurret": "",
+"ProjectileTurretResource": "",
 "Technology": "",
 "Turret": "",
+"TurretResource": "",
 "WeaponSlot": ""
 }
 

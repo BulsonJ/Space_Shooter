@@ -1,7 +1,9 @@
 class_name Turret
 extends StaticBody2D
 
-export(float) var max_health = 50.0
+export(Resource) var turret_resource
+onready var rotation_speed = turret_resource.rotation_speed
+onready var max_health = turret_resource.max_health
 onready var health = max_health setget _set_health
 
 var _target : Enemy = null

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://Defence/BaseTurrets/TurretResource.gd" type="Script" id=1]
+[ext_resource path="res://Defence/Beam/Beam.tscn" type="PackedScene" id=2]
+
+[resource]
+script = ExtResource( 1 )
+turret_cost = 50
+turret_scene = ExtResource( 2 )
+max_health = 50.0
+rotation_speed = 8.0
