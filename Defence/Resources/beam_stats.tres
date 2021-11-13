@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Defence/BaseTurrets/Stats_BaseTurret.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+max_health = 50.0
+rotation_speed = 8.0

@@ -6,7 +6,7 @@
 [ext_resource path="res://Defence/Beam/BeamWeapon.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Shaders/flash_shader.gdshader" type="Shader" id=5]
 [ext_resource path="res://Defence/Beam/BeamBase.png" type="Texture" id=6]
-[ext_resource path="res://Defence/Resources/beam_res.tres" type="Resource" id=7]
+[ext_resource path="res://Defence/Resources/beam_stats.tres" type="Resource" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 

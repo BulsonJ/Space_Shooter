@@ -56,15 +56,15 @@ func _on_Tween_tween_all_completed() -> void:
 func _on_TurretButton_Sell_pressed() -> void:
 	if turret_manager.get_turret(turret_index) != null:
 		turret_manager.delete_turret(turret_index)
-		player_currency.add(10)
+		player_currency.add(turret_manager.get_turret_sell_value(turret_manager.turret_types.BEAM))
 
 func _on_TurretButton_Repair_pressed() -> void:
 	turret_manager.repair_turret(turret_index)
 
 func _on_ButtonBeam_pressed():
-	turret_manager.place_turret(turret_index, turret_manager.turret_types.beam)
-	player_currency.spend(50)
+	turret_manager.place_turret(turret_index, turret_manager.turret_types.BEAM)
+	player_currency.spend(turret_manager.get_turret_cost(turret_manager.turret_types.BEAM))
 
 func _on_ButtonCannon_pressed():
-	turret_manager.place_turret(turret_index, turret_manager.turret_types.cannon)
-	player_currency.spend(20)
+	turret_manager.place_turret(turret_index, turret_manager.turret_types.CANNON)
+	player_currency.spend(turret_manager.get_turret_cost(turret_manager.turret_types.CANNON))
