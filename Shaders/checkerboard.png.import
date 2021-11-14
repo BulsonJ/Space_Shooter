@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Player_Ship.png-51aeedaad2bf577fe9814e2eccc0dc81.stex"
+path="res://.import/checkerboard.png-71739254ba3b85803b968271e48a0343.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Player_Ship.png"
-dest_files=[ "res://.import/Player_Ship.png-51aeedaad2bf577fe9814e2eccc0dc81.stex" ]
+source_file="res://Shaders/checkerboard.png"
+dest_files=[ "res://.import/checkerboard.png-71739254ba3b85803b968271e48a0343.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=0
+flags/repeat=1
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

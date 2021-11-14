@@ -20,6 +20,7 @@ centered = false
 offset = Vector2( -128, -128 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 polygon = PoolVector2Array( 112, -16, 112, 16, 16, 112, -16, 112, -112, 17, -112, -17, -16, -112, 16, -112 )
 
 [node name="Docking" type="Node2D" parent="."]
