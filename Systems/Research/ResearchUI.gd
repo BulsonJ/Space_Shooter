@@ -32,9 +32,12 @@ func apply_research(technology_resource : Resource) -> void:
 	var active_resource : Resource = turret_dictionary[technology_resource.turret_unlock]
 
 	if technology_resource.rof_modifier != 0:
-		active_resource.rate_of_fire /= technology_resource.rof_modifier
+		active_resource.modify_rof(technology_resource.rotation_speed_modifier)
 	if technology_resource.rotation_speed_modifier != 0:
-		active_resource.rotation_speed *= technology_resource.rotation_speed_modifier
+		active_resource.modify_rotation_speed(technology_resource.rotation_speed_modifier)
+	if technology_resource.health_modifier != 0:
+		active_resource.modify_max_health(technology_resource.health_modifier)
+	
 
 	
 	

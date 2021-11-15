@@ -25,6 +25,7 @@ onready var repair_sound = $RepairFX
 
 func _ready() -> void:
 	animation_player.queue("build")
+	turret_resource.connect("variable_changed", self, "update_variables")
 	
 func get_sorted_targets() -> Enemy:
 	var possibleTargets = $Turret_Vision.get_overlapping_bodies()
@@ -71,6 +72,10 @@ func _sort_target(a : Enemy,b: Enemy) -> bool:
 func _on_Turret_Vision_body_exited(body: Enemy) -> void:
 	if _target == body:
 		_target = null
+
+func update_variables() -> void:
+	rotation_speed = turret_resource.rotation_speed
+	max_health = turret_resource.max_health
 		
 func _physics_process(_delta: float) -> void:
 	if current_state == state.DESTROYED:

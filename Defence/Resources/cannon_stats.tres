@@ -6,4 +6,4 @@
 script = ExtResource( 1 )
 max_health = 50.0
 rotation_speed = 4.0
-rate_of_fire = 2.0
+base_rate_of_fire = 2.0

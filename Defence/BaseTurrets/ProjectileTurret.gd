@@ -19,3 +19,6 @@ func shoot_weapon(location, direction) -> void:
 
 func _on_WeaponShootTimer_timeout():
 	_weapon_ready = true
+
+func update_variables() -> void:
+	rate_of_fire = turret_resource.rate_of_fire
