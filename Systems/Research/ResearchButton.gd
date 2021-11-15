@@ -5,8 +5,9 @@ var prereq_nodes := []
 var prereq_node_lines := []
 export var researched := false
 export var researchable := false
+export(Resource) var technology_resource = null
 
-signal technology_researched()
+signal technology_researched(technology_node)
 
 func update_node() -> void:
 	pressed = researched
@@ -40,4 +41,4 @@ func update_node() -> void:
 
 func _on_research_pressed() -> void:
 	researched = !researched
-	emit_signal("technology_researched")
+	emit_signal("technology_researched", self)

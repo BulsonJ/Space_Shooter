@@ -8,5 +8,5 @@ technology_name = "Beam 1"
 technology_cost = 50
 turret_unlock = "beam"
 rof_modifier = 0.0
-rotation_speed_modifier = 1.25
-health_modifier = 0.0
+rotation_speed_modifier = 0.0
+health_modifier = 10.0
