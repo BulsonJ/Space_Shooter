@@ -51,6 +51,9 @@ func _physics_process(delta: float) -> void:
 	elif thrust.y < 0:
 		_velocity += thrust.y * backwards_acceleration * Vector2.RIGHT.rotated(ship.rotation)
 	
+	#_velocity.x += thrust.x * acceleration
+	#_velocity.y += -thrust.y * acceleration
+
 	if _ship_brake:
 		_velocity = lerp(_velocity, Vector2.ZERO, delta)
 
@@ -58,6 +61,11 @@ func _physics_process(delta: float) -> void:
 		animation_player.play("engine_thrust")
 	elif thrust != _last_thrust:
 		animation_player.play("engine_thrust_stop")
+	#var direction = Vector2(cos(ship.rotation), sin(ship.rotation))
+	#if direction.dot(_velocity) > 40 :
+	#	animation_player.play("engine_thrust")
+	#else:
+	#	animation_player.play("engine_thrust_stop")
 	_last_thrust = thrust
 	
 	_velocity = _velocity.clamped(max_speed)
