@@ -1,5 +1,9 @@
 extends Camera2D
 
+export(NodePath) var actor_to_follow
+onready var _actor = get_node(actor_to_follow)
+export var offset_amount = 250.0
+
 export var decay = 0.8  # How quickly the shaking stops [0, 1].
 export var max_offset = Vector2(100, 75)  # Maximum hor/ver shake in pixels.
 export var max_roll = 0.1  # Maximum rotation in radians (use sparingly).
@@ -18,6 +22,10 @@ func _ready():
 	noise.octaves = 2
 
 func _process(delta):
+	if _actor.targetable == true:
+		var mouse_offset = (get_viewport().get_mouse_position() - get_viewport().size / 2)
+		position = _actor.position + lerp(Vector2(), mouse_offset.normalized() * offset_amount, mouse_offset.length() / 1000)
+
 	if trauma:
 		trauma = max(trauma - decay * delta, 0)
 		shake()

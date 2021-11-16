@@ -12,7 +12,6 @@ func _on_bullet_shoot(bullet, location, direction) -> void:
 	b.position = location
 
 func _on_SpaceStation_player_docked(docking_time : float) -> void:
-	$Player/RemoteTransform2D.update_position = false
 	$Camera2D.drag_margin_h_enabled = false
 	$Camera2D.drag_margin_v_enabled = false
 	$Camera2D/CameraTween.interpolate_property($Camera2D, "position", $Camera2D.global_position, $SpaceStation.global_position, docking_time)
@@ -20,10 +19,9 @@ func _on_SpaceStation_player_docked(docking_time : float) -> void:
 	$Camera2D/CameraTween.start()
 
 func _on_SpaceStation_player_undocked(undocking_time : float) -> void:
-	$Player/RemoteTransform2D.update_position = true
 	$Camera2D.drag_margin_h_enabled = true
 	$Camera2D.drag_margin_v_enabled = true
-	$Camera2D/CameraTween.interpolate_property($Camera2D, "position", $Camera2D.global_position, $Player/RemoteTransform2D.global_position, undocking_time)
+	$Camera2D/CameraTween.interpolate_property($Camera2D, "position", $Camera2D.global_position, $Player.global_position, undocking_time)
 	$Camera2D/CameraTween.interpolate_property($Camera2D, "zoom", $Camera2D.zoom, Vector2(1.0, 1.0), undocking_time)
 	$Camera2D/CameraTween.start()
 
@@ -31,5 +29,4 @@ func _on_spawn_enemy(enemy, location) -> void:
 	var e = enemy.instance()
 	e.position = location
 	e.main_target = $SpaceStation
-	e.connect("enemy_shoot", self, "_on_bullet_shoot")
 	$Enemies.add_child(e)

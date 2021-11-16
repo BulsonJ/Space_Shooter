@@ -49,9 +49,6 @@ collision_mask = 26
 [node name="Player" parent="World" instance=ExtResource( 1 )]
 position = Vector2( -169, -101 )
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="World/Player"]
-remote_path = NodePath("../../Camera2D")
-
 [node name="Environment" type="Node" parent="World"]
 
 [node name="Boundary" type="StaticBody2D" parent="World/Environment"]
@@ -94,6 +91,7 @@ drag_margin_right = 0.1
 drag_margin_bottom = 0.1
 editor_draw_screen = false
 script = ExtResource( 6 )
+actor_to_follow = NodePath("../Player")
 
 [node name="CameraTween" type="Tween" parent="World/Camera2D"]
 
