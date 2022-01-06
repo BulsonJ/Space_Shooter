@@ -11,7 +11,7 @@ onready var enemy_spawn_node = get_node(enemy_spawn_node_path)
 
 export(PackedScene) var enemy_type = preload("res://Enemies/Enemy_1.tscn")
 
-var _waves = [10,20,30,40,50]
+var _waves = [10,20,30,40,50,60,70,80,90,100]
 var _wave_number := 0
 var _enemies_spawned := 0
 

@@ -79,7 +79,6 @@ enemy_spawn_node_path = NodePath("../Enemies")
 [node name="Enemies" type="Node" parent="World"]
 
 [node name="Camera2D" type="Camera2D" parent="World"]
-position = Vector2( -169, -101 )
 current = true
 process_mode = 0
 drag_margin_h_enabled = true
